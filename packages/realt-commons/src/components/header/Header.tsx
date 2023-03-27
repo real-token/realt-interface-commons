@@ -1,0 +1,89 @@
+import { FC, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
+import {
+  Box,
+  Button,
+  Group,
+  Image,
+  MediaQuery,
+  Title,
+} from '@mantine/core';
+import { useModals } from '@mantine/modals';
+import { useWeb3React } from '@web3-react/core';
+import { headerStyles as styles } from './Header.styles';
+import { Divider } from '../divider/Divider';
+import { SettingsMenu } from '../menus/SettingsMenu';
+import { WalletMenu } from '../menus/WalletMenu';
+import { Logo } from '../../assets';
+
+const LogoWithName: FC = () => {
+  const { t } = useTranslation('common', { keyPrefix: 'header' });
+
+  return (
+    <Group align={'center'} spacing={'xs'}>
+      <Logo/>
+      <MediaQuery smallerThan={'xs'} styles={{ display: 'none' }}>
+        <Title order={3}>{t('title')}</Title>
+      </MediaQuery>
+    </Group>
+  );
+};
+
+const ConnectButton: FC = () => {
+  const modals = useModals();
+
+  const { t } = useTranslation('modals', { keyPrefix: 'wallet' });
+
+  const onOpenWalletModal = useCallback(() => {
+    modals.openContextModal('wallet', {
+      title: <Title order={3}>{t('title')}</Title>,
+      innerProps: {},
+    });
+  }, [modals, t]);
+
+  return (
+    <Button aria-label={t('title')} onClick={onOpenWalletModal}>
+      {t('title')}
+    </Button>
+  );
+};
+
+const HeaderButtons: FC = () => {
+  const { account } = useWeb3React();
+
+  return (
+    <Group spacing={10}>
+      {account ? <WalletMenu /> : <ConnectButton />}
+      <SettingsMenu />
+    </Group>
+  );
+};
+
+export const Header: FC = () => {
+  const { t } = useTranslation('common', { keyPrefix: 'header' });
+
+  // Color used when menu item is selected
+  const colorSelected = '#cfaa70';
+
+  return (
+    <div>
+      <Box sx={styles.container}>
+        <Group position={'apart'} align={'center'}>
+          <LogoWithName />
+          {/* Example: */}
+          {/* <Text
+            size={'xl'}
+            weight={700}
+            component={NextLink}
+            href={'/'}
+            color={router.pathname === '/' ? colorSelected : ''}
+          >
+            {t('titleCat1')}
+          </Text> */}
+          <HeaderButtons />
+        </Group>
+      </Box>
+      <Divider/>
+    </div>
+  );
+};
