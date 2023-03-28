@@ -23,7 +23,6 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
 
   const { classes } = useStyles();
 
-
   return (
     <div className={classes.container}>
       <Header />

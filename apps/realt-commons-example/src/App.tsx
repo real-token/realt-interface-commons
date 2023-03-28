@@ -1,10 +1,10 @@
-import { Footer, Header } from 'realt-commons'
-import { Flex } from "@mantine/core";
+import { Flex,Text } from "@mantine/core";
 import './App.css'
 
 function App() {
   return (
-    <></>
+    <Flex direction={"column"}>
+    </Flex>
   )
 }
 

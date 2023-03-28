@@ -65,7 +65,7 @@ const ViewOnExplorerMenuItem: FC = () => {
   const { account } = useWeb3React();
   const activeChain = useActiveChain();
 
-  const { t } = useTranslation('menu', { keyPrefix: 'wallet' });
+  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   return (
     <Menu.Item

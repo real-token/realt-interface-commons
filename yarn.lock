@@ -3846,6 +3846,13 @@ humanize-ms@^1.2.1:
   dependencies:
     ms "^2.0.0"
 
+i18next@^22.4.13:
+  version "22.4.13"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-22.4.13.tgz#02e291ab0056eab13b7d356fb454ff991923eaa0"
+  integrity sha512-GX7flMHRRqQA0I1yGLmaZ4Hwt1JfLqagk8QPDPZsqekbKtXsuIngSVWM/s3SLgNkrEXjA+0sMGNuOEkkmyqmWg==
+  dependencies:
+    "@babel/runtime" "^7.20.6"
+
 ieee754@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/ieee754/-/ieee754-1.2.1.tgz#8eb7a10a63fff25d15a57b001586d177d1b0d352"

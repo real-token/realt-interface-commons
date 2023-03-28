@@ -2,7 +2,7 @@ export const Logo = () => {
     return(
         <svg
             width="42px"
-            height="56.603809mm"
+            height="42px"
             viewBox="0 0 47.438866 56.603809"
             version="1.1"
             id="svg54"

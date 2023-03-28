@@ -1,6 +1,5 @@
 import { FC, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-
 import {
   ActionIcon,
   Box,
@@ -17,7 +16,7 @@ import { setCookies } from 'cookies-next';
 const ColorSchemeMenuItem: FC = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
 
-  const { t } = useTranslation('menu', { keyPrefix: 'settings' });
+  const { t } = useTranslation('common', { keyPrefix: 'settings' });
 
   return (
     <Box px={5}>
@@ -52,7 +51,7 @@ const ColorSchemeMenuItem: FC = () => {
 };
 
 const LanguageSelect: FC = () => {
-  const { i18n, t } = useTranslation('menu', { keyPrefix: 'settings' });
+  const { i18n, t } = useTranslation('common', { keyPrefix: 'settings' });
 
   const updateLocale = useCallback(
     (updatedLocale: string) => {
@@ -72,9 +71,9 @@ const LanguageSelect: FC = () => {
         value={i18n.language}
         onChange={updateLocale}
         data={[
-          { value: 'fr', label: t('french') },
-          { value: 'en', label: t('english') },
-          { value: 'es', label: t('spanish') },
+          { value: 'fr', label: t('french') ?? "" },
+          { value: 'en', label: t('english') ?? "" },
+          { value: 'es', label: t('spanish') ?? "" },
         ]}
         icon={<IconLanguage size={16} />}
       />

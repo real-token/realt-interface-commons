@@ -9,7 +9,6 @@ export const headerStyles: Styles = {
     [theme.fn.smallerThan('xs')]: {
       padding: theme.spacing.xs,
     },
-
     [theme.fn.largerThan('xs')]: {
       padding: theme.spacing.md,
     },

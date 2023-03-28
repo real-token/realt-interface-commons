@@ -15,6 +15,7 @@ import { Divider } from '../divider/Divider';
 import { SettingsMenu } from '../menus/SettingsMenu';
 import { WalletMenu } from '../menus/WalletMenu';
 import { Logo } from '../../assets';
+import { Websites, WebsiteSelector } from './WebsiteSelector';
 
 const LogoWithName: FC = () => {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
@@ -32,7 +33,7 @@ const LogoWithName: FC = () => {
 const ConnectButton: FC = () => {
   const modals = useModals();
 
-  const { t } = useTranslation('modals', { keyPrefix: 'wallet' });
+  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   const onOpenWalletModal = useCallback(() => {
     modals.openContextModal('wallet', {
@@ -59,31 +60,22 @@ const HeaderButtons: FC = () => {
   );
 };
 
-export const Header: FC = () => {
-  const { t } = useTranslation('common', { keyPrefix: 'header' });
-
-  // Color used when menu item is selected
-  const colorSelected = '#cfaa70';
-
+interface HeaderProps{
+  children?: React.ReactNode;
+}
+export const Header: FC<HeaderProps> = ({ children }) => {
   return (
-    <div>
+    <>
       <Box sx={styles.container}>
         <Group position={'apart'} align={'center'}>
-          <LogoWithName />
-          {/* Example: */}
-          {/* <Text
-            size={'xl'}
-            weight={700}
-            component={NextLink}
-            href={'/'}
-            color={router.pathname === '/' ? colorSelected : ''}
-          >
-            {t('titleCat1')}
-          </Text> */}
+          <WebsiteSelector current={Websites.EXAMPLE} />
+          <>
+          {children ?? undefined}
+          </>
           <HeaderButtons />
         </Group>
       </Box>
       <Divider/>
-    </div>
+    </>
   );
 };

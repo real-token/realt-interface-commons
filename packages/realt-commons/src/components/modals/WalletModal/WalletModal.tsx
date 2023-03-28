@@ -96,8 +96,7 @@ const WalletModalButton: FC<WalletModalButtonProps> = ({
 };
 
 export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
-  const { t } = useTranslation('links', { keyPrefix: 'walletMenu' });
-  const t2 = useTranslation('menu', { keyPrefix: 'messages' });
+  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   const [gnosisDisabled,setGnosisDisabled] = useState<boolean>(true);
 
@@ -143,7 +142,7 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
         buttonProps={{ gradient: { from: '#005233', to: '#00bb55' } }}
         onSuccess={onClose}
         disabled={gnosisDisabled}
-        disabledError={t2.t('DisabledGnosisSafe')}
+        disabledError={t('DisabledGnosisSafe') ?? ""}
         cookieValue={"gnosis-safe"}
       />
       {/* <Anchor component={NextLink} href={t('href')} target={'_blank'}>
