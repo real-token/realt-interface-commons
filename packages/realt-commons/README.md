@@ -1,3 +1,5 @@
+[![Publish Package to npmjs](https://github.com/real-token/realt-interface-commons/actions/workflows/ci-cd.yaml/badge.svg)](https://github.com/real-token/realt-interface-commons/actions/workflows/ci-cd.yaml)
+
 ## Links
 []()
 []()
