@@ -7,7 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./packages/realt-commons
     steps:
       - uses: actions/checkout@v3
       # Setup .npmrc file to publish to npm
@@ -19,10 +18,12 @@ jobs:
         uses: borales/actions-yarn@v4
         with:
           cmd: install --frozen-lockfile 
+        working-directory: ./packages/realt-commons
       - name: Publish
         uses: borales/actions-yarn@v4
         with: 
           cmd: publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: ./packages/realt-commons
         
