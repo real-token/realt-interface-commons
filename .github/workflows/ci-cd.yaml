@@ -20,8 +20,9 @@ jobs:
         with:
           cmd: install --frozen-lockfile 
       - name: Publish
-        used: borales/actions-yarn@v4
-          with: publish --access public
+        uses: borales/actions-yarn@v4
+        with: 
+          cmd: publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         
