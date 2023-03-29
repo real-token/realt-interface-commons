@@ -1,10 +1,4 @@
 {
   "name": "realt-commons-monorepo",
-  "private": false,
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "sites/*"
-    ]
-  }
+  "private": false
 }
