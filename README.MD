@@ -12,7 +12,7 @@ path: `/packages/realt-commons`.
 </br>
 This package contains every components, hooks, utils and config files usefull for developing a web application.
 
-Read more on [README](https://github.com/real-token/realt-interface-commons/tree/master/packages/realt-commons/README.MD).
+Read more on [README](https://github.com/real-token/realt-interface-commons/tree/master/packages/realt-commons/README.md).
 
 ## realt-commons-example app
 path: `/apps/realt-commons`.
@@ -20,7 +20,7 @@ path: `/apps/realt-commons`.
 </br>
 This package contains a website example that uses components from `realt-commons` package.
 
-Read more on [README](https://github.com/real-token/realt-interface-commons/tree/master/apps/realt-commons-example/README.MD).
+Read more on [README](https://github.com/real-token/realt-interface-commons/tree/master/apps/realt-commons-example/README.md).
 
 # Use it
 
