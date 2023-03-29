@@ -14,16 +14,9 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Run install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install --frozen-lockfile 
-        working-directory: ./packages/realt-commons
       - name: Publish
         uses: borales/actions-yarn@v4
         with: 
-          cmd: publish --access public
+          cmd: publish --access public ./packages/realt-commons
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ./packages/realt-commons
-        
