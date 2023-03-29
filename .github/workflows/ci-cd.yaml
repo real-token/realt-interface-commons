@@ -20,7 +20,7 @@ jobs:
       - name: Build
         uses: borales/actions-yarn@v4
         with: 
-          cmd: yarn build
+          cmd: build
           dir: './packages/realt-commons'
       - name: Publish
         uses: borales/actions-yarn@v4
