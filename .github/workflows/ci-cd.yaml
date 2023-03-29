@@ -12,12 +12,20 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Bundle
-        working-directory: ./packages/realt-commons
-        run: yarn build
+      - name: Install
+        uses: borales/actions-yarn@v4
+        with: 
+          cmd: install
+        dir: './packages/realt-commons'
+      - name: Build
+        uses: borales/actions-yarn@v4
+        with: 
+          cmd: yarn build
+        dir: './packages/realt-commons'
       - name: Publish
         uses: borales/actions-yarn@v4
         with: 
-          cmd: publish --access public ./packages/realt-commons
+          cmd: publish --access public
+        dir: './packages/realt-commons'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
