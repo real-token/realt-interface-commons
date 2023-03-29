@@ -12,6 +12,12 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      - name: Bundle
+        uses: borales/actions-yarn@v4
+        with: 
+          cmd: |
+            cd ./packages/realt-commons
+            yarn build 
       - name: Publish
         uses: borales/actions-yarn@v4
         with: 
