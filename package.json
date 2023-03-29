@@ -1,6 +1,6 @@
 {
   "name": "realt-commons-monorepo",
-  "private": true,
+  "private": false,
   "workspaces": {
     "packages": [
       "packages/*",
