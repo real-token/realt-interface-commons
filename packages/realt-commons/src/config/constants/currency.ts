@@ -3,10 +3,15 @@ export type Currency = {
     symbol: string;
     decimals: number;
 };
-
-// Exemple:
-// export const ETH: Currency = {
-//     name: 'Ether',
-//     symbol: 'ETH',
-//     decimals: 18,
-// };
+  
+export const DAI: Currency = {
+    name: 'xDai',
+    symbol: 'DAI',
+    decimals: 18,
+};
+  
+export const ETH: Currency = {
+    name: 'Ether',
+    symbol: 'ETH',
+    decimals: 18,
+};

@@ -1,4 +1,6 @@
-export const EthereumLogo = () => {
+import { SVG } from "../../types/assets/svg"
+
+export const EthereumLogo = ({ width }: SVG) => {
     // #343434
     // #8C8C8C
     // #3C3C3B
@@ -6,7 +8,7 @@ export const EthereumLogo = () => {
     // #141414
     // #393939 
     return(
-        <svg clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 784.37 1277.4"
+        <svg width={width ?? undefined} clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 784.37 1277.4"
             xmlns="http://www.w3.org/2000/svg">
             <g fill-rule="nonzero">
                 <polygon points="392.07 0 383.5 29.11 383.5 873.74 392.07 882.29 784.13 650.54" fill="#d9930d"/>

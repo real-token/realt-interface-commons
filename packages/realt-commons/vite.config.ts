@@ -22,8 +22,21 @@ build: {
     },
     rollupOptions: {
         external: [
-            'react', 'react-dom', '@mantine/core', '@mantine/form', '@mantine/hooks', 
-            '@mantine/modals', '@mantine/notifications'
+            'react', 
+            'react-dom', 
+            '@mantine/core', 
+            '@mantine/form', 
+            '@mantine/hooks', 
+            '@mantine/modals', 
+            '@mantine/notifications',
+            "@web3-react/coinbase-wallet",
+            "@web3-react/core",
+            "@web3-react/gnosis-safe",
+            "@web3-react/metamask",
+            "@web3-react/network",
+            "@web3-react/types",
+            "@web3-react/walletconnect",
+            "@web3-react/walletconnect-v2"
         ],
         output: {
             globals: {
@@ -34,7 +47,15 @@ build: {
                 '@mantine/form': 'mantineForm', 
                 '@mantine/hooks': 'mantineHooks', 
                 '@mantine/modals': 'mantineModals', 
-                '@mantine/notifications': 'mantineNotifications'
+                '@mantine/notifications': 'mantineNotifications',
+                "@web3-react/coinbase-wallet": "web3ReactCoinbaseWallet",
+                "@web3-react/core": "web3ReactCore",
+                "@web3-react/gnosis-safe": "web3ReactGnosisSafe",
+                "@web3-react/metamask": "web3ReactMetamask",
+                "@web3-react/network": "web3ReactNetwork",
+                "@web3-react/types": "web3ReactTypes",
+                "@web3-react/walletconnect": "web3ReactWalletConnect",
+                "@web3-react/walletconnect-v2": "web3ReactWalletConnectV2"
             },
         },
     },

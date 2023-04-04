@@ -17,6 +17,7 @@ import { FRC } from '../../types/FRC';
 import { ChainSelect } from '../chainSelect/chainSelect';
 import { shortenString } from '../../utils/shortenString';
 import { NOTIFICATIONS, NotificationsID } from '../../config/constants/notifications';
+import { Link } from '../link';
 
 const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
   (props, ref) => {
@@ -67,12 +68,14 @@ const ViewOnExplorerMenuItem: FC = () => {
 
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
+  if(!activeChain) return(<></>);
+
   return (
     <Menu.Item
       icon={<IconExternalLink size={18} />}
-      // component={NextLink}
-      // href={`${activeChain?.blockExplorerUrl}address/${account}`}
-      // target={'_blank'}
+      component={Link}
+      href={`${activeChain?.blockExplorerUrl}address/${account}`}
+      target={'_blank'}
     >
       {t('viewOn')}
     </Menu.Item>
