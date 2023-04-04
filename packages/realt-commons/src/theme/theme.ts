@@ -6,6 +6,9 @@ export const modalStyles: ModalProps['styles'] = {
     // margin: '100px auto',
     width: "auto",
     maxWidth: "700px"
+  },
+  root: {
+    zIndex: 10
   }
 };
 
