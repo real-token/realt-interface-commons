@@ -32,7 +32,7 @@ const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
 WalletUser.displayName = 'WalletUser';
 
 const NetworkMenuItem: FC = () => {
-  const { t } = useTranslation('menu', { keyPrefix: 'wallet' });
+  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   return (
     <>
@@ -47,7 +47,7 @@ const CopyToClipboardMenuItem: FC = () => {
 
   const { copy } = useClipboard({ timeout: 500 });
 
-  const { t } = useTranslation('menu', { keyPrefix: 'wallet' });
+  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   const onCopy = useCallback(() => {
     copy(account);
@@ -82,7 +82,7 @@ const ViewOnExplorerMenuItem: FC = () => {
 const DisconnectMenuItem: FC = () => {
   const { connector } = useWeb3React();
 
-  const { t } = useTranslation('menu', { keyPrefix: 'wallet' });
+  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   const onDisconnect = useCallback(async () => {
     if (connector.deactivate) {
