@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "i": "rm -rf node_modules && yarn",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },

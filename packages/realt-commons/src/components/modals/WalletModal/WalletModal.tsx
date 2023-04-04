@@ -15,7 +15,7 @@ import {
 import { ContextModalProps } from '@mantine/modals';
 import { Connector } from '@web3-react/types';
 import { GnosisSafe, MetaMask, WalletConnect } from '../../../assets';
-import { gnosisSafe, metaMask, walletConnect } from '../../../web3/connectors';
+import { gnosisSafe, metaMask, walletConnect, walletConnectV2 } from '../../../web3/connectors';
 import { styles } from './WalletModal.styles';
 import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
@@ -129,7 +129,15 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
       />
       <WalletModalButton
         connector={walletConnect}
-        title={'WalletConnect'}
+        title={'WalletConnect V1 (deprecated)'}
+        src={WalletConnect}
+        buttonProps={{ gradient: { from: '#006FFF', to: '#5C9DF5' } }}
+        onSuccess={onClose}
+        cookieValue={"wallet-connect"}
+      />
+      <WalletModalButton
+        connector={walletConnectV2}
+        title={'WalletConnect V2'}
         src={WalletConnect}
         buttonProps={{ gradient: { from: '#006FFF', to: '#5C9DF5' } }}
         onSuccess={onClose}

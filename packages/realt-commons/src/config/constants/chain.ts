@@ -1,16 +1,20 @@
-import { ContractsID } from './contract';
 import { Contracts } from '../../types/contract';
-import { Currency } from './currency';
+import { Currency, DAI, ETH } from './currency';
+import { GnosisSvg } from "../../assets/chains/GnosisSvg";
+import { EthereumLogo } from '../../assets';
+import { FC } from 'react';
 
 export enum ChainsID {
   // Example:
-  // Ethereum = 0x01,
+  Ethereum = 0x01,
+  Gnosis = 0x64,
+  Goerli = 0x05,
 }
 
 export type Chain = {
   chainId: ChainsID;
   chainName: string;
-  logo: string;
+  logo: FC<any>;
   nativeCurrency: Currency;
   rpcUrl: string;
   blockExplorerUrl: string;
@@ -18,22 +22,34 @@ export type Chain = {
 };
 
 export const CHAINS: Record<ChainsID, Chain> = {
-  // Exemple: 
-  // [ChainsID.Ethereum]: {
-  //   chainId: ChainsID.Ethereum,
-  //   chainName: 'Ethereum',
-  //   logo: EthereumSVG.src,
-  //   nativeCurrency: ETH,
-  //   rpcUrl: 'https://rpc.ankr.com/eth',
-  //   blockExplorerUrl: 'https://etherscan.io/',
-  //   contracts: {
-  //     [ContractsID.realTokenYamUpgradeable]: {
-  //       abi: realTokenYamUpgradeableABI,
-  //       address: '0xc759aa7f9dd9720a1502c104dae4f9852bb17c14',
-  //       metadata: { fromBlock: 16220000 },
-  //     },
-  //   },
-  // },
+  [ChainsID.Gnosis]: {
+    chainId: ChainsID.Gnosis,
+    chainName: 'Gnosis Chain',
+    logo: GnosisSvg,
+    nativeCurrency: DAI,
+    rpcUrl: 'https://rpc.ankr.com/gnosis',
+    blockExplorerUrl: 'https://gnosisscan.io/',
+    contracts: {}
+  },
+  [ChainsID.Ethereum]: {
+    chainId: ChainsID.Ethereum,
+    chainName: 'Ethereum',
+    logo: EthereumLogo,
+    nativeCurrency: ETH,
+    rpcUrl: 'https://rpc.ankr.com/eth',
+    blockExplorerUrl: 'https://etherscan.io/',
+    contracts: {}
+  },
+
+  [ChainsID.Goerli]: {
+    chainId: ChainsID.Goerli,
+    chainName: 'Goerli',
+    logo: EthereumLogo,
+    nativeCurrency: ETH,
+    rpcUrl: 'https://rpc.ankr.com/eth_goerli',
+    blockExplorerUrl: 'https://goerli.etherscan.io/',
+    contracts: {}
+  },
 };
 
 export const URLS = Object.keys(CHAINS).reduce<Record<number, string>>(

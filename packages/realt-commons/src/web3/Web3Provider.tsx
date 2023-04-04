@@ -1,17 +1,38 @@
+import { FC, ReactNode, useEffect } from 'react';
 import { Web3ReactProvider } from '@web3-react/core';
-import { FC, useEffect } from 'react';
-import React from "react";
-import { connectors, metaMask, network } from './connectors';
-import { Web3ProvidersProps } from './type';
+import { connectors, metaMask, network, walletConnect, gnosisSafe } from '../web3/connectors';
+import { useAtomValue } from 'jotai';
+import { providerAtom } from '../states';
+
+type Web3ProvidersProps = {
+  children: ReactNode;
+};
 
 const ConnectEagerly: FC = () => {
+
+  const lastUsedProvider = useAtomValue(providerAtom);
+
   useEffect(() => {
     void network.activate();
   }, []);
 
   useEffect(() => {
-    void metaMask.connectEagerly();
-  }, []);
+    if(!lastUsedProvider) return;
+
+    if(lastUsedProvider !== ""){
+      switch(lastUsedProvider){
+        case "metamask":
+          metaMask.connectEagerly();
+          break;
+        case "wallet-connect":
+          walletConnect.connectEagerly();
+          break;
+        case "gnosis-safe":
+          gnosisSafe.connectEagerly();
+          break;
+      }
+    }
+  }, [lastUsedProvider])
 
   return null;
 };
