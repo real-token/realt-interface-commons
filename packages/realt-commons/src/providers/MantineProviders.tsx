@@ -3,20 +3,23 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
+  MantineThemeOverride,
 } from '@mantine/core';
 import { useHotkeys } from '@mantine/hooks';
 import { ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { getCookie, setCookies } from 'cookies-next';
 import { modals } from '../components/modals';
-import { modalStyles, theme } from '../theme';
+import { modalStyles } from '../theme';
 
 type MantineProvidersProps = {
+  theme: MantineThemeOverride;
   children: ReactNode;
 };
 
 export const MantineProviders: FC<MantineProvidersProps> = ({
   children,
+  theme
 }) => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
 
