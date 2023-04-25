@@ -15,7 +15,7 @@ import { Divider } from '../divider/Divider';
 import { SettingsMenu } from '../menus/SettingsMenu';
 import { WalletMenu } from '../menus/WalletMenu';
 import { Logo } from '../../assets';
-import { Websites, WebsiteSelector } from './WebsiteSelector';
+import { Website, Websites, WebsiteSelector } from './WebsiteSelector';
 
 const LogoWithName: FC = () => {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
@@ -62,13 +62,14 @@ const HeaderButtons: FC = () => {
 
 interface HeaderProps{
   children?: React.ReactNode;
+  currentWebsite: Websites;
 }
-export const Header: FC<HeaderProps> = ({ children }) => {
+export const Header: FC<HeaderProps> = ({ children, currentWebsite }) => {
   return (
     <>
       <Box sx={styles.container}>
         <Group position={'apart'} align={'center'}>
-          <WebsiteSelector current={Websites.EXAMPLE} />
+          <WebsiteSelector current={currentWebsite} />
           <>
           {children ?? undefined}
           </>

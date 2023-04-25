@@ -1,8 +1,6 @@
 import { createStyles } from '@mantine/core';
 import { FC, ReactNode } from 'react';
-import { Footer, Header } from '../components';
-
-type LayoutProps = { children: ReactNode };
+import { Footer, Header, Websites } from '../components';
 
 const useStyles = createStyles((theme) => ({
   container: {
@@ -19,13 +17,18 @@ const useStyles = createStyles((theme) => ({
   }
 }));
 
-export const Layout: FC<LayoutProps> = ({ children }) => {
+type LayoutProps = { 
+  children: ReactNode, 
+  currentWebsite: Websites
+};
+
+export const Layout: FC<LayoutProps> = ({ children, currentWebsite }) => {
 
   const { classes } = useStyles();
 
   return (
     <div className={classes.container}>
-      <Header />
+      <Header currentWebsite={currentWebsite}/>
       <div className={classes.main}>
         {children}
       </div>
