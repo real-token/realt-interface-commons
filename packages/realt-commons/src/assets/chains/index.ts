@@ -1,2 +1,2 @@
-export * from './EthereumSvg';
-export * from './GnosisSvg';
+export * from './EthereumLogo';
+export * from './GnosisLogo';

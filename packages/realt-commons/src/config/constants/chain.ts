@@ -1,6 +1,6 @@
 import { Contracts } from '../../types/contract';
 import { Currency, DAI, ETH } from './currency';
-import { GnosisSvg } from "../../assets/chains/GnosisSvg";
+import { GnosisLogo } from "../../assets/chains/GnosisLogo";
 import { EthereumLogo } from '../../assets';
 import { FC } from 'react';
 
@@ -25,7 +25,7 @@ export const CHAINS: Record<ChainsID, Chain> = {
   [ChainsID.Gnosis]: {
     chainId: ChainsID.Gnosis,
     chainName: 'Gnosis Chain',
-    logo: GnosisSvg,
+    logo: GnosisLogo,
     nativeCurrency: DAI,
     rpcUrl: 'https://rpc.ankr.com/gnosis',
     blockExplorerUrl: 'https://gnosisscan.io/',

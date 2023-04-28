@@ -1,6 +1,6 @@
 import { SVG } from "../../types/assets/svg"
 
-export const GnosisSvg = ({ width }: SVG) => {
+export const GnosisLogo = ({ width }: SVG) => {
     // #04795B
     return(
         <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" width={width ?? undefined}>

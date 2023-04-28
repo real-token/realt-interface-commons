@@ -7,3 +7,4 @@ export * from './web3';
 export * from './providers';
 export * from './layouts';
 export * from './i18next';
+export * from './assets';
