@@ -14,9 +14,22 @@ Some cool features:
 - Filtering hook
 
 # Stack
-We used b
+We used `vite.js` 
 
 # Use it
+First install packages:
+```
+npm -i
+# or
+yarn
+```
+
+To run the server:
+```
+npm run dev
+#or
+yarn dev
+```
 
 ## How install the package ?
 ```
