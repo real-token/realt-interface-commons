@@ -1,15 +1,11 @@
 import { useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
-import { Chain, ChainsID, CHAINS } from '../../config/constants/chain';
+import { ChainsID, CHAINS } from '../../config/constants/chain';
+import { Chain, ChainSelectConfig } from '../../types';
 
-type UseActiveChain = () => Chain | undefined;
 
-export const useActiveChain: UseActiveChain = () => {
+export function useActiveChain<T extends Partial<Chain>>(chainConfig: ChainSelectConfig<T>): T|undefined {
   const { chainId } = useWeb3React();
 
-  return useMemo(
-    () =>
-      chainId && chainId in ChainsID ? CHAINS[chainId as ChainsID] : undefined,
-    [chainId]
-  );
+  return useMemo(() => chainId && chainId in ChainsID ? chainConfig.chainsConfig[chainId as ChainsID] : undefined,[chainId]);
 };

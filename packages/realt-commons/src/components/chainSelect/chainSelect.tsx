@@ -3,7 +3,6 @@ import { FC, forwardRef, useCallback } from 'react';
 import {
   Flex,
   Group,
-  Image,
   Select,
   SelectItem,
   SelectProps,
@@ -15,19 +14,12 @@ import { FRC } from '../../types/FRC';
 import { useActiveChain } from '../../hooks/blockchain/useActiveChain';
 import { ALLOWED_CHAINS, CHAINS, ChainsID } from '../../config/constants/chain';
 import { IconAlertCircle } from '@tabler/icons';
+import { Chain, ChainSelectConfig } from '../../types';
 
 type ChainSelectItemsProps = {
   label: string;
   logo: FC<any>;
 };
-
-const data = ALLOWED_CHAINS
-  .filter((chain) => (chain.toString() !== "5" && process.env.NODE_ENV === "production") || process.env.NODE_ENV !== "production")
-  .map<SelectItem>((chain) => ( {
-    value: chain.toString(),
-    label: CHAINS[chain as ChainsID].chainName,
-    logo: CHAINS[chain as ChainsID].logo,
-  }));
 
 const ChainSelectItems: FRC<ChainSelectItemsProps, HTMLDivElement> = forwardRef(
   ({ label, logo, ...props }, ref) => {
@@ -42,8 +34,13 @@ const ChainSelectItems: FRC<ChainSelectItemsProps, HTMLDivElement> = forwardRef(
 );
 ChainSelectItems.displayName = 'ChainSelectItems';
 
-const ChainSelectedIcon: FC = () => {
-  const activeChain = useActiveChain();
+interface ChainSelectedIconProps<T>{
+  chains: ChainSelectConfig<T>|undefined
+}
+function ChainSelectedIcon<T extends Partial<Chain>>({ chains }: ChainSelectedIconProps<T>){
+
+  const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS} as ChainSelectConfig<T>;
+  const activeChain = useActiveChain<T>(c);
 
   const Logo = activeChain?.logo;
 
@@ -51,8 +48,22 @@ const ChainSelectedIcon: FC = () => {
   
 };
 
-export const ChainSelect: FC<Partial<SelectProps>> = (props) => {
+type ChainSelectProps<T> = {
+  chains?: ChainSelectConfig<T> | undefined
+} & Partial<SelectProps>;
+
+export function ChainSelect<T extends Partial<Chain>>({ chains, ...props }: ChainSelectProps<T>){
   const { chainId, connector } = useWeb3React();
+
+  const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS};
+
+  const data = c.allowedChains
+    .filter((chain) => (chain.toString() !== "5" && process.env.NODE_ENV === "production") || process.env.NODE_ENV !== "production")
+    .map<SelectItem>((chain) => ( {
+      value: chain.toString(),
+      label: c.chainsConfig[chain as ChainsID].chainName,
+      logo: c.chainsConfig[chain as ChainsID].logo,
+    }));
 
   const switchChain = useCallback(
     async (chainValue: string) => {
@@ -88,13 +99,13 @@ export const ChainSelect: FC<Partial<SelectProps>> = (props) => {
 
   return (
     <Select
+      {...props}
       data={data}
-      icon={<ChainSelectedIcon />}
+      icon={<ChainSelectedIcon chains={chains}/>}
       disabled={!chainId}
       value={chainId?.toString()}
       onChange={switchChain}
       itemComponent={ChainSelectItems}
-      {...props}
     />
   );
 };

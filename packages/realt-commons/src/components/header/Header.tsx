@@ -15,7 +15,8 @@ import { Divider } from '../divider/Divider';
 import { SettingsMenu } from '../menus/SettingsMenu';
 import { WalletMenu } from '../menus/WalletMenu';
 import { Logo } from '../../assets';
-import { Website, Websites, WebsiteSelector } from './WebsiteSelector';
+import { Websites, WebsiteSelector } from './WebsiteSelector';
+import { Chain, ChainSelectConfig } from '../../types';
 
 const LogoWithName: FC = () => {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
@@ -49,22 +50,26 @@ const ConnectButton: FC = () => {
   );
 };
 
-const HeaderButtons: FC = () => {
+interface HeaderButtonsProps<T>{
+  chains?: ChainSelectConfig<T>
+}
+function HeaderButtons<T extends Partial<Chain>>({ chains }: HeaderButtonsProps<T>){
   const { account } = useWeb3React();
 
   return (
     <Group spacing={10}>
-      {account ? <WalletMenu /> : <ConnectButton />}
+      {account ? <WalletMenu chains={chains}/> : <ConnectButton />}
       <SettingsMenu />
     </Group>
   );
 };
 
-interface HeaderProps{
+interface HeaderProps<T>{
   children?: React.ReactNode;
   currentWebsite: Websites;
+  chains?: ChainSelectConfig<T>
 }
-export const Header: FC<HeaderProps> = ({ children, currentWebsite }) => {
+export function Header<T extends Partial<Chain>>({ children, currentWebsite, chains }: HeaderProps<T>){
   return (
     <>
       <Box sx={styles.container}>
@@ -73,7 +78,7 @@ export const Header: FC<HeaderProps> = ({ children, currentWebsite }) => {
           <>
           {children ?? undefined}
           </>
-          <HeaderButtons />
+          <HeaderButtons chains={chains}/>
         </Group>
       </Box>
       <Divider/>

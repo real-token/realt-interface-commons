@@ -16,6 +16,7 @@
   - [How install the package ?](#how-install-the-package-)
   - [How to build the package ?](#how-to-build-the-package-)
   - [How to use package localy ?](#how-to-use-package-localy-)
+  - [Handle translation](#handle-translation)
 - [Contributing](#contributing)
 
 # RealT-commons 🧰
@@ -102,5 +103,8 @@ For example, in example website we used:
 ```
 yarn add ../../packages/realt-commons
 ```
+
+## Handle translation
+(checker ) MantineProviders
 
 # Contributing

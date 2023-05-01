@@ -2,7 +2,7 @@ import { Contracts } from '../../types/contract';
 import { Currency, DAI, ETH } from './currency';
 import { GnosisLogo } from "../../assets/chains/GnosisLogo";
 import { EthereumLogo } from '../../assets';
-import { FC } from 'react';
+import { Chain, ChainsConfig } from '../../types';
 
 export enum ChainsID {
   // Example:
@@ -11,17 +11,7 @@ export enum ChainsID {
   Goerli = 0x05,
 }
 
-export type Chain = {
-  chainId: ChainsID;
-  chainName: string;
-  logo: FC<any>;
-  nativeCurrency: Currency;
-  rpcUrl: string;
-  blockExplorerUrl: string;
-  contracts: Contracts;
-};
-
-export const CHAINS: Record<ChainsID, Chain> = {
+export const CHAINS: ChainsConfig<Chain> = {
   [ChainsID.Gnosis]: {
     chainId: ChainsID.Gnosis,
     chainName: 'Gnosis Chain',

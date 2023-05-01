@@ -10,12 +10,12 @@ import { ContextModalProps, ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { getCookie, setCookies } from 'cookies-next';
 import { modals } from '../components/modals';
-import { modalStyles } from '../theme';
+import { modalStyles, theme as defaultTheme } from '../theme';
 
 type Modals = Record<string,FC<ContextModalProps<any>>>
 
 type MantineProvidersProps = {
-  theme: MantineThemeOverride;
+  theme?: MantineThemeOverride;
   children: ReactNode;
   modals?: Modals
 };
@@ -26,6 +26,8 @@ export const MantineProviders: FC<MantineProvidersProps> = ({
   modals: customModals
 }) => {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
+
+  const t = theme ?? defaultTheme;
 
   useEffect(() => { 
     const themeColor = (getCookie('mantine-color-scheme') || 'dark') as ColorScheme;
@@ -49,7 +51,7 @@ export const MantineProviders: FC<MantineProvidersProps> = ({
       <MantineProvider
         withGlobalStyles={true}
         withNormalizeCSS={true}
-        theme={{ colorScheme, ...theme }}
+        theme={{ colorScheme, ...t }}
       >
           <Notifications/>
           <ModalsProvider

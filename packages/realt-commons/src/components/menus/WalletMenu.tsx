@@ -18,6 +18,8 @@ import { ChainSelect } from '../chainSelect/chainSelect';
 import { shortenString } from '../../utils/shortenString';
 import { NOTIFICATIONS, NotificationsID } from '../../config/constants/notifications';
 import { Link } from '../link';
+import { Chain, ChainSelectConfig } from '../../types';
+import { ALLOWED_CHAINS, CHAINS } from '../../config';
 
 const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
   (props, ref) => {
@@ -32,13 +34,16 @@ const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
 );
 WalletUser.displayName = 'WalletUser';
 
-const NetworkMenuItem: FC = () => {
+interface NetworkMenuItemProps<T>{
+  chains?: ChainSelectConfig<T>
+}
+function NetworkMenuItem<T extends Partial<Chain>>({ chains }:  NetworkMenuItemProps<T>){
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   return (
     <>
       <Menu.Label pb={0}>{t('network')}</Menu.Label>
-      <ChainSelect p={5} />
+      <ChainSelect p={5} chains={chains}/>
     </>
   );
 };
@@ -62,9 +67,14 @@ const CopyToClipboardMenuItem: FC = () => {
   );
 };
 
-const ViewOnExplorerMenuItem: FC = () => {
+interface ViewOnExplorerMenuItemProps<T>{
+  chains?: ChainSelectConfig<T>
+}
+function ViewOnExplorerMenuItem<T extends Chain>({ chains }: ViewOnExplorerMenuItemProps<T>){
   const { account } = useWeb3React();
-  const activeChain = useActiveChain();
+
+  const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS};
+  const activeChain = useActiveChain(c);
 
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
@@ -102,7 +112,10 @@ const DisconnectMenuItem: FC = () => {
   );
 };
 
-export const WalletMenu: FC = () => {
+interface WalletMenuProps<T>{
+  chains?: ChainSelectConfig<T>
+}
+export function WalletMenu<T extends Partial<Chain>>({ chains }: WalletMenuProps<T>){
   const [isOpen, handlers] = useDisclosure(false);
 
   return (
@@ -124,7 +137,7 @@ export const WalletMenu: FC = () => {
         />
       </Menu.Target>
       <Menu.Dropdown>
-        <NetworkMenuItem />
+        <NetworkMenuItem chains={chains}/>
         <Menu.Divider />
         <CopyToClipboardMenuItem />
         <ViewOnExplorerMenuItem />
