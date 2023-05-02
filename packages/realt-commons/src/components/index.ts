@@ -6,3 +6,4 @@ export * from './inputs';
 export * from './menus';
 export * from './link';
 export * from './modals';
+export * from './head';
