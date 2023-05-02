@@ -7,7 +7,7 @@ type HeadProps = {
 
 export const Head: FC<HeadProps> = ({ title, description }) => {
   return (
-      <head>
+      <>
         <title>{title}</title>
         <meta
           name={'viewport'}
@@ -17,6 +17,6 @@ export const Head: FC<HeadProps> = ({ title, description }) => {
           name={'Description'}
           content={description}
         />
-      </head>
+      </>
   );
 };
