@@ -64,20 +64,18 @@ function HeaderButtons<T extends Partial<Chain>>({ chains }: HeaderButtonsProps<
 };
 
 interface HeaderProps<T>{
-  children?: React.ReactNode;
+  headerNavButton?: React.ReactElement;
   currentWebsite?: Websites;
   newWebsite?: Website;
   chains?: ChainSelectConfig<T>
 }
-export function Header<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite }: HeaderProps<T>){
+export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNavButton }: HeaderProps<T>){
   return (
     <>
       <Box sx={styles.container}>
         <Group position={'apart'} align={'center'}>
           <WebsiteSelector current={currentWebsite} newWebsite={newWebsite}/>
-          <>
-          {children ?? undefined}
-          </>
+          {headerNavButton ?? undefined}
           <HeaderButtons chains={chains}/>
         </Group>
       </Box>
