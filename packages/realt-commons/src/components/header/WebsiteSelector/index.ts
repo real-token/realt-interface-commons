@@ -1,3 +1,3 @@
 export * from './WebsitePane';
 export * from './WebsiteSelector';
-export * from './website';
+export * from '../../../types/website';

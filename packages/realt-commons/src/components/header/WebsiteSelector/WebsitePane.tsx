@@ -3,7 +3,7 @@ import { IconClock, IconExternalLink } from "@tabler/icons";
 import React from "react";
 import { FC, useState } from "react";
 import { openInNewTab } from "../../../utils/window";
-import { Website } from "./website";
+import { Website } from "../../../types/website";
 
 interface StylesParams{
     hovered: boolean;

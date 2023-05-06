@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Logo } from "../../../assets";
+import { Logo } from "../assets";
 
 export enum Websites{
     REALT,

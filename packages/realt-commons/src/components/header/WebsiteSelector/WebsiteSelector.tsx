@@ -2,7 +2,7 @@ import { MediaQuery, Title, createStyles, MantineTheme, Flex } from "@mantine/co
 import { IconChevronRight } from "@tabler/icons";
 import React from "react";
 import { useState } from "react";
-import { availableWebsites, Websites } from "./website";
+import { availableWebsites, Websites } from "../../../types/website";
 import { WebsitePane } from "./WebsitePane";
 
 interface StylesParams{
