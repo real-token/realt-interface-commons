@@ -4,6 +4,7 @@ import App from './App'
 import './index.css'
 import { ChainSelectConfig, Logo, Website, Websites, initLanguage, parseAllowedChain } from "realt-commons";
 import { Web3Providers, MantineProviders, Layout, LanguageInit } from "realt-commons";
+import { Button } from '@mantine/core';
 import { ModalsProvider } from "@mantine/modals";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
 
@@ -30,9 +31,10 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
               <Layout 
                 newWebsite={newWebsite} 
                 chains={customChains}
-                headerButtons={
+                headerNav={
                   <>
-                    
+                    <Button>Menu 1</Button>
+                    <Button>Menu 2</Button>
                   </>
                 }
               >
