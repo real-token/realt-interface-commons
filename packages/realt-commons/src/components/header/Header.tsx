@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Group,
-  Image,
   MediaQuery,
   Title,
 } from '@mantine/core';
@@ -15,7 +14,7 @@ import { Divider } from '../divider/Divider';
 import { SettingsMenu } from '../menus/SettingsMenu';
 import { WalletMenu } from '../menus/WalletMenu';
 import { Logo } from '../../assets';
-import { Websites, WebsiteSelector } from './WebsiteSelector';
+import { Website, Websites, WebsiteSelector } from './WebsiteSelector';
 import { Chain, ChainSelectConfig } from '../../types';
 
 const LogoWithName: FC = () => {
@@ -66,15 +65,16 @@ function HeaderButtons<T extends Partial<Chain>>({ chains }: HeaderButtonsProps<
 
 interface HeaderProps<T>{
   children?: React.ReactNode;
-  currentWebsite: Websites;
+  currentWebsite?: Websites;
+  newWebsite?: Website;
   chains?: ChainSelectConfig<T>
 }
-export function Header<T extends Partial<Chain>>({ children, currentWebsite, chains }: HeaderProps<T>){
+export function Header<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite }: HeaderProps<T>){
   return (
     <>
       <Box sx={styles.container}>
         <Group position={'apart'} align={'center'}>
-          <WebsiteSelector current={currentWebsite} />
+          <WebsiteSelector current={currentWebsite} newWebsite={newWebsite}/>
           <>
           {children ?? undefined}
           </>

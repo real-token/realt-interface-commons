@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 import { FC, ReactNode } from 'react';
-import { Footer, Header, Websites } from '../components';
+import { Footer, Header, Website, Websites } from '../components';
 import { Chain, ChainSelectConfig } from '../types';
 
 const useStyles = createStyles((theme) => ({
@@ -20,17 +20,18 @@ const useStyles = createStyles((theme) => ({
 
 type LayoutProps<T> = { 
   children: ReactNode, 
-  currentWebsite: Websites;
+  currentWebsite?: Websites;
   chains?: ChainSelectConfig<T>|undefined;
+  newWebsite?: Website;
 };
 
-export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains }: LayoutProps<T>){
+export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite }: LayoutProps<T>){
 
   const { classes } = useStyles();
 
   return (
     <div className={classes.container}>
-      <Header currentWebsite={currentWebsite} chains={chains}/>
+      <Header currentWebsite={currentWebsite} chains={chains} newWebsite={newWebsite}/>
       <div className={classes.main}>
         {children}
       </div>

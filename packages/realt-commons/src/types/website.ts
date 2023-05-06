@@ -11,7 +11,7 @@ export enum Websites{
 }
 
 export interface Website{
-    id: Websites;
+    id?: Websites;
     name: string,
     url: string;
     comingSoon: boolean;
@@ -19,13 +19,6 @@ export interface Website{
 }
 
 export const availableWebsites: Map<Websites,Website> = new Map([
-    [Websites.EXAMPLE, {
-        id: Websites.EXAMPLE,
-        name: "RealT-commons example",
-        comingSoon: false,
-        url: "https://localhost:3000",
-        logo: Logo
-    }],
     [Websites.REALT, {
         id: Websites.REALT,
         name: "RealT website",

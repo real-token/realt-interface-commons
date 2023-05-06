@@ -2,7 +2,7 @@ import { MediaQuery, Title, createStyles, MantineTheme, Flex } from "@mantine/co
 import { IconChevronRight } from "@tabler/icons";
 import React from "react";
 import { useState } from "react";
-import { availableWebsites, Websites } from "../../../types/website";
+import { availableWebsites, Website, Websites } from "../../../types/website";
 import { WebsitePane } from "./WebsitePane";
 
 interface StylesParams{
@@ -52,13 +52,14 @@ const useStyles = createStyles((theme: MantineTheme, { menuOpened }: StylesParam
 }));
   
 interface WebsiteSelectorProps{
-    current: Websites
+    current?: Websites
+    newWebsite?: Website
 }
-export const WebsiteSelector = ({ current } : WebsiteSelectorProps) => {
+export const WebsiteSelector = ({ current, newWebsite } : WebsiteSelectorProps) => {
 
   const [menuOpened,setMenuOpened] = useState<boolean>(false);
 
-  const currentWebsite = availableWebsites.get(current);
+  const currentWebsite = newWebsite ?? (current ? availableWebsites.get(current) : undefined);
 
   const { classes } = useStyles({ menuOpened });
 
