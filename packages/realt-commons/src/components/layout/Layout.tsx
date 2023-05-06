@@ -1,7 +1,7 @@
 import { createStyles } from '@mantine/core';
 import { FC, ReactNode } from 'react';
-import { Footer, Header, Website, Websites } from '../components';
-import { Chain, ChainSelectConfig } from '../types';
+import { Footer, Header, Website, Websites } from '..';
+import { Chain, ChainSelectConfig } from '../../types';
 
 const useStyles = createStyles((theme) => ({
   container: {
