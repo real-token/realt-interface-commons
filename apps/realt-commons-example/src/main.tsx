@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { ChainSelectConfig, Logo, Website, Websites, initLanguage, parseAllowedChain } from "realt-commons";
+import { ChainSelectConfig, Logo, Website, initLanguage, parseAllowedChain } from "realt-commons";
 import { Web3Providers, MantineProviders, Layout, LanguageInit } from "realt-commons";
 import { Button } from '@mantine/core';
 import { ModalsProvider } from "@mantine/modals";
