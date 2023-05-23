@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { useWeb3React } from '@web3-react/core';
 import { Contract } from '@ethersproject/contracts';
-import { useActiveChain } from '@realtoken/realt-commons';
 import { getContract } from '../../utils';
 import { Chain, ChainSelectConfig } from '../../types';
 import { ContractsID } from '../../config';
+import { useActiveChain } from './useActiveChain';
 
 export const useContract = <T extends Contract, M extends Partial<Chain>>(customChains: ChainSelectConfig<M>, contractId: ContractsID) => {
   const { account, provider, chainId } = useWeb3React();
