@@ -36,7 +36,9 @@ build: {
             "@web3-react/network",
             "@web3-react/types",
             "@web3-react/walletconnect",
-            "@web3-react/walletconnect-v2"
+            "@web3-react/walletconnect-v2",
+            "i18next",
+            "react-i18next"
         ],
         output: {
             globals: {
@@ -55,7 +57,9 @@ build: {
                 "@web3-react/network": "web3ReactNetwork",
                 "@web3-react/types": "web3ReactTypes",
                 "@web3-react/walletconnect": "web3ReactWalletConnect",
-                "@web3-react/walletconnect-v2": "web3ReactWalletConnectV2"
+                "@web3-react/walletconnect-v2": "web3ReactWalletConnectV2",
+                "i18next": "i18next",
+                "react-i18next": "reactI18next"
             },
         },
     },
