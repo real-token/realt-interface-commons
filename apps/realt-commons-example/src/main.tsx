@@ -4,11 +4,13 @@ import App from './App'
 import './index.css'
 import { ChainSelectConfig, Logo, Website, initLanguage, parseAllowedChain } from "realt-commons";
 import { Web3Providers, MantineProviders, Layout, LanguageInit } from "realt-commons";
-import { Button } from '@mantine/core';
 import { ModalsProvider } from "@mantine/modals";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
+import { resources } from './i18next/locales';
+import { NavMenu } from './components/NavMenu';
+import i18next from 'react-i18next';
 
-const i18n = initLanguage();
+export const i18n = initLanguage(resources);
 
 const customChains: ChainSelectConfig<CustomChain> = {
   allowedChains: parseAllowedChain(ChainsID),
@@ -27,16 +29,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
       <ModalsProvider>
         <Web3Providers>
           <MantineProviders>
-              <LanguageInit i={i18n}/>
+              <LanguageInit i={i18n} />
               <Layout 
                 newWebsite={newWebsite} 
                 chains={customChains}
-                headerNav={
-                  <>
-                    <Button>Menu 1</Button>
-                    <Button>Menu 2</Button>
-                  </>
-                }
+                headerNav={<NavMenu/>}
               >
                 <App />
               </Layout>
