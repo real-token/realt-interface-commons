@@ -33,6 +33,8 @@ const useStyles = createStyles((theme: MantineTheme, { menuOpened }: StylesParam
     color: menuOpened ? 'black' : 'white'
   },
   websitesContainer: {
+    borderTop: `2px solid ${menuOpened ? 'black' : theme.colors.brand}`,
+    zIndex: 99999999,
     width: '100%',
     position: 'absolute',
     display: 'flex',
@@ -57,7 +59,7 @@ interface WebsiteSelectorProps{
 }
 export const WebsiteSelector = ({ current, newWebsite } : WebsiteSelectorProps) => {
 
-  const [menuOpened,setMenuOpened] = useState<boolean>(false);
+  const [menuOpened,setMenuOpened] = useState<boolean>(true);
 
   const currentWebsite = newWebsite ?? (current ? availableWebsites.get(current) : undefined);
 
@@ -78,21 +80,11 @@ export const WebsiteSelector = ({ current, newWebsite } : WebsiteSelectorProps) 
           <Title order={3} className={classes.websiteName}>{currentWebsite.name}</Title>
         </MediaQuery>
       </div>
-      { menuOpened ? <div className={classes.divider}/> : undefined }
       <div className={classes.websitesContainer}>
         {Array.from(availableWebsites.values()).filter((website) => website.id !== current).map((website) => (
           <WebsitePane key={website.id} website={website} /> 
         ))}
       </div>
-      {/* <Text
-        size={'xl'}
-        weight={700}
-        component={NextLink}
-        href={'/'}
-        color={router.pathname === '/' ? colorSelected : ''}
-      >
-        {t('titleCat1')}
-      </Text> */}
     </div>
   )
 }
