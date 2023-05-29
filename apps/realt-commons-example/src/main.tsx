@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { ChainSelectConfig, Logo, Website, initLanguage, parseAllowedChain } from "realt-commons";
-import { Web3Providers, MantineProviders, Layout, LanguageInit } from "realt-commons";
+import { ChainSelectConfig, Logo, Website, initLanguage, parseAllowedChain } from "@realtoken/realt-commons";
+import { Web3Providers, MantineProviders, Layout, LanguageInit } from "@realtoken/realt-commons";
 import { ModalsProvider } from "@mantine/modals";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
 import { resources } from './i18next/locales';
