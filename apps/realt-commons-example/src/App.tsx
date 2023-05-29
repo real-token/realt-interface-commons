@@ -1,5 +1,6 @@
-import { Flex,Text } from "@mantine/core";
+import { Flex } from "@mantine/core";
 import './App.css'
+import { NavMenu } from "./components/NavMenu";
 
 function App() {
   return (
