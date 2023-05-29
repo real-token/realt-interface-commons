@@ -13,6 +13,8 @@ import { headerStyles as styles } from './Header.styles';
 import { Divider } from '../divider/Divider';
 import { SettingsMenu } from '../menus/SettingsMenu';
 import { WalletMenu } from '../menus/WalletMenu';
+import { NetworkMenu } from '../menus/NetworkMenu';
+import { MessageNetwork } from '../chainSelect/chainSelect'
 import { Logo } from '../../assets';
 import { Website, Websites, WebsiteSelector } from './WebsiteSelector';
 import { Chain, ChainSelectConfig } from '../../types';
@@ -22,7 +24,7 @@ const LogoWithName: FC = () => {
 
   return (
     <Group align={'center'} spacing={'xs'}>
-      <Logo/>
+      <Logo />
       <MediaQuery smallerThan={'xs'} styles={{ display: 'none' }}>
         <Title order={3}>{t('title')}</Title>
       </MediaQuery>
@@ -49,37 +51,39 @@ const ConnectButton: FC = () => {
   );
 };
 
-interface HeaderButtonsProps<T>{
+interface HeaderButtonsProps<T> {
   chains?: ChainSelectConfig<T>
 }
-function HeaderButtons<T extends Partial<Chain>>({ chains }: HeaderButtonsProps<T>){
+function HeaderButtons<T extends Partial<Chain>>({ chains }: HeaderButtonsProps<T>) {
   const { account } = useWeb3React();
 
   return (
     <Group spacing={10}>
-      {account ? <WalletMenu chains={chains}/> : <ConnectButton />}
+      <NetworkMenu chains={chains} />
+      {account ? <WalletMenu /> : <ConnectButton />}
       <SettingsMenu />
     </Group>
   );
 };
 
-interface HeaderProps<T>{
+interface HeaderProps<T> {
   headerNav?: React.ReactElement;
   currentWebsite?: Websites;
   newWebsite?: Website;
   chains?: ChainSelectConfig<T>
 }
-export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav }: HeaderProps<T>){
+export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav }: HeaderProps<T>) {
   return (
     <>
+      <MessageNetwork classeName={styles.message} chains={chains}></MessageNetwork>
       <Box sx={styles.container}>
         <Group position={'apart'} align={'center'}>
-          <WebsiteSelector current={currentWebsite} newWebsite={newWebsite}/>
+          <WebsiteSelector current={currentWebsite} newWebsite={newWebsite} />
           {headerNav ?? undefined}
-          <HeaderButtons chains={chains}/>
+          <HeaderButtons chains={chains} />
         </Group>
       </Box>
-      <Divider/>
+      <Divider />
     </>
   );
 };

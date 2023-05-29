@@ -14,7 +14,6 @@ import { useWeb3React } from '@web3-react/core';
 
 import { useActiveChain } from '../../hooks/blockchain/useActiveChain';
 import { FRC } from '../../types/FRC';
-import { ChainSelect } from '../chainSelect/chainSelect';
 import { shortenString } from '../../utils/shortenString';
 import { NOTIFICATIONS, NotificationsID } from '../../config/constants/notifications';
 import { Link } from '../link';
@@ -34,19 +33,7 @@ const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
 );
 WalletUser.displayName = 'WalletUser';
 
-interface NetworkMenuItemProps<T>{
-  chains?: ChainSelectConfig<T>
-}
-function NetworkMenuItem<T extends Partial<Chain>>({ chains }:  NetworkMenuItemProps<T>){
-  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
-  return (
-    <>
-      <Menu.Label pb={0}>{t('network')}</Menu.Label>
-      <ChainSelect p={5} chains={chains}/>
-    </>
-  );
-};
 
 const CopyToClipboardMenuItem: FC = () => {
   const { account } = useWeb3React();
@@ -113,9 +100,8 @@ const DisconnectMenuItem: FC = () => {
 };
 
 interface WalletMenuProps<T>{
-  chains?: ChainSelectConfig<T>
 }
-export function WalletMenu<T extends Partial<Chain>>({ chains }: WalletMenuProps<T>){
+export function WalletMenu<T extends Partial<Chain>>({  }: WalletMenuProps<T>){
   const [isOpen, handlers] = useDisclosure(false);
 
   return (
@@ -137,8 +123,6 @@ export function WalletMenu<T extends Partial<Chain>>({ chains }: WalletMenuProps
         />
       </Menu.Target>
       <Menu.Dropdown>
-        <NetworkMenuItem chains={chains}/>
-        <Menu.Divider />
         <CopyToClipboardMenuItem />
         <ViewOnExplorerMenuItem />
         <DisconnectMenuItem />
