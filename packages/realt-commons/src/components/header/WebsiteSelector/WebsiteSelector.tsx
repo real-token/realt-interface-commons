@@ -59,7 +59,7 @@ interface WebsiteSelectorProps{
 }
 export const WebsiteSelector = ({ current, newWebsite } : WebsiteSelectorProps) => {
 
-  const [menuOpened,setMenuOpened] = useState<boolean>(true);
+  const [menuOpened,setMenuOpened] = useState<boolean>(false);
 
   const currentWebsite = newWebsite ?? (current ? availableWebsites.get(current) : undefined);
 
