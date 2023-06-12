@@ -26,6 +26,7 @@ export const CUSTOM_ALLOWED_CHAINS: Record<ChainsID,CustomChain> = {
       nativeCurrency: DAI,
       rpcUrl: 'https://rpc.ankr.com/gnosis',
       blockExplorerUrl: 'https://gnosisscan.io/',
+      isTestnet: false,
       contracts: {},
     },
     [ChainsID.Ethereum]: {
@@ -35,6 +36,7 @@ export const CUSTOM_ALLOWED_CHAINS: Record<ChainsID,CustomChain> = {
       nativeCurrency: ETH,
       rpcUrl: 'https://rpc.ankr.com/eth',
       blockExplorerUrl: 'https://etherscan.io/',
+      isTestnet: false,
       contracts: {},
     },
 
@@ -45,6 +47,7 @@ export const CUSTOM_ALLOWED_CHAINS: Record<ChainsID,CustomChain> = {
         logo: GnosisLogo,
         nativeCurrency: DAI,
         rpcUrl: 'https://rpc.ankr.com/eth',
+        isTestnet: true,
         contracts: {},
       },
       [ChainsID.localhost_foreign]: {
@@ -52,6 +55,7 @@ export const CUSTOM_ALLOWED_CHAINS: Record<ChainsID,CustomChain> = {
         chainName: 'Localhost Foreign',
         logo: EthereumLogo,
         nativeCurrency: ETH,
+        isTestnet: true,
         rpcUrl: 'https://rpc.ankr.com/eth',
         contracts: {},
       },
