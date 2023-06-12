@@ -50,7 +50,7 @@ export function ChainList<T extends Partial<Chain>>({ chains }: ChainListProps<T
   const enabledTestnets = env == "development" || env == "staging";
 
   const data = c.allowedChains
-    .filter((chain) => enabledTestnets ? c.chainsConfig[chain as ChainsID].isTestnet : true)
+    .filter((chain) => enabledTestnets ? c.chainsConfig[chain as ChainsID].isTestnet : !c.chainsConfig[chain as ChainsID].isTestnet)
     .map<SelectItem>((chain) => ({
       value: chain.toString(),
       label: c.chainsConfig[chain as ChainsID].chainName,
