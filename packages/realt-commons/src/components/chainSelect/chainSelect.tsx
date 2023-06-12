@@ -1,4 +1,4 @@
-import { FC, forwardRef, useCallback, useState, useEffect } from 'react';
+import { FC, forwardRef, useCallback, useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -17,6 +17,7 @@ import { useActiveChain } from '../../hooks/blockchain/useActiveChain';
 import { ALLOWED_CHAINS, CHAINS, ChainsID } from '../../config/constants/chain';
 import { IconAlertCircle } from '@tabler/icons';
 import { Chain, ChainSelectConfig } from '../../types';
+import { RealtProvider } from '../../providers';
 
 
 type ChainSelectItemsProps = {
@@ -37,8 +38,6 @@ const ChainSelectItems: FRC<ChainSelectItemsProps, HTMLDivElement> = forwardRef(
 );
 ChainSelectItems.displayName = 'ChainSelectItems';
 
-
-
 type ChainListProps<T> = {
   chains?: ChainSelectConfig<T> | undefined
 };
@@ -47,20 +46,23 @@ export function ChainList<T extends Partial<Chain>>({ chains }: ChainListProps<T
 
   const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS };
 
+  const { env } = useContext(RealtProvider);
+  const enabledTestnets = env == "development" || env == "staging";
+
   const data = c.allowedChains
-    .filter((chain) => (chain.toString() !== "5" && process.env.NODE_ENV === "production") || process.env.NODE_ENV !== "production")
+    .filter((chain) => enabledTestnets ? c.chainsConfig[chain as ChainsID].isTestnet : true)
     .map<SelectItem>((chain) => ({
       value: chain.toString(),
       label: c.chainsConfig[chain as ChainsID].chainName,
       logo: c.chainsConfig[chain as ChainsID].logo,
     }));
 
-  return (<>{
-    data.map(({ logo, label, value }) => (
-      <ChainMenuItem chainValue={value} label={label ? label : ""} logo={logo}></ChainMenuItem>
-    ))
-  }
-  </>
+  return (
+    <>
+    {data.map(({ logo, label, value }) => (
+        <ChainMenuItem chainValue={value} label={label ? label : ""} logo={logo} />
+      ))}
+    </>
   );
 };
 
@@ -70,6 +72,7 @@ interface ChainIconProps {
 }
 function ChainIcon({ logo }: ChainIconProps) {
   const Logo = logo;
+  console.log(logo, Logo);
   return Logo ? <Logo width={18} /> : <></>;
 };
 
@@ -128,11 +131,6 @@ export function ChainSelectedIcon<T extends Partial<Chain>>({ chains }: ChainSel
   );
 };
 
-
-
-
-
-
 type MessageNetworkProps<T> = {
   classeName: Sx,
   chains?: ChainSelectConfig<T> | undefined
@@ -167,7 +165,5 @@ export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }:
       </Box>}
     </>
   );
-
-
 
 };

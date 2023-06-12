@@ -9,6 +9,7 @@ export type Chain = {
     nativeCurrency: Currency;
     rpcUrl: string;
     blockExplorerUrl: string;
+    isTestnet: boolean;
     contracts: Contracts;
 };
 

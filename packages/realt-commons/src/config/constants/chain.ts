@@ -19,6 +19,7 @@ export const CHAINS: ChainsConfig<Chain> = {
     nativeCurrency: DAI,
     rpcUrl: 'https://rpc.ankr.com/gnosis',
     blockExplorerUrl: 'https://gnosisscan.io/',
+    isTestnet: false,
     contracts: {}
   },
   [ChainsID.Ethereum]: {
@@ -28,6 +29,7 @@ export const CHAINS: ChainsConfig<Chain> = {
     nativeCurrency: ETH,
     rpcUrl: 'https://rpc.ankr.com/eth',
     blockExplorerUrl: 'https://etherscan.io/',
+    isTestnet: false,
     contracts: {}
   },
 
@@ -38,6 +40,7 @@ export const CHAINS: ChainsConfig<Chain> = {
     nativeCurrency: ETH,
     rpcUrl: 'https://rpc.ankr.com/eth_goerli',
     blockExplorerUrl: 'https://goerli.etherscan.io/',
+    isTestnet: true,
     contracts: {}
   },
 };
