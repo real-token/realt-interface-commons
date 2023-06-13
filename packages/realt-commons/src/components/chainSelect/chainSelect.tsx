@@ -72,7 +72,6 @@ interface ChainIconProps {
 }
 function ChainIcon({ logo }: ChainIconProps) {
   const Logo = logo;
-  console.log(logo, Logo);
   return Logo ? <Logo width={18} /> : <></>;
 };
 
