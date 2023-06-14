@@ -9,6 +9,12 @@ export const modalStyles: ModalProps['styles'] = {
   },
   root: {
     zIndex: 10
+  },
+  overlay: {
+    zIndex: 10
+  },
+  inner: {
+    zIndex: 10
   }
 };
 
