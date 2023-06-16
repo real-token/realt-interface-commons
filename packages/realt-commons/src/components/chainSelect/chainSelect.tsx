@@ -18,7 +18,7 @@ import { ALLOWED_CHAINS, CHAINS, ChainsID } from '../../config/constants/chain';
 import { IconAlertCircle } from '@tabler/icons';
 import { Chain, ChainSelectConfig } from '../../types';
 import { RealtProvider } from '../../providers';
-
+import { useRootStore } from '../../providers/RealtProvider';
 
 type ChainSelectItemsProps = {
   label: string;
@@ -46,7 +46,7 @@ export function ChainList<T extends Partial<Chain>>({ chains }: ChainListProps<T
 
   const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS };
 
-  const { env } = useContext(RealtProvider);
+  const env = useRootStore((state) => state.env);
   const enabledTestnets = env == "development" || env == "staging";
 
   const data = c.allowedChains
@@ -60,12 +60,11 @@ export function ChainList<T extends Partial<Chain>>({ chains }: ChainListProps<T
   return (
     <>
     {data.map(({ logo, label, value }) => (
-        <ChainMenuItem chainValue={value} label={label ? label : ""} logo={logo} />
+        <ChainMenuItem chainValue={value} label={label ? label : ""} logo={logo} key={`chain-${value}`}/>
       ))}
     </>
   );
 };
-
 
 interface ChainIconProps {
   logo: FC<any> | undefined;
