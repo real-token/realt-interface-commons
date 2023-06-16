@@ -137,7 +137,7 @@ type MessageNetworkProps<T> = {
 
 export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }: MessageNetworkProps<T>) {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
-  const { connector } = useWeb3React();
+  const { connector, account } = useWeb3React();
   const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS } as ChainSelectConfig<T>;
   const activeChain = useActiveChain<T>(c);
   const [chain, setChain] = useState(activeChain);
@@ -155,12 +155,13 @@ export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }:
   );
 
   return (
-    <>{
-      !chain &&
+    <>
+    {!chain && account ? (
       <Box sx={classeName}>
         <IconAlertCircle size={20} aria-label={'Network'} style={{ marginRight: '8px' }} />
         <div>{t('notAllowedNetwork')}<span onClick={switchChain} style={{ cursor: 'pointer', textDecoration: 'underline' }}>{t('switchNetwork')}</span></div>
-      </Box>}
+      </Box>
+      ): undefined}
     </>
   );
 
