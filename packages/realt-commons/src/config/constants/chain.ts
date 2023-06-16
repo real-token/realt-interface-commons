@@ -1,5 +1,4 @@
-import { Contracts } from '../../types/contract';
-import { Currency, DAI, ETH } from './currency';
+import { DAI, ETH } from './currency';
 import { GnosisLogo } from "../../assets/chains/GnosisLogo";
 import { EthereumLogo } from '../../assets';
 import { Chain, ChainsConfig } from '../../types';

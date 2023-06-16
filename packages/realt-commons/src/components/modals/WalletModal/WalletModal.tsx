@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SafeAppsSDK from '@gnosis.pm/safe-apps-sdk';
 import {
@@ -15,49 +15,52 @@ import {
 import { ContextModalProps } from '@mantine/modals';
 import { Connector } from '@web3-react/types';
 import { GnosisSafe, MetaMask, WalletConnect } from '../../../assets';
-import { gnosisSafe, metaMask, walletConnect, walletConnectV2 } from '../../../web3/connectors';
 import { styles } from './WalletModal.styles';
 import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
+import { RealtProvider } from '../../../providers';
+import { gnosisSafeKey, metamaskKey, walletConnectV2Key } from '../../../web3';
+import { useRootStore } from '../../../providers/RealtProvider';
 
 type WalletModalButtonProps = {
-  connector: Connector;
   title: string;
   src: string;
   buttonProps: ButtonProps;
   onSuccess: () => void;
   disabled?: boolean;
   disabledError?: string;
-  cookieValue?: string;
+  connectorKey: string;
+  connector: Connector;
 };
-
 const WalletModalButton: FC<WalletModalButtonProps> = ({
-  connector,
   title,
   src,
   buttonProps,
   onSuccess,
   disabled = false,
   disabledError,
-  cookieValue
+  connectorKey,
+  connector
 }) => {
   const [isActivating, setIsActivating] = useState<boolean>(false);
+
+  const connectors = useRootStore((state) => state.connectors);
+  if(!connectors || !connectors[connectorKey]) return <></>;
 
   const setProviderCookie = useSetAtom(providerAtom);
 
   const onActivating = useCallback(async () => {
-
     try{
       setIsActivating(true);
       await connector.activate();
       setIsActivating(false);
+      
+      if(connectorKey) setProviderCookie(connectorKey)
       onSuccess();
-
-      if(cookieValue) setProviderCookie(cookieValue)
     }catch(err){
       console.log(err)
     }
-  }, [connector, cookieValue, onSuccess, setProviderCookie]);
+  }, [connector, connectorKey, onSuccess, setProviderCookie]);
 
   const blur = disabled ? 2 : 0;
   return (
@@ -100,6 +103,9 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
 
   const [gnosisDisabled,setGnosisDisabled] = useState<boolean>(true);
 
+  const connectors = useRootStore((state) => state.connectors);
+  if(!connectors) return <></>
+  
   useEffect(() => {
     const fetchIfGnosis = async () => {
       try {
@@ -119,43 +125,38 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
 
   return (
     <Stack justify={'center'} align={'center'}>
-      <WalletModalButton
-        connector={metaMask}
-        title={'MetaMask'}
-        src={MetaMask}
-        buttonProps={{ gradient: { from: '#CD6116', to: '#F6851B' } }}
-        onSuccess={onClose}
-        cookieValue={"metamask"}
-      />
-      <WalletModalButton
-        connector={walletConnect}
-        title={'WalletConnect V1 (deprecated)'}
-        src={WalletConnect}
-        buttonProps={{ gradient: { from: '#006FFF', to: '#5C9DF5' } }}
-        onSuccess={onClose}
-        cookieValue={"wallet-connect"}
-      />
-      <WalletModalButton
-        connector={walletConnectV2}
-        title={'WalletConnect V2'}
-        src={WalletConnect}
-        buttonProps={{ gradient: { from: '#006FFF', to: '#5C9DF5' } }}
-        onSuccess={onClose}
-        cookieValue={"wallet-connect"}
-      />
-      <WalletModalButton
-        connector={gnosisSafe}
-        title={'GnosisSafe'}
-        src={GnosisSafe}
-        buttonProps={{ gradient: { from: '#005233', to: '#00bb55' } }}
-        onSuccess={onClose}
-        disabled={gnosisDisabled}
-        disabledError={t('DisabledGnosisSafe') ?? ""}
-        cookieValue={"gnosis-safe"}
-      />
-      {/* <Anchor component={NextLink} href={t('href')} target={'_blank'}>
-        {t('text')}
-      </Anchor> */}
+      {connectors.metamask ? (
+        <WalletModalButton
+          title={'MetaMask'}
+          src={MetaMask}
+          buttonProps={{ gradient: { from: '#CD6116', to: '#F6851B' } }}
+          onSuccess={onClose}
+          connectorKey={metamaskKey}
+          connector={connectors.metamask.connector}
+        />
+      ) : undefined}
+      {connectors.walletConnect ? (
+        <WalletModalButton
+          title={'WalletConnect V2'}
+          src={WalletConnect}
+          buttonProps={{ gradient: { from: '#006FFF', to: '#5C9DF5' } }}
+          onSuccess={onClose}
+          connectorKey={walletConnectV2Key}
+          connector={connectors.walletConnect.connector}
+        />
+      ): undefined}
+      {connectors.gnosisSafe ? (
+        <WalletModalButton
+          title={'GnosisSafe'}
+          src={GnosisSafe}
+          buttonProps={{ gradient: { from: '#005233', to: '#00bb55' } }}
+          onSuccess={onClose}
+          disabled={gnosisDisabled}
+          disabledError={t('DisabledGnosisSafe') ?? ""}
+          connectorKey={gnosisSafeKey}
+          connector={connectors.gnosisSafe.connector}
+        />
+      ):undefined}
     </Stack>
   );
 };

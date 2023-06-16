@@ -1,46 +1,64 @@
 import { FC, ReactNode, useEffect } from 'react';
 import { Web3ReactProvider } from '@web3-react/core';
-import { connectors, metaMask, network, walletConnect, gnosisSafe } from '../web3/connectors';
 import { useAtomValue } from 'jotai';
 import { providerAtom } from '../states';
+import { useRootStore } from '../providers/RealtProvider';
+import { generateString } from '../utils/string';
+import { ConnectorsMap, LibraryConnectors } from './type';
 
-type Web3ProvidersProps = {
-  children: ReactNode;
+export const metamaskKey = "metamask";
+export const gnosisSafeKey = "gnosisSafe";
+export const walletConnectV2Key = "walletConnect";
+export const networkKey = "network";
+
+const tryEagerlyConnect = (connectors: ConnectorsMap, lastUsedProvider: string) => {
+  try{
+
+    const connector = connectors[lastUsedProvider]?.connector;
+    if(!connector) return;
+
+    if(connector.connectEagerly) connector.connectEagerly();
+
+  }catch(err){
+    console.log(err);
+  }
+}
+
+interface ConnectEagerlyProps{
+  connectors: ConnectorsMap
 };
-
-const ConnectEagerly: FC = () => {
+const ConnectEagerly: FC<ConnectEagerlyProps> = ({ connectors }) => {
 
   const lastUsedProvider = useAtomValue(providerAtom);
 
   useEffect(() => {
-    void network.activate();
-  }, []);
-
-  useEffect(() => {
-    if(!lastUsedProvider) return;
-
-    if(lastUsedProvider !== ""){
-      switch(lastUsedProvider){
-        case "metamask":
-          metaMask.connectEagerly();
-          break;
-        case "wallet-connect":
-          walletConnect.connectEagerly();
-          break;
-        case "gnosis-safe":
-          gnosisSafe.connectEagerly();
-          break;
-      }
-    }
+    if(!lastUsedProvider ) return;
+    tryEagerlyConnect(connectors, lastUsedProvider);
   }, [lastUsedProvider])
 
   return null;
 };
 
-export const Web3Providers: FC<Web3ProvidersProps> = ({ children }) => {
-  return (
+type Web3ProvidersProps = {
+  children: ReactNode;
+  libraryConnectors: LibraryConnectors
+};
+
+export function Web3Providers({ children, libraryConnectors } : Web3ProvidersProps){
+
+  const { connectors, connectorsMap } = libraryConnectors;
+
+  const [setConnectors] = useRootStore(
+    (state) => [state.setConnectors]
+  );
+
+  useEffect(() => {
+    setConnectors(connectorsMap);
+  },[connectorsMap])
+
+  return(
     <Web3ReactProvider connectors={connectors}>
-      <ConnectEagerly />
+      <ConnectEagerly connectors={connectorsMap}/>
       {children}
     </Web3ReactProvider>
   );

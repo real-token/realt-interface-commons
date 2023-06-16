@@ -75,7 +75,7 @@ interface HeaderProps<T> {
 export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav }: HeaderProps<T>) {
   return (
     <>
-      <MessageNetwork classeName={styles.message} chains={chains}></MessageNetwork>
+      <MessageNetwork classeName={styles.message} chains={chains}/>
       <Box sx={styles.container}>
         <Group position={'apart'} align={'center'}>
           <WebsiteSelector current={currentWebsite} newWebsite={newWebsite} />

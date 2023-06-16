@@ -1,3 +1,3 @@
 export * from './MantineProviders';
 export * from './LanguageInitProvider';
-export * from './RealtProvider';
+export { default as  RealtProvider} from './RealtProvider';
