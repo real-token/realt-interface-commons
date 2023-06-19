@@ -47,8 +47,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
               <Layout 
                 newWebsite={newWebsite} 
                 chains={customChains}
-                headerNav={<NavMenu/>
-              }>
+                headerNav={<NavMenu/>}
+              >
                 <App />
               </Layout>
           </MantineProviders>
