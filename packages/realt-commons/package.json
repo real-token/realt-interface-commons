@@ -1,7 +1,7 @@
 {
   "name": "@realtoken/realt-commons",
   "private": false,
-  "version": "1.1.7",
+  "version": "1.1.8",
   "type": "module",
   "files": [
     "dist"
