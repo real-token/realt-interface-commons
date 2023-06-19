@@ -23,7 +23,6 @@ export function NetworkMenuItems<T extends Partial<Chain>>({ chains }:NetworkMen
   );
 };
 
-
 interface NetworkMenuProps<T>{
   chains?: ChainSelectConfig<T>
 }

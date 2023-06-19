@@ -1,40 +1,45 @@
 import { useEffect } from 'react';
 import { create } from 'zustand';
 import { ConnectorsMap } from '../web3';
+import { environment } from '../config/constants/env';
 
-type RealtProviderMandatory = {
-    env: string;
-};
+type RealtProviderSetableProps = {
+    env?: string;
+    showAllNetworks?: boolean;
+}
 
-type RealtProviderOptional = {
+type RealtProviderFixedProps = {
+    setShowAllNetworks: (state: boolean) => void,
     storeLoaded: boolean,
     setStoreLoaded: (state: boolean) => void,
     connectors: ConnectorsMap|undefined;
     setConnectors: (connectors: ConnectorsMap) => void;
-    setMandatory: (value: RealtProviderMandatory) => void;
+    setValue: (value: RealtProviderSetableProps) => void;
 };
 
-type RealtProviderStoreProps = RealtProviderMandatory & RealtProviderOptional;
+type RealtProviderStoreProps = RealtProviderSetableProps & RealtProviderFixedProps;
 
 export const useRootStore = create<RealtProviderStoreProps>()((set) => ({
+    showAllNetworks: false,
+    setShowAllNetworks: (showAllNetworks: boolean) => set({ showAllNetworks }),
     storeLoaded: false,
     setStoreLoaded: (storeLoaded: boolean) => set({ storeLoaded }),
-    env: "production",
+    env: environment.PRODUCTION,
     connectors: undefined,
     setConnectors: (connectors: ConnectorsMap) => set({ connectors }),
-    setMandatory: (value: RealtProviderMandatory) => set(value)
+    setValue: (value: RealtProviderSetableProps) => set(value)
 }));
 
 interface RealtProviderProps{
     children: React.ReactNode;
-    value: RealtProviderMandatory
+    value: RealtProviderSetableProps
 }
 const RealtProvider = ({ children, value }: RealtProviderProps) => {
 
-    const [setMandatory,setStoreLoaded] = useRootStore((state) => [state.setMandatory, state.setStoreLoaded]);
+    const [setValue,setStoreLoaded] = useRootStore((state) => [state.setValue, state.setStoreLoaded]);
 
     useEffect(() => {
-        setMandatory(value);
+        setValue(value);
         setStoreLoaded(true)
     },[value])
 

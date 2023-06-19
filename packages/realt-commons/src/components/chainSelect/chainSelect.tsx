@@ -19,6 +19,7 @@ import { IconAlertCircle } from '@tabler/icons';
 import { Chain, ChainSelectConfig } from '../../types';
 import { RealtProvider } from '../../providers';
 import { useRootStore } from '../../providers/RealtProvider';
+import { environment } from '../../config/constants/env';
 
 type ChainSelectItemsProps = {
   label: string;
@@ -46,11 +47,11 @@ export function ChainList<T extends Partial<Chain>>({ chains }: ChainListProps<T
 
   const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS };
 
-  const env = useRootStore((state) => state.env);
-  const enabledTestnets = env == "development" || env == "staging";
+  const [env, showAllNetworks] = useRootStore((state) => [state.env,state.showAllNetworks]);
+  const enabledTestnets = env !== environment.PRODUCTION;
 
   const data = c.allowedChains
-    .filter((chain) => enabledTestnets ? c.chainsConfig[chain as ChainsID].isTestnet : !c.chainsConfig[chain as ChainsID].isTestnet)
+    .filter((chain) => showAllNetworks ? true : enabledTestnets ? c.chainsConfig[chain as ChainsID].isTestnet : !c.chainsConfig[chain as ChainsID].isTestnet)
     .map<SelectItem>((chain) => ({
       value: chain.toString(),
       label: c.chainsConfig[chain as ChainsID].chainName,
@@ -134,7 +135,6 @@ type MessageNetworkProps<T> = {
   chains?: ChainSelectConfig<T> | undefined
 } & Partial<SelectProps>;
 
-
 export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }: MessageNetworkProps<T>) {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
   const { connector, account } = useWeb3React();
@@ -159,7 +159,12 @@ export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }:
     {!chain && account ? (
       <Box sx={classeName}>
         <IconAlertCircle size={20} aria-label={'Network'} style={{ marginRight: '8px' }} />
-        <div>{t('notAllowedNetwork')}<span onClick={switchChain} style={{ cursor: 'pointer', textDecoration: 'underline' }}>{t('switchNetwork')}</span></div>
+        <div>
+          {t('notAllowedNetwork')}
+          <span onClick={switchChain} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+            {t('switchNetwork')}
+          </span>
+        </div>
       </Box>
       ): undefined}
     </>

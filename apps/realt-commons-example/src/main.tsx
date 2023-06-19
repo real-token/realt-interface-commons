@@ -23,9 +23,10 @@ const newWebsite: Website = {
   logo: Logo
 }
 
+const showAllNetworks = true;
 const env = import.meta.env.MODE;
 console.log('ENV: ', env)
-const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains,env, 'ff2eff6eb19b6b79a24bbc47c46b6035');
+const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains,env, 'ff2eff6eb19b6b79a24bbc47c46b6035', showAllNetworks);
 
 const libraryConnectors = getConnectors(
   [metaMask, metaMaskHooks],
@@ -38,6 +39,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <RealtProvider 
       value={{
         env: env,
+        showAllNetworks: showAllNetworks
       }}
     >
       <ModalsProvider>
