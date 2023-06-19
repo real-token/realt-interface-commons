@@ -25,5 +25,12 @@
   "header": {
     "notAllowedNetwork": "Le réseau actuel n'est pas pris en charge par YAM, ",
     "switchNetwork": "se connecter à Ethereum"
+  },
+  "general": {
+    "loading": "Chargement...",
+    "comingSoon": "Bientôt disponible...",
+    "noConnectedWallet": "S'il-vous-plaît connecter un portefeuille pour continuer (Aide : en bas à droite)",
+    "nextButton": "Suivant",
+    "noAdminError": "Vous n'êtes pas un admininistrateur"
   }
 }
