@@ -25,7 +25,7 @@ const initLanguage = (resources?: Resource): i18n => {
     for (const [lng, lngResources] of Object.entries(resources)) {
       // namespace
       for (const [namespace, nsResources] of Object.entries(lngResources)) {
-        console.log(`${namespace}: ${resources}`);
+        // console.log(`${namespace}: ${resources}`);
         i18next.addResourceBundle(lng,namespace,nsResources);
       }
     }
