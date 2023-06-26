@@ -38,6 +38,7 @@
     "@web3-react/types": "^8.2.0",
     "@web3-react/walletconnect-v2": "^8.3.3",
     "cookies-next": "^2.1.1",
+    "country-flag-icons": "^1.5.7",
     "dotenv": "^16.0.3",
     "i18next-resources-for-ts": "^1.2.1",
     "jotai": "^2.0.3",
@@ -64,11 +65,11 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
+    "husky": "^8.0.0",
     "i18next": "^22.4.13",
     "react-i18next": "^12.2.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0",
-    "vite-plugin-dts": "^2.1.0",
-    "husky": "^8.0.0"
+    "vite-plugin-dts": "^2.1.0"
   }
 }

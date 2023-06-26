@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC, forwardRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActionIcon,
@@ -8,8 +8,11 @@ import {
   SegmentedControl,
   Select,
   useMantineColorScheme,
+  Text,
+  Flex
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { US, FR, ES, FlagComponent } from 'country-flag-icons/react/3x2'
 import { IconLanguage, IconMoon, IconSettings, IconSun } from '@tabler/icons';
 import { setCookies } from 'cookies-next';
 
@@ -63,6 +66,27 @@ const LanguageSelect: FC = () => {
     [i18n]
   );
 
+  interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
+    image: FlagComponent;
+    label: string;
+    value: string;
+  }
+
+  const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+    ({ image: Image, label, value, ...others }: ItemProps, ref) => (
+      <Flex gap={10} ref={ref} {...others} align={'center'}>
+        <Image style={{ width: '1.3rem' }}/>
+        <Text>{label}</Text>
+      </Flex>
+    )
+  );
+
+  const data: ItemProps[] = [
+    { value: 'en', label: t('english') ?? "", image: US },
+    { value: 'fr', label: t('french') ?? "", image: FR },
+    { value: 'es', label: t('spanish') ?? "", image: ES },
+  ]
+
   return (
     <>
       <Menu.Label pb={0}>{t('title')}</Menu.Label>
@@ -70,11 +94,8 @@ const LanguageSelect: FC = () => {
         p={5}
         value={i18n.language}
         onChange={updateLocale}
-        data={[
-          { value: 'fr', label: t('french') ?? "" },
-          { value: 'en', label: t('english') ?? "" },
-          { value: 'es', label: t('spanish') ?? "" },
-        ]}
+        itemComponent={SelectItem}
+        data={data}
         icon={<IconLanguage size={16} />}
       />
     </>
