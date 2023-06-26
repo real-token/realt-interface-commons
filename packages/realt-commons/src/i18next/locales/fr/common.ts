@@ -1,4 +1,4 @@
-{
+const common = {
   "footer": {
     "copyright": "© {{year}} RealT. Tous droits réservés."
   },
@@ -33,4 +33,6 @@
     "nextButton": "Suivant",
     "noAdminError": "Vous n'êtes pas un admininistrateur"
   }
-}
+} as const;
+
+export default common;
