@@ -7,6 +7,7 @@ export enum Websites{
     VOTE,
     YAM,
     BRIDGE,
+    RMM,
     EXAMPLE
 }
 
@@ -26,11 +27,18 @@ export const availableWebsites: Map<Websites,Website> = new Map([
         url: "https://realt.co/",
         logo: Logo
     }],
-    [Websites.COMMUNITY_DASHBOARD, {
-        id: Websites.COMMUNITY_DASHBOARD,
-        name: "Community Dashboard",
+    [Websites.YAM, {
+        id: Websites.YAM,
+        name: "RealT YAM",
         comingSoon: false,
-        url: "https://dashboard.realt.community/",
+        url: "https://yam.realtoken.network/",
+        logo: Logo
+    }],
+    [Websites.RMM, {
+        id: Websites.RMM,
+        name: "RealT RMM",
+        comingSoon: false,
+        url: "https://rmm.realtoken.network",
         logo: Logo
     }],
     [Websites.VOTE, {
@@ -40,11 +48,11 @@ export const availableWebsites: Map<Websites,Website> = new Map([
         url: "https://vote.realtoken.network",
         logo: Logo
     }],
-    [Websites.YAM, {
-        id: Websites.YAM,
-        name: "RealT YAM",
+    [Websites.COMMUNITY_DASHBOARD, {
+        id: Websites.COMMUNITY_DASHBOARD,
+        name: "Community Dashboard",
         comingSoon: false,
-        url: "https://yam.realtoken.network/",
+        url: "https://dashboard.realt.community/",
         logo: Logo
     }],
     [Websites.BRIDGE, {
@@ -53,5 +61,5 @@ export const availableWebsites: Map<Websites,Website> = new Map([
         comingSoon: true,
         url: "",
         logo: Logo
-    }]
+    }],
 ]);
