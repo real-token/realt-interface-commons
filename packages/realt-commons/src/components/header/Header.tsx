@@ -16,7 +16,7 @@ import { WalletMenu } from '../menus/WalletMenu';
 import { NetworkMenu } from '../menus/NetworkMenu';
 import { MessageNetwork } from '../chainSelect/chainSelect'
 import { Logo } from '../../assets';
-import { Website, Websites, WebsiteSelector } from './WebsiteSelector';
+import { Website, WebsitePane, Websites, WebsiteSelector } from './WebsiteSelector';
 import { Chain, ChainSelectConfig } from '../../types';
 
 const LogoWithName: FC = () => {
@@ -70,15 +70,19 @@ interface HeaderProps<T> {
   headerNav?: React.ReactElement;
   currentWebsite?: Websites;
   newWebsite?: Website;
-  chains?: ChainSelectConfig<T>
+  chains?: ChainSelectConfig<T>;
+  disableHeaderMultisite?: boolean;
 }
-export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav }: HeaderProps<T>) {
+export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav, disableHeaderMultisite = false }: HeaderProps<T>) {
+
+  if(disableHeaderMultisite && !newWebsite) throw new Error("Cannot use disableHeaderMultisite whiteout setting newWebsite parameter.");
+
   return (
     <>
       <MessageNetwork classeName={styles.message} chains={chains}/>
       <Box sx={styles.container}>
         <Group position={'apart'} align={'center'}>
-          <WebsiteSelector current={currentWebsite} newWebsite={newWebsite} />
+          <WebsiteSelector current={currentWebsite} newWebsite={newWebsite} isDisabled={disableHeaderMultisite}/>
           {headerNav ?? undefined}
           <HeaderButtons chains={chains} />
         </Group>

@@ -21,18 +21,27 @@ const useStyles = createStyles((theme) => ({
 type LayoutProps<T> = { 
   children: ReactNode,
   headerNav?: React.ReactElement;
+  disableHeaderMultisite?: boolean;
+  head?: React.ReactElement;
   currentWebsite?: Websites;
   chains?: ChainSelectConfig<T>|undefined;
   newWebsite?: Website;
 };
 
-export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav }: LayoutProps<T>){
+export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite }: LayoutProps<T>){
 
   const { classes } = useStyles();
 
   return (
     <div className={classes.container}>
-      <Header currentWebsite={currentWebsite} chains={chains} newWebsite={newWebsite} headerNav={headerNav}/>
+      {head ?? undefined}
+      <Header 
+        currentWebsite={currentWebsite} 
+        chains={chains} 
+        newWebsite={newWebsite} 
+        headerNav={headerNav}
+        disableHeaderMultisite={disableHeaderMultisite}
+      />
       <div className={classes.main}>
         {children}
       </div>

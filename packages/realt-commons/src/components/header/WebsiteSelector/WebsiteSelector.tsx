@@ -7,13 +7,14 @@ import { WebsitePane } from "./WebsitePane";
 
 interface StylesParams{
   menuOpened: boolean;
+  isDisabled: boolean;
 }
-const useStyles = createStyles((theme: MantineTheme, { menuOpened }: StylesParams) => ({
+const useStyles = createStyles((theme: MantineTheme, { menuOpened, isDisabled }: StylesParams) => ({
   root: {
     position: 'relative'
   },
   arrow: {
-    transform: menuOpened ? 'rotate(90deg)' : 'rotate(0)',
+    transform: menuOpened && !isDisabled ? 'rotate(90deg)' : 'rotate(0)',
     transition: 'all 0.3s ease-in-out'
   },
   logoWithName: {
@@ -24,16 +25,16 @@ const useStyles = createStyles((theme: MantineTheme, { menuOpened }: StylesParam
     borderRadius: '5px 5px 0 0',
     padding: '10px',
     paddingLeft: '20px',
-    backgroundColor: menuOpened ? theme.colors.brand : 'transparent',
+    backgroundColor: menuOpened && !isDisabled ? theme.colors.brand : 'transparent',
     '&:hover': {
-      cursor: "pointer"
+      cursor: !isDisabled ? "pointer" : "unset"
     } 
   },
   websiteName: {
     color: menuOpened ? 'black' : 'white'
   },
   websitesContainer: {
-    borderTop: `2px solid ${menuOpened ? 'black' : theme.colors.brand}`,
+    borderTop: `2px solid ${menuOpened && !isDisabled ? 'black' : theme.colors.brand}`,
     zIndex: 99999999,
     width: '100%',
     position: 'absolute',
@@ -44,7 +45,7 @@ const useStyles = createStyles((theme: MantineTheme, { menuOpened }: StylesParam
     borderRadius: '0 0 5px 5px',
     visibility: menuOpened ? 'inherit' : 'hidden',
     flexDirection: 'column',
-    backgroundColor: menuOpened ? theme.colors.brand : 'transparent',
+    backgroundColor: menuOpened && !isDisabled? theme.colors.brand : 'transparent',
   },
   divider: {
     height: '3px',
@@ -56,25 +57,26 @@ const useStyles = createStyles((theme: MantineTheme, { menuOpened }: StylesParam
 interface WebsiteSelectorProps{
     current?: Websites
     newWebsite?: Website
+    isDisabled?: boolean;
 }
-export const WebsiteSelector = ({ current, newWebsite } : WebsiteSelectorProps) => {
+export const WebsiteSelector = ({ current, newWebsite, isDisabled = false } : WebsiteSelectorProps) => {
 
   const [menuOpened,setMenuOpened] = useState<boolean>(false);
 
   const currentWebsite = newWebsite ?? (current ? availableWebsites.get(current) : undefined);
 
-  const { classes } = useStyles({ menuOpened });
+  const { classes } = useStyles({ menuOpened, isDisabled });
 
   if(!currentWebsite) return <></>;
 
   return(
     <div
       className={classes.root}
-      onMouseEnter={() => setMenuOpened(true)}
-      onMouseLeave={() => setMenuOpened(false)}
+      onMouseEnter={() => { if(!isDisabled) setMenuOpened(true) }}
+      onMouseLeave={() => { if(!isDisabled) setMenuOpened(false) }}
     >
       <div className={classes.logoWithName}>
-        <IconChevronRight className={classes.arrow} />
+        {!isDisabled ? <IconChevronRight className={classes.arrow} /> : undefined}
         { currentWebsite.logo ? React.createElement(currentWebsite.logo) : undefined }
         <MediaQuery smallerThan={'xs'} styles={{ display: 'none' }}>
           <Title order={3} className={classes.websiteName}>{currentWebsite.name}</Title>
