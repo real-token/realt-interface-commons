@@ -19,6 +19,8 @@ import { NOTIFICATIONS, NotificationsID } from '../../config/constants/notificat
 import { Link } from '../link';
 import { Chain, ChainSelectConfig } from '../../types';
 import { ALLOWED_CHAINS, CHAINS } from '../../config';
+import { useSetAtom } from 'jotai';
+import { providerAtom } from '../../states';
 
 const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
   (props, ref) => {
@@ -32,8 +34,6 @@ const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
   }
 );
 WalletUser.displayName = 'WalletUser';
-
-
 
 const CopyToClipboardMenuItem: FC = () => {
   const { account } = useWeb3React();
@@ -84,12 +84,15 @@ const DisconnectMenuItem: FC = () => {
 
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
+  const setProviderCookie = useSetAtom(providerAtom);
+
   const onDisconnect = useCallback(async () => {
     if (connector.deactivate) {
       await connector.deactivate();
     } else {
       await connector.resetState();
     }
+    setProviderCookie("");
   }, [connector]);
 
   return (
