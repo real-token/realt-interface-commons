@@ -110,7 +110,8 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
     const fetchIfGnosis = async () => {
       try {
         const gnosisSdk = new SafeAppsSDK()
-        await gnosisSdk.safe.getInfo();
+        const test = await gnosisSdk.safe.getInfo();
+        console.log(test)
         setGnosisDisabled(false);
       } catch (e) {
         console.log('Gnosis Safe is not detected', e);
