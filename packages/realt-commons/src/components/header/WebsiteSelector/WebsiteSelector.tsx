@@ -23,8 +23,8 @@ const useStyles = createStyles((theme: MantineTheme, { menuOpened, isDisabled }:
     alignItems: 'center',
     gap: theme.spacing.sm,
     borderRadius: '5px 5px 0 0',
-    padding: '10px',
-    paddingLeft: '20px',
+    // padding: '10px',
+    // paddingLeft: '20px',
     backgroundColor: menuOpened && !isDisabled ? theme.colors.brand : 'transparent',
     '&:hover': {
       cursor: !isDisabled ? "pointer" : "unset"
@@ -78,9 +78,7 @@ export const WebsiteSelector = ({ current, newWebsite, isDisabled = false } : We
       <div className={classes.logoWithName}>
         {!isDisabled ? <IconChevronRight className={classes.arrow} /> : undefined}
         { currentWebsite.logo ? React.createElement(currentWebsite.logo) : undefined }
-        <MediaQuery smallerThan={'xs'} styles={{ display: 'none' }}>
-          <Title order={3} className={classes.websiteName}>{currentWebsite.name}</Title>
-        </MediaQuery>
+        <Title order={3} className={classes.websiteName}>{currentWebsite.name}</Title>
       </div>
       <div className={classes.websitesContainer}>
         {Array.from(availableWebsites.values()).filter((website) => website.id !== current).map((website) => (

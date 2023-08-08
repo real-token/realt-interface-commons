@@ -6,6 +6,7 @@ import {
   Group,
   MediaQuery,
   Title,
+  Text
 } from '@mantine/core';
 import { useModals } from '@mantine/modals';
 import { useWeb3React } from '@web3-react/core';
@@ -18,6 +19,7 @@ import { MessageNetwork } from '../chainSelect/chainSelect'
 import { Logo } from '../../assets';
 import { Website, WebsitePane, Websites, WebsiteSelector } from './WebsiteSelector';
 import { Chain, ChainSelectConfig } from '../../types';
+import { MobileHeaderWrapper } from './MobileHeaderWrapper/MobileHeaderWrapper';
 
 const LogoWithName: FC = () => {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
@@ -39,7 +41,7 @@ const ConnectButton: FC = () => {
 
   const onOpenWalletModal = useCallback(() => {
     modals.openContextModal('wallet', {
-      title: <Title order={3}>{t('title')}</Title>,
+      title: <Text>{t('title')}</Text>,
       innerProps: {},
     });
   }, [modals, t]);
@@ -75,18 +77,20 @@ interface HeaderProps<T> {
 }
 export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav, disableHeaderMultisite = false }: HeaderProps<T>) {
 
-  if(disableHeaderMultisite && !newWebsite) throw new Error("Cannot use disableHeaderMultisite whiteout setting newWebsite parameter.");
+  if(disableHeaderMultisite && !newWebsite) throw new Error("Cannot use disableHeaderMultisite whitout setting newWebsite parameter.");
 
   return (
     <>
       <MessageNetwork classeName={styles.message} chains={chains}/>
-      <Box sx={styles.container}>
-        <Group position={'apart'} align={'center'}>
+      <MobileHeaderWrapper
+        selector={
           <WebsiteSelector current={currentWebsite} newWebsite={newWebsite} isDisabled={disableHeaderMultisite}/>
-          {headerNav ?? undefined}
+        }
+        nav={headerNav ?? undefined}
+        buttons={
           <HeaderButtons chains={chains} />
-        </Group>
-      </Box>
+        }
+      />
       <Divider />
     </>
   );
