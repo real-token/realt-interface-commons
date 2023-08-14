@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Button } from '@mantine/core';
+import { Button, Flex } from '@mantine/core';
 
 export const NavMenu = () => {
 
@@ -7,9 +7,9 @@ export const NavMenu = () => {
     const { t } = useTranslation('button', { keyPrefix: "menu" });
 
     return(
-        <>
+        <Flex gap={12} justify={"center"}>
             <Button>{t('menuButton1')}</Button>
             <Button>Menu 2</Button>
-        </>
+        </Flex>
     )
 }
