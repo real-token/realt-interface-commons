@@ -1,4 +1,4 @@
-import { MediaQuery, Title, createStyles, MantineTheme, Flex } from "@mantine/core";
+import { Title, createStyles, MantineTheme } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons";
 import React from "react";
 import { useState } from "react";
@@ -23,15 +23,15 @@ const useStyles = createStyles((theme: MantineTheme, { menuOpened, isDisabled }:
     alignItems: 'center',
     gap: theme.spacing.sm,
     borderRadius: '5px 5px 0 0',
-    // padding: '10px',
-    // paddingLeft: '20px',
+    padding: '10px',
+    paddingLeft: '0px',
     backgroundColor: menuOpened && !isDisabled ? theme.colors.brand : 'transparent',
     '&:hover': {
       cursor: !isDisabled ? "pointer" : "unset"
     } 
   },
   websiteName: {
-    color: menuOpened ? 'black' : 'white'
+    color: menuOpened ? 'black' : theme.colorScheme == 'dark' ? "white" : "black"
   },
   websitesContainer: {
     borderTop: `2px solid ${menuOpened && !isDisabled ? 'black' : theme.colors.brand}`,

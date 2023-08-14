@@ -40,9 +40,6 @@ const Copyright = ({ text } : { text: string }) => {
 }
 
 const FooterButtons: FC<{ links?: FooterLinks }> = ({ links }) => {
-
-  console.log(links)
-
   if(!links) return <></>
 
   return (
