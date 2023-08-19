@@ -17,7 +17,8 @@ export type ChainsConfig<T> = Record<number,T>;
   
 export type ChainSelectConfig<T> = {
     allowedChains: number[];
-    chainsConfig: ChainsConfig<T>
+    chainsConfig: ChainsConfig<T>;
+    defaultChainId?: number;
 }
 
 export const parseAllowedChain = (allowedChains: any): number[] => {

@@ -24,7 +24,7 @@ const common = {
   }  ,
   "header": {
     "notAllowedNetwork": "Le réseau actuel n'est pas pris en charge par YAM, ",
-    "switchNetwork": "se connecter à Ethereum"
+    "switchNetwork": "se connecter à {{networkName}}"
   },
   "general": {
     "loading": "Chargement...",

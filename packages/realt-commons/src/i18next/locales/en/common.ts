@@ -24,7 +24,7 @@ const common = {
   },
   "header": {
     "notAllowedNetwork": "You are currently connected to YAM on unsupported Network, ",
-    "switchNetwork": "click here to switch to Ethereum"
+    "switchNetwork": "click here to switch to {{networkName}}"
   },
   "general": {
     "loading": "loading...",

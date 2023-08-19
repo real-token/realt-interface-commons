@@ -13,7 +13,8 @@ export const i18n = initLanguage(resources);
 
 const customChains: ChainSelectConfig<CustomChain> = {
   allowedChains: parseAllowedChain(ChainsID),
-  chainsConfig: CUSTOM_ALLOWED_CHAINS
+  chainsConfig: CUSTOM_ALLOWED_CHAINS,
+  defaultChainId: ChainsID.Gnosis
 }
 
 const newWebsite: Website = {

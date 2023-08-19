@@ -142,13 +142,16 @@ export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }:
   const activeChain = useActiveChain<T>(c);
   const [chain, setChain] = useState(activeChain);
 
+  const defaultChainId = chains?.defaultChainId ?? ChainsID.Ethereum;
+  const defaulChainName = c.chainsConfig[defaultChainId]?.chainName ?? "";
+
   useEffect(() => {
     setChain(activeChain)
   }, [activeChain]);
 
   const switchChain = useCallback(
     async () => {
-      const desiredChainId = Number(1);
+      const desiredChainId = defaultChainId;
       await connector.activate(desiredChainId);
     },
     [connector]
@@ -162,7 +165,7 @@ export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }:
         <div>
           {t('notAllowedNetwork')}
           <span onClick={switchChain} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
-            {t('switchNetwork')}
+            {t('switchNetwork', { networkName: defaulChainName })}
           </span>
         </div>
       </Box>
