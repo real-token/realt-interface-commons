@@ -161,7 +161,11 @@ export const Footer: FC<FooterProps> = ({ param: footerParam }) => {
           <MediaQuery largerThan={768} styles={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
             <Flex direction={'column'} sx={{ flexGrow: 1 }} align={'start'}>
               <LogoWithName logo={param.logo} name={param.name}/>
-              <Copyright text={param.copyright}/>
+              <MediaQuery largerThan={768} styles={{ flexGrow: 1, justifyContent: 'center' }}>
+                <Flex>
+                  <Copyright text={param.copyright}/>
+                </Flex>
+              </MediaQuery>
             </Flex>
           </MediaQuery>
           <FooterButtons links={param.links}/>
