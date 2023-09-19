@@ -21,6 +21,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@safe-global/safe-apps-provider": "^0.17.1",
     "@coinbase/wallet-sdk": "^3.6.5",
     "@emotion/react": "^11.10.6",
     "@gnosis.pm/safe-apps-sdk": "^7.8.0",
@@ -31,12 +32,11 @@
     "@mantine/notifications": "^6.0.2",
     "@tabler/icons": "^1.74.0",
     "@types/lodash": "^4.14.191",
-    "@web3-react/core": "^8.2.0",
-    "@web3-react/gnosis-safe": "^8.2.0",
-    "@web3-react/metamask": "^8.2.1",
-    "@web3-react/network": "^8.2.0",
-    "@web3-react/types": "^8.2.0",
-    "@web3-react/walletconnect-v2": "^8.3.3",
+    "@web3-react/core": "^8.2.2",
+    "@web3-react/metamask": "^8.2.3",
+    "@web3-react/network": "^8.2.2",
+    "@web3-react/types": "^8.2.2",
+    "@web3-react/walletconnect-v2": "^8.5.0",
     "cookies-next": "^2.1.1",
     "country-flag-icons": "^1.5.7",
     "dotenv": "^16.0.3",
@@ -47,9 +47,9 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "simple-zustand-devtools": "^1.1.0",
+    "tabler-icons-react": "^1.56.0",
     "tslib": "^2.5.0",
-    "zustand": "^4.3.8",
-    "tabler-icons-react": "^1.56.0"
+    "zustand": "^4.3.8"
   },
   "peerDependencies": {
     "i18next": "^22.4.13",

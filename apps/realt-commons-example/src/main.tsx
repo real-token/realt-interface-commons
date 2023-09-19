@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { ChainSelectConfig, Logo, RealtProvider, Website, initLanguage, getConnectors, parseAllowedChain, getWalletConnectV2, metaMask, metaMaskHooks, gnosisSafe, gnosisHooks } from "@realtoken/realt-commons";
+import { ChainSelectConfig, Logo, RealtProvider, Website, initLanguage, getConnectors, parseAllowedChain, getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, debugGnosisSafe } from "@realtoken/realt-commons";
 import { Web3Providers, MantineProviders, Layout, LanguageInit } from "@realtoken/realt-commons";
 import { ModalsProvider } from "@mantine/modals";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
@@ -31,7 +31,7 @@ const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains,
 
 const libraryConnectors = getConnectors(
   [metaMask, metaMaskHooks],
-  [gnosisSafe, gnosisHooks],
+  [debugGnosisSafe, gnosisHooks],
   [walletConnectV2, walletConnectV2Hooks]
 );
 
