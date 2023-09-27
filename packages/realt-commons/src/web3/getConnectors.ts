@@ -4,6 +4,7 @@ export const getConnectors = (
     metaMask?: C,
     gnosisSafe?: C,
     walletConnectV2?: C,
+    frame?: C
 ) => {
     if(!metaMask && !gnosisSafe && !walletConnectV2){
         throw new Error('Cannot use library whiteout providing minimum one connector.')
@@ -13,6 +14,7 @@ export const getConnectors = (
     if(metaMask) connectors.push(metaMask);
     if(gnosisSafe) connectors.push(gnosisSafe);
     if(walletConnectV2) connectors.push(walletConnectV2);
+    if(frame) connectors.push(frame)
 
     const connectorsMap: ConnectorsMap = {
         metamask: metaMask ? {
@@ -26,6 +28,10 @@ export const getConnectors = (
         walletConnect: walletConnectV2 ? {
             connector: walletConnectV2[0],
             hooks: walletConnectV2[1]
+        }: undefined,
+        frame: frame ? {
+            connector: frame[0],
+            hooks: frame[1]
         }: undefined
     }
 

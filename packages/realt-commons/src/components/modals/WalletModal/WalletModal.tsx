@@ -1,8 +1,7 @@
-import { FC, useCallback, useContext, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SafeAppsSDK from '@gnosis.pm/safe-apps-sdk';
 import {
-  Anchor,
   Button,
   ButtonProps,
   Flex,
@@ -14,12 +13,11 @@ import {
 } from '@mantine/core';
 import { ContextModalProps } from '@mantine/modals';
 import { Connector } from '@web3-react/types';
-import { GnosisSafe, MetaMask, WalletConnect } from '../../../assets';
+import { GnosisSafe, MetaMask, WalletConnect, Frame } from '../../../assets';
 import { styles } from './WalletModal.styles';
 import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
-import { RealtProvider } from '../../../providers';
-import { gnosisSafeKey, metamaskKey, walletConnectV2Key } from '../../../web3';
+import { frameKey, gnosisSafeKey, metamaskKey, walletConnectV2Key } from '../../../web3';
 import { useRootStore } from '../../../providers/RealtProvider';
 
 type WalletModalButtonProps = {
@@ -157,6 +155,16 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
           connectorKey={gnosisSafeKey}
           connector={connectors.gnosisSafe.connector}
         />
+      ):undefined}
+      {connectors.frame ? (
+        <WalletModalButton
+        title={'Frame'}
+        src={Frame}
+        buttonProps={{ gradient: { from: '#005233', to: '#00bb55' } }}
+        onSuccess={onClose}
+        connectorKey={frameKey}
+        connector={connectors.frame.connector}
+      />
       ):undefined}
     </Stack>
   );
