@@ -10,6 +10,7 @@ export const metamaskKey = "metamask";
 export const gnosisSafeKey = "gnosisSafe";
 export const walletConnectV2Key = "walletConnect";
 export const networkKey = "network";
+export const readOnlyKey = "readOnly"
 
 const tryEagerlyConnect = (connectors: ConnectorsMap, lastUsedProvider: string) => {
   try{

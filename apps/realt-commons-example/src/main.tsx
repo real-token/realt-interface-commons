@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { ChainSelectConfig, Logo, RealtProvider, Website, initLanguage, getConnectors, parseAllowedChain, getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, gnosisSafe } from "@realtoken/realt-commons";
+import { ChainSelectConfig, Logo, RealtProvider, Website, initLanguage, getConnectors, parseAllowedChain, getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, gnosisSafe, getReadOnlyConnector } from "@realtoken/realt-commons";
 import { Web3Providers, MantineProviders, Layout, LanguageInit } from "@realtoken/realt-commons";
 import { ModalsProvider } from "@mantine/modals";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
@@ -28,12 +28,14 @@ const showAllNetworks = true;
 const env = import.meta.env.MODE;
 console.log('ENV: ', env)
 const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains, env, 'ff2eff6eb19b6b79a24bbc47c46b6035', showAllNetworks);
+const [readOnly, readOnlyHooks] = getReadOnlyConnector(customChains);
 
-const libraryConnectors = getConnectors(
-  [metaMask, metaMaskHooks],
-  [gnosisSafe, gnosisHooks],
-  [walletConnectV2, walletConnectV2Hooks]
-);
+const libraryConnectors = getConnectors({
+  metaMask: [metaMask, metaMaskHooks],
+  gnosisSafe: [gnosisSafe, gnosisHooks],
+  walletConnectV2: [walletConnectV2, walletConnectV2Hooks],
+  readOnly:  [readOnly, readOnlyHooks]
+});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

@@ -20,7 +20,14 @@ const common = {
     "viewOn": "View on explorer",
     "disconnect": "Disconnect",
     "network": "Network",
-    "DisabledGnosisSafe": "Direct connection to Safe is not possible, to connect to a GnosisSafe, please go to safe.global and connect to your Safe. In the \"App\" section, add a \"custom app\" using the url of the yam website (https://yam.realtoken.network). You will be able to have the YAM directly in the interface of your Safe"
+    "DisabledGnosisSafe": "Direct connection to Safe is not possible, to connect to a GnosisSafe, please go to safe.global and connect to your Safe. In the \"App\" section, add a \"custom app\" using the url of the yam website (https://yam.realtoken.network). You will be able to have the YAM directly in the interface of your Safe",
+    "readOnly": {
+      "title": "Watch an address",
+      "description": "You can watch an address but can't do anything else.",
+      "inputPlaceholder": "Address you want to watch",
+      "wrongAddressFormat": "Address not valid",
+      "button": "Watch address"
+    } 
   },
   "header": {
     "notAllowedNetwork": "You are currently connected to YAM on unsupported Network, ",

@@ -1,15 +1,14 @@
-import { FC, useCallback, useContext, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SafeAppsSDK from '@gnosis.pm/safe-apps-sdk';
 import {
-  Anchor,
   Button,
   ButtonProps,
   Flex,
   Image,
   LoadingOverlay,
-  Stack,
   Text,
+  TextInput,
   Tooltip,
 } from '@mantine/core';
 import { ContextModalProps } from '@mantine/modals';
@@ -18,9 +17,9 @@ import { GnosisSafe, MetaMask, WalletConnect } from '../../../assets';
 import { styles } from './WalletModal.styles';
 import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
-import { RealtProvider } from '../../../providers';
-import { gnosisSafeKey, metamaskKey, walletConnectV2Key } from '../../../web3';
+import { gnosisSafeKey, metamaskKey, readOnlyKey, walletConnectV2Key } from '../../../web3';
 import { useRootStore } from '../../../providers/RealtProvider';
+import { utils } from 'ethers';
 
 type WalletModalButtonProps = {
   title: string;
@@ -98,6 +97,70 @@ const WalletModalButton: FC<WalletModalButtonProps> = ({
   );
 };
 
+interface ReadOnlyAddressProps{
+  title: string;
+  onSuccess: () => void;
+  connectorKey: string;
+  connector: Connector;
+}
+export const ReadOnlyAddress = ({ title, onSuccess, connector, connectorKey }: ReadOnlyAddressProps) => {
+
+  const { t } = useTranslation('common', { keyPrefix: "wallet.readOnly" });
+
+  const [isActivating, setIsActivating] = useState<boolean>(false);
+
+  const connectors = useRootStore((state) => state.connectors);
+  if(!connectors || !connectors[connectorKey]) return <></>;
+
+  const setProviderCookie = useSetAtom(providerAtom);
+
+  const [address, setAddress] = useState<string>(""); 
+
+  useEffect(() => {
+    if(address != "") return;
+    setAddress(localStorage.getItem('readOnlyAddress') ?? "");
+  },[localStorage])
+
+  const onActivating = async () => {
+    localStorage.setItem('readOnlyAddress', address)
+    try{
+      setIsActivating(true);
+      // console.log('readOnlyAddress: ', localStorage.getItem('readOnlyAddress'))
+      await connector.activate();
+      setIsActivating(false);
+      
+      if(connectorKey) setProviderCookie(connectorKey)
+      onSuccess();
+    }catch(err){
+      console.log(err)
+      setIsActivating(false);
+    }
+  }
+  // }, [connector, connectorKey, onSuccess, setProviderCookie, address, localStorage]);
+
+  const badAddress = address != "" && !utils.isAddress(address);
+
+  return(
+    <Flex direction={'column'} gap={'sm'}>
+      <Text size={'md'} weight={700}>{title}</Text>
+      <Text size={'sm'}>{t('description')}</Text>
+      <Flex direction={'column'} gap={'sm'}>
+          <TextInput
+              placeholder={t('inputPlaceholder').toString()}
+              value={address}
+              onChange={(event) => setAddress(event.currentTarget.value)}
+              error={badAddress ? t('wrongAddressFormat') : undefined}
+          />
+          <Button
+            onClick={() => onActivating()}
+            disabled={badAddress || address == "" || isActivating}
+            loading={isActivating}
+          >{t('button')}</Button>
+      </Flex>
+    </Flex>
+  )
+}
+
 export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
@@ -125,7 +188,7 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
   }, [context, id]);
 
   return (
-    <Stack justify={'center'} align={'center'}>
+    <Flex direction={'column'} gap={'lg'}>
       {connectors.metamask ? (
         <WalletModalButton
           title={'MetaMask'}
@@ -158,6 +221,14 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
           connector={connectors.gnosisSafe.connector}
         />
       ):undefined}
-    </Stack>
+      {connectors.readOnly ? (
+        <ReadOnlyAddress
+          title={t('readOnly.title')}
+          connectorKey={readOnlyKey}
+          connector={connectors.readOnly.connector}
+          onSuccess={onClose}
+        />
+      ): undefined}
+    </Flex>
   );
 };

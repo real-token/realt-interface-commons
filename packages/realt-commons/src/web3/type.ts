@@ -15,6 +15,7 @@ export type ConnectorsMap = {
     metamask: ConnectorMap|undefined,
     gnosisSafe: ConnectorMap|undefined,
     walletConnect: ConnectorMap|undefined,
+    readOnly: ConnectorMap|undefined,
     [key: string]: ConnectorMap|undefined
 };
 
