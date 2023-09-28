@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { ChainSelectConfig, Logo, RealtProvider, Website, initLanguage, getConnectors, parseAllowedChain, getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, debugGnosisSafe } from "@realtoken/realt-commons";
+import { ChainSelectConfig, Logo, RealtProvider, Website, initLanguage, getConnectors, parseAllowedChain, getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, gnosisSafe } from "@realtoken/realt-commons";
 import { Web3Providers, MantineProviders, Layout, LanguageInit } from "@realtoken/realt-commons";
 import { ModalsProvider } from "@mantine/modals";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
@@ -27,11 +27,11 @@ const newWebsite: Website = {
 const showAllNetworks = true;
 const env = import.meta.env.MODE;
 console.log('ENV: ', env)
-const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains,env, 'ff2eff6eb19b6b79a24bbc47c46b6035', showAllNetworks);
+const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains, env, 'ff2eff6eb19b6b79a24bbc47c46b6035', showAllNetworks);
 
 const libraryConnectors = getConnectors(
   [metaMask, metaMaskHooks],
-  [debugGnosisSafe, gnosisHooks],
+  [gnosisSafe, gnosisHooks],
   [walletConnectV2, walletConnectV2Hooks]
 );
 
