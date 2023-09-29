@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "rm -rf node_modules/.vite && vite",
     "i": "rm -rf node_modules && yarn",
     "build": "tsc && vite build",
     "preview": "vite preview",
@@ -12,7 +12,7 @@
     "package:update": "yalc push --scripts --update --replace"
   },
   "dependencies": {
-    "@realtoken/realt-commons": "../../packages/realt-commons",
+    "@realtoken/realt-commons": "file:.yalc/@realtoken/realt-commons",
     "i18next": "^23.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

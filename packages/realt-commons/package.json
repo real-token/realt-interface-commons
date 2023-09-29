@@ -20,7 +20,8 @@
     "build:watch": "vite build --watch",
     "preview": "vite preview",
     "yalc:publish": "yalc add .",
-    "yalc:push": "yalc push --sig"
+    "yalc:push": "yalc push --sig",
+    "test": "yarn build && yarn yalc:push"
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.6.5",
