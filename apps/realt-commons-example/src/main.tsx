@@ -31,11 +31,13 @@ const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains,
 const [readOnly, readOnlyHooks] = getReadOnlyConnector(customChains);
 
 const libraryConnectors = getConnectors({
-  metaMask: [metaMask, metaMaskHooks],
+  metamask: [metaMask, metaMaskHooks],
   gnosisSafe: [gnosisSafe, gnosisHooks],
   walletConnectV2: [walletConnectV2, walletConnectV2Hooks],
-  readOnly:  [readOnly, readOnlyHooks]
+  readOnly: [readOnly, readOnlyHooks]
 });
+
+console.log('libraryConnectors: ', libraryConnectors)
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

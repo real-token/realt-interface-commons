@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import SafeAppsSDK from '@gnosis.pm/safe-apps-sdk';
 import {
   Button,
-  ButtonProps,
   Flex,
   Image,
   LoadingOverlay,
@@ -12,39 +11,31 @@ import {
   Tooltip,
 } from '@mantine/core';
 import { ContextModalProps } from '@mantine/modals';
-import { Connector } from '@web3-react/types';
-import { GnosisSafe, MetaMask, WalletConnect } from '../../../assets';
 import { styles } from './WalletModal.styles';
 import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
-import { gnosisSafeKey, metamaskKey, readOnlyKey, walletConnectV2Key } from '../../../web3';
 import { useRootStore } from '../../../providers/RealtProvider';
 import { utils } from 'ethers';
+import { AvailableConnectors, ConnectorData, ConnectorMap, ConnectorsDatas } from '../../../web3';
 
 type WalletModalButtonProps = {
-  title: string;
-  src: string;
-  buttonProps: ButtonProps;
   onSuccess: () => void;
   disabled?: boolean;
   disabledError?: string;
-  connectorKey: string;
-  connector: Connector;
+  connectorMap: ConnectorMap;
+  connectorData: ConnectorData
 };
 const WalletModalButton: FC<WalletModalButtonProps> = ({
-  title,
-  src,
-  buttonProps,
   onSuccess,
   disabled = false,
   disabledError,
-  connectorKey,
-  connector
+  connectorMap,
+  connectorData
 }) => {
   const [isActivating, setIsActivating] = useState<boolean>(false);
 
-  const connectors = useRootStore((state) => state.connectors);
-  if(!connectors || !connectors[connectorKey]) return <></>;
+  const { title, src, connectorKey, gradient } = connectorData;
+  const connector = connectorMap.connector;
 
   const setProviderCookie = useSetAtom(providerAtom);
 
@@ -80,7 +71,7 @@ const WalletModalButton: FC<WalletModalButtonProps> = ({
       rightIcon={<Image src={src} alt={title} fit={'contain'} width={30} radius={'xl'} style={{filter: `blur(${blur}px)`}} />}
       styles={styles.button}
       onClick={disabled ? () => false : onActivating}
-      {...buttonProps}
+      gradient={gradient}
       //disabled={disabled}
     >
       <Flex direction={"column"}>
@@ -100,22 +91,21 @@ const WalletModalButton: FC<WalletModalButtonProps> = ({
 interface ReadOnlyAddressProps{
   title: string;
   onSuccess: () => void;
-  connectorKey: string;
-  connector: Connector;
+  connectorMap: ConnectorMap;
+  connectorData: ConnectorData
 }
-export const ReadOnlyAddress = ({ title, onSuccess, connector, connectorKey }: ReadOnlyAddressProps) => {
+export const ReadOnlyAddress = ({ onSuccess, connectorMap, connectorData }: ReadOnlyAddressProps) => {
 
   const { t } = useTranslation('common', { keyPrefix: "wallet.readOnly" });
 
   const [isActivating, setIsActivating] = useState<boolean>(false);
 
-  const connectors = useRootStore((state) => state.connectors);
-  if(!connectors || !connectors[connectorKey]) return <></>;
+  const { connectorKey } = connectorData;
+  const connector = connectorMap.connector;
 
   const setProviderCookie = useSetAtom(providerAtom);
 
   const [address, setAddress] = useState<string>(""); 
-
   useEffect(() => {
     if(address != "") return;
     setAddress(localStorage.getItem('readOnlyAddress') ?? "");
@@ -136,13 +126,12 @@ export const ReadOnlyAddress = ({ title, onSuccess, connector, connectorKey }: R
       setIsActivating(false);
     }
   }
-  // }, [connector, connectorKey, onSuccess, setProviderCookie, address, localStorage]);
 
   const badAddress = address != "" && !utils.isAddress(address);
 
   return(
     <Flex direction={'column'} gap={'sm'}>
-      <Text size={'md'} weight={700}>{title}</Text>
+      <Text size={'md'} weight={700}>{t('title')}</Text>
       <Text size={'sm'}>{t('description')}</Text>
       <Flex direction={'column'} gap={'sm'}>
           <TextInput
@@ -155,7 +144,9 @@ export const ReadOnlyAddress = ({ title, onSuccess, connector, connectorKey }: R
             onClick={() => onActivating()}
             disabled={badAddress || address == "" || isActivating}
             loading={isActivating}
-          >{t('button')}</Button>
+          >
+            {t('button')}
+          </Button>
       </Flex>
     </Flex>
   )
@@ -164,10 +155,16 @@ export const ReadOnlyAddress = ({ title, onSuccess, connector, connectorKey }: R
 export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
+  //TODO: utiliser gnosisDisable
   const [gnosisDisabled,setGnosisDisabled] = useState<boolean>(true);
 
   const connectors = useRootStore((state) => state.connectors);
+  console.log('connectors: ', connectors);
+
   if(!connectors) return <></>
+
+  console.log('HERE !!!')
+  console.log('keys: ', Object.keys(connectors))
   
   useEffect(() => {
     const fetchIfGnosis = async () => {
@@ -189,46 +186,34 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
 
   return (
     <Flex direction={'column'} gap={'lg'}>
-      {connectors.metamask ? (
-        <WalletModalButton
-          title={'MetaMask'}
-          src={MetaMask}
-          buttonProps={{ gradient: { from: '#CD6116', to: '#F6851B' } }}
-          onSuccess={onClose}
-          connectorKey={metamaskKey}
-          connector={connectors.metamask.connector}
-        />
-      ) : undefined}
-      {connectors.walletConnect ? (
-        <WalletModalButton
-          title={'WalletConnect V2'}
-          src={WalletConnect}
-          buttonProps={{ gradient: { from: '#006FFF', to: '#5C9DF5' } }}
-          onSuccess={onClose}
-          connectorKey={walletConnectV2Key}
-          connector={connectors.walletConnect.connector}
-        />
-      ): undefined}
-      {connectors.gnosisSafe ? (
-        <WalletModalButton
-          title={'GnosisSafe'}
-          src={GnosisSafe}
-          buttonProps={{ gradient: { from: '#005233', to: '#00bb55' } }}
-          onSuccess={onClose}
-          disabled={gnosisDisabled}
-          disabledError={t('DisabledGnosisSafe') ?? ""}
-          connectorKey={gnosisSafeKey}
-          connector={connectors.gnosisSafe.connector}
-        />
-      ):undefined}
-      {connectors.readOnly ? (
-        <ReadOnlyAddress
-          title={t('readOnly.title')}
-          connectorKey={readOnlyKey}
-          connector={connectors.readOnly.connector}
-          onSuccess={onClose}
-        />
-      ): undefined}
+      {Array.from(connectors.keys()).map((connectorMapKey) => {
+
+        const availableConnector = AvailableConnectors[connectorMapKey];
+
+        const connectorMap = connectors.get(availableConnector);
+        const connectorData = ConnectorsDatas.get(availableConnector);
+
+        if(!connectorData || !connectorMap) return <></>
+        
+        if(connectorData.connectorKey == ConnectorsDatas.get(AvailableConnectors.readOnly)?.connectorKey){
+          return (
+            <ReadOnlyAddress
+              title={t('readOnly.title')}
+              connectorMap={connectorMap}
+              connectorData={connectorData}
+              onSuccess={onClose}
+            />
+          )
+        }else{
+          return (
+            <WalletModalButton
+              connectorMap={connectorMap}
+              connectorData={connectorData}
+              onSuccess={onClose}
+            />
+          )
+        }
+      })}
     </Flex>
   );
 };

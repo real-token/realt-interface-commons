@@ -3,19 +3,16 @@ import { Web3ReactProvider } from '@web3-react/core';
 import { useAtomValue } from 'jotai';
 import { providerAtom } from '../states';
 import { useRootStore } from '../providers/RealtProvider';
-import { generateString } from '../utils/string';
-import { ConnectorsMap, LibraryConnectors } from './type';
-
-export const metamaskKey = "metamask";
-export const gnosisSafeKey = "gnosisSafe";
-export const walletConnectV2Key = "walletConnect";
-export const networkKey = "network";
-export const readOnlyKey = "readOnly"
+import { AvailableConnectors, ConnectorsDatas, ConnectorsMap, LibraryConnectors } from './type';
 
 const tryEagerlyConnect = (connectors: ConnectorsMap, lastUsedProvider: string) => {
   try{
 
-    const connector = connectors[lastUsedProvider]?.connector;
+    const availableConnector = AvailableConnectors[lastUsedProvider as keyof typeof AvailableConnectors]; 
+    const connectorData = ConnectorsDatas.get(availableConnector);
+    if(!connectorData) return;
+
+    const connector = connectors.get(connectorData.connectorEnum)?.connector;
     if(!connector) return;
 
     if(connector.connectEagerly) connector.connectEagerly();

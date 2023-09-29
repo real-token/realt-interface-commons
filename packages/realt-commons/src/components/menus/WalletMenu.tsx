@@ -1,6 +1,6 @@
 import { FC, forwardRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonProps, Menu } from '@mantine/core';
+import { Button, ButtonProps, Flex, FlexProps, Menu, useMantineTheme } from '@mantine/core';
 import { useClipboard, useDisclosure } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import {
@@ -19,7 +19,7 @@ import { NOTIFICATIONS, NotificationsID } from '../../config/constants/notificat
 import { Link } from '../link';
 import { Chain, ChainSelectConfig } from '../../types';
 import { ALLOWED_CHAINS, CHAINS } from '../../config';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { providerAtom } from '../../states';
 
 const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
@@ -102,6 +102,18 @@ const DisconnectMenuItem: FC = () => {
   );
 };
 
+const SelectedConnector = (props: React.ForwardRefExoticComponent<FlexProps & React.RefAttributes<HTMLDivElement>>) => {
+  
+  const provider = useAtomValue(providerAtom);
+  const color = "";
+
+  return(
+    <Flex {...props}>
+      
+    </Flex>
+  )
+}
+
 interface WalletMenuProps<T>{
 }
 export function WalletMenu<T extends Partial<Chain>>({  }: WalletMenuProps<T>){
@@ -126,6 +138,7 @@ export function WalletMenu<T extends Partial<Chain>>({  }: WalletMenuProps<T>){
         />
       </Menu.Target>
       <Menu.Dropdown>
+        {/* <Menu.Item component={SelectedConnector} /> */}
         <CopyToClipboardMenuItem />
         <ViewOnExplorerMenuItem />
         <DisconnectMenuItem />
