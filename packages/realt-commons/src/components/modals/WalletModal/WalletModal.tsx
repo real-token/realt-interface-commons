@@ -155,17 +155,12 @@ export const ReadOnlyAddress = ({ onSuccess, connectorMap, connectorData }: Read
 export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
-  //TODO: utiliser gnosisDisable
   const [gnosisDisabled,setGnosisDisabled] = useState<boolean>(true);
 
   const connectors = useRootStore((state) => state.connectors);
-  console.log('connectors: ', connectors);
 
   if(!connectors) return <></>
 
-  console.log('HERE !!!')
-  console.log('keys: ', Object.keys(connectors))
-  
   useEffect(() => {
     const fetchIfGnosis = async () => {
       try {
@@ -193,15 +188,19 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
         const connectorMap = connectors.get(availableConnector);
         const connectorData = ConnectorsDatas.get(availableConnector);
 
+        const isGnosis = connectorData?.connectorKey == ConnectorsDatas.get(AvailableConnectors.gnosisSafe)?.connectorKey;
+        const isReadOnly = connectorData?.connectorKey == ConnectorsDatas.get(AvailableConnectors.readOnly)?.connectorKey
+
         if(!connectorData || !connectorMap) return <></>
         
-        if(connectorData.connectorKey == ConnectorsDatas.get(AvailableConnectors.readOnly)?.connectorKey){
+        if(isReadOnly){
           return (
             <ReadOnlyAddress
               title={t('readOnly.title')}
               connectorMap={connectorMap}
               connectorData={connectorData}
               onSuccess={onClose}
+              key={connectorData.connectorKey}
             />
           )
         }else{
@@ -210,6 +209,9 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
               connectorMap={connectorMap}
               connectorData={connectorData}
               onSuccess={onClose}
+              disabled={isGnosis ? gnosisDisabled : false}
+              disabledError={isGnosis ? t('disabledGnosisSafe').toString() : undefined}
+              key={connectorData.connectorKey}
             />
           )
         }
