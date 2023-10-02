@@ -1,7 +1,7 @@
 import { Web3ReactHooks } from '@web3-react/core';
 import { Connector } from '@web3-react/types';
 import { ReactNode } from 'react';
-import { GnosisSafe, MetaMask, WalletConnect } from '../assets';
+import { GnosisSafe, MetaMask, ReadOnlyLogo, WalletConnect } from '../assets';
 import { t } from 'i18next';
 import { MantineGradient } from '@mantine/core';
 
@@ -28,7 +28,7 @@ export const ConnectorsDatas = new Map<AvailableConnectors,ConnectorData>([
         title: "Metamask",
         src: MetaMask,
         gradient: { from: '#CD6116', to: '#F6851B' },
-        color: '#F6851B'
+        color: '#CD6116'
     }],
     [AvailableConnectors.gnosisSafe, {
         connectorEnum: AvailableConnectors.gnosisSafe,
@@ -36,7 +36,7 @@ export const ConnectorsDatas = new Map<AvailableConnectors,ConnectorData>([
         title: "GnosisSafe",
         src: GnosisSafe,
         gradient: { from: '#005233', to: '#00bb55' },
-        color: '#00bb55'
+        color: '#005233'
     }],
     [AvailableConnectors.walletConnectV2, {
         connectorEnum: AvailableConnectors.walletConnectV2,
@@ -44,11 +44,12 @@ export const ConnectorsDatas = new Map<AvailableConnectors,ConnectorData>([
         title: 'WalletConnect V2',
         src: WalletConnect,
         gradient: { from: '#006FFF', to: '#5C9DF5' },
-        color: '#5C9DF5'
+        color: '#006FFF'
     }],
     [AvailableConnectors.readOnly, {
         connectorEnum: AvailableConnectors.readOnly,
         connectorKey: "readOnly",
+        src: ReadOnlyLogo,
         color: '#000'
     }]
 ])

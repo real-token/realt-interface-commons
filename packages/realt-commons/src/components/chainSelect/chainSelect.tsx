@@ -106,8 +106,6 @@ function ChainMenuItem({ logo, label, chainValue }: ChainMenuItemProps) {
   );
 };
 
-
-
 interface ChainSelectedIconProps<T> {
   chains?: ChainSelectConfig<T> | undefined
 }

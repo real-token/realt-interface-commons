@@ -1,6 +1,6 @@
-import { FC, forwardRef, useCallback } from 'react';
+import { FC, forwardRef, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonProps, Flex, FlexProps, Menu, useMantineTheme } from '@mantine/core';
+import { Button, ButtonProps, Flex, FlexProps, Menu, Text, Image, Box, BoxProps } from '@mantine/core';
 import { useClipboard, useDisclosure } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import {
@@ -21,6 +21,7 @@ import { Chain, ChainSelectConfig } from '../../types';
 import { ALLOWED_CHAINS, CHAINS } from '../../config';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { providerAtom } from '../../states';
+import { AvailableConnectors, ConnectorData, ConnectorsDatas } from '../../web3';
 
 const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
   (props, ref) => {
@@ -102,16 +103,36 @@ const DisconnectMenuItem: FC = () => {
   );
 };
 
-const SelectedConnector = (props: React.ForwardRefExoticComponent<FlexProps & React.RefAttributes<HTMLDivElement>>) => {
+const SelectedConnector = (props: BoxProps) => {
+
+  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
   
   const provider = useAtomValue(providerAtom);
-  const color = "";
+
+  const connectorData: ConnectorData|undefined = useMemo(() => {
+    if(!provider) return undefined;
+    const key = AvailableConnectors[provider as keyof typeof AvailableConnectors]
+    return ConnectorsDatas.get(key)
+  },[provider]);
+
+  const title = connectorData?.connectorEnum == AvailableConnectors.readOnly ? t('readOnly.title') : connectorData?.title
+
+  if(!connectorData) return <></>
 
   return(
-    <Flex {...props}>
-      
-    </Flex>
-  )
+    <Box sx={(theme) => ({ padding: theme.spacing.sm })}>
+      <Flex 
+        {...props}
+        sx={{
+          backgroundColor: connectorData.color,
+        }}
+        gap={'sm'}
+      >
+        <Image src={connectorData.src} alt={connectorData.title} fit={'contain'} width={30} />
+        <Text color={'white'}>{title}</Text>
+      </Flex> 
+    </Box>
+)
 }
 
 interface WalletMenuProps<T>{
@@ -138,7 +159,7 @@ export function WalletMenu<T extends Partial<Chain>>({  }: WalletMenuProps<T>){
         />
       </Menu.Target>
       <Menu.Dropdown>
-        {/* <Menu.Item component={SelectedConnector} /> */}
+        <Menu.Item component={SelectedConnector} />
         <CopyToClipboardMenuItem />
         <ViewOnExplorerMenuItem />
         <DisconnectMenuItem />
