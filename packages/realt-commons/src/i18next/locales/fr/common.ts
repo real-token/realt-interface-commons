@@ -24,8 +24,8 @@ const common = {
     "readOnly": {
       "title": "Lecture seul",
       "description": "Vous pouvez vous connecter à une adresse en mode lecture seule uniquement.",
-      "inputPlaceholder": "Adresse à visualier",
-      "wrongAddressFormat": "Le format d'adresse n'est pas valide",
+      "inputPlaceholder": "Adresse ou ENS domain à visualier",
+      "wrongAddressFormat": "Le format d'adresse ou de l'ENS domain n'est pas valide",
       "button": "Visualiser avec l'address"
     }
   }  ,

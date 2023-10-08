@@ -15,8 +15,9 @@ import { styles } from './WalletModal.styles';
 import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
 import { useRootStore } from '../../../providers/RealtProvider';
-import { utils } from 'ethers';
+import { utils, ethers } from 'ethers';
 import { AvailableConnectors, ConnectorData, ConnectorMap, ConnectorsDatas } from '../../../web3';
+import { CHAINS, ChainsID } from '../../../config';
 
 type WalletModalButtonProps = {
   onSuccess: () => void;
@@ -110,6 +111,19 @@ export const ReadOnlyAddress = ({ onSuccess, connectorMap, connectorData }: Read
     if(address != "") return;
     setAddress(localStorage.getItem('readOnlyAddress') ?? "");
   },[localStorage])
+
+  useEffect(() => {
+    (async () => {
+      if(!address.endsWith('.eth')) return;
+
+
+      const rpc = CHAINS[ChainsID.Ethereum].rpcUrl;
+      const provider = new ethers.providers.JsonRpcProvider(rpc);
+      const resolvedAddress = await provider.resolveName(address);
+      if(!resolvedAddress) return;
+      setAddress(resolvedAddress);
+    })()
+  },[address])
 
   const onActivating = async () => {
     localStorage.setItem('readOnlyAddress', address)
