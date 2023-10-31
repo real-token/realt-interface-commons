@@ -24,8 +24,8 @@ const common = {
     "readOnly": {
       "title": "Watch an address",
       "description": "You can watch an address but can't do anything else.",
-      "inputPlaceholder": "Address you want to watch",
-      "wrongAddressFormat": "Address not valid",
+      "inputPlaceholder": "Address or ENS domain you want to watch",
+      "wrongAddressFormat": "Address or ENS domain not valid",
       "button": "Watch address"
     } 
   },
