@@ -1,7 +1,7 @@
 import { AvailableConnectors, C, ConnectorMap, ConnectorsMap, LibraryConnectors } from './type';
 
 export type ConnectorsAvailable = {
-    [key in AvailableConnectors]: C;
+    [key in AvailableConnectors]?: C;
 };
 
 export type GetConnectors = (
@@ -21,13 +21,16 @@ export const getConnectors: GetConnectors = (availableConnectors) => {
         const availableConnector = AvailableConnectors[availableConnectorsMapKey as keyof typeof AvailableConnectors];
         const connector = availableConnectors[availableConnector];
 
-        const connectorMap: ConnectorMap = {
-            connector: connector[0],
-            hooks: connector[1]
+        if(availableConnector && connector){
+            const connectorMap: ConnectorMap = {
+                connector: connector[0],
+                hooks: connector[1]
+            }
+    
+            connectors.push(connector);
+            connectorsMap.set(availableConnector, connectorMap);
         }
-
-        connectors.push(connector);
-        connectorsMap.set(availableConnector, connectorMap);
+        
     });
 
     return {
