@@ -2,7 +2,6 @@ import { Web3ReactHooks } from '@web3-react/core';
 import { Connector } from '@web3-react/types';
 import { ReactNode } from 'react';
 import { GnosisSafe, MetaMask, ReadOnlyLogo, WalletConnect } from '../assets';
-import { t } from 'i18next';
 import { MantineGradient } from '@mantine/core';
 
 export enum AvailableConnectors{
