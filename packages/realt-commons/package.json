@@ -6,12 +6,18 @@
   "files": [
     "dist"
   ],
-  "module": "./dist/realt-commons.es.js",
+  "module": "./dist/realt-commons.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/realt-commons.js",
-      "require": "./dist/realt-commons.umd.js"
+      "import": {
+        "default": "./dist/realt-commons.js",
+        "types": "./dist/index.d.ts"
+      },
+      "require": {
+        "default": "./dist/realt-commons.umd.js",
+        "types": "./dist/index.d.ts"
+      }
     }
   },
   "scripts": {
