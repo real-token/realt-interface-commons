@@ -11,12 +11,12 @@
   "exports": {
     ".": {
       "import": {
-        "default": "./dist/realt-commons.js",
-        "types": "./dist/index.d.ts"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/realt-commons.js"
       },
       "require": {
-        "default": "./dist/realt-commons.umd.js",
-        "types": "./dist/index.d.ts"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/realt-commons.umd.js"
       }
     }
   },
