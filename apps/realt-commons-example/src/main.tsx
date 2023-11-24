@@ -47,20 +47,18 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         showAllNetworks: showAllNetworks
       }}
     >
-      <ModalsProvider>
-        <Web3Providers libraryConnectors={libraryConnectors}>
-          <MantineProviders>
-              <LanguageInit i={i18n} />
-              <Layout 
-                newWebsite={newWebsite} 
-                chains={customChains}
-                headerNav={<NavMenu/>}
-              >
-                <App />
-              </Layout>
-          </MantineProviders>
-        </Web3Providers>
-      </ModalsProvider>
+      <Web3Providers libraryConnectors={libraryConnectors}>
+        <MantineProviders>
+            <LanguageInit i={i18n} />
+            <Layout 
+              newWebsite={newWebsite} 
+              chains={customChains}
+              headerNav={<NavMenu/>}
+            >
+              <App />
+            </Layout>
+        </MantineProviders>
+      </Web3Providers>
     </RealtProvider>
   </React.StrictMode>,
 )
