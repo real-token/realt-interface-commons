@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 import { resolve } from 'pathe';
 import svgr from '@svgr/rollup' ;
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,7 +12,8 @@ export default defineConfig({
         svgr(),
         dts({
             insertTypesEntry: true,
-        })
+        }),
+        cssInjectedByJsPlugin()
     ],
     build: {
         lib: {

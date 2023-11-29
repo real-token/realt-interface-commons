@@ -61,7 +61,7 @@ const WalletModalButton: FC<WalletModalButtonProps> = ({
       multiline={true} 
       color={"#5e0000"}  
       position={"bottom"} 
-      width={300} 
+      w={300} 
       withArrow={true} 
       arrowSize	={12}
     >
@@ -69,7 +69,7 @@ const WalletModalButton: FC<WalletModalButtonProps> = ({
       aria-label={title}
       fullWidth={true}
       variant={'gradient'}
-      rightIcon={<Image src={src} alt={title} fit={'contain'} width={30} radius={'xl'} style={{filter: `blur(${blur}px)`}} />}
+      rightSection={<Image src={src} alt={title} fit={'contain'} width={30} radius={'xl'} style={{filter: `blur(${blur}px)`}} />}
       styles={styles.button}
       onClick={disabled ? () => false : onActivating}
       gradient={gradient}
@@ -145,7 +145,7 @@ export const ReadOnlyAddress = ({ onSuccess, connectorMap, connectorData }: Read
 
   return(
     <Flex direction={'column'} gap={'sm'}>
-      <Text size={'md'} weight={700}>{t('title')}</Text>
+      <Text size={'md'} fw={700}>{t('title')}</Text>
       <Text size={'sm'}>{t('description')}</Text>
       <Flex direction={'column'} gap={'sm'}>
           <TextInput

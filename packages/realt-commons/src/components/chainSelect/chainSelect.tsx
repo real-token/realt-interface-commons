@@ -3,12 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import {
   Group,
-  SelectItem,
   SelectProps,
   Text,
   Menu,
   Box,
-  Sx
+  BoxProps,
 } from '@mantine/core';
 import { useWeb3React } from '@web3-react/core';
 
@@ -20,6 +19,7 @@ import { Chain, ChainSelectConfig } from '../../types';
 import { RealtProvider } from '../../providers';
 import { useRootStore } from '../../providers/RealtProvider';
 import { environment } from '../../config/constants/env';
+import { GnosisLogo } from '../../assets';
 
 type ChainSelectItemsProps = {
   label: string;
@@ -30,7 +30,7 @@ const ChainSelectItems: FRC<ChainSelectItemsProps, HTMLDivElement> = forwardRef(
   ({ label, logo, ...props }, ref) => {
     const Logo = logo;
     return (
-      <Group {...props} ref={ref} spacing={'xs'}>
+      <Group {...props} ref={ref} gap={'xs'}>
         {Logo ? <Logo width={18} /> : <></>}
         <Text>{label}</Text>
       </Group>
@@ -52,17 +52,17 @@ export function ChainList<T extends Partial<Chain>>({ chains }: ChainListProps<T
 
   const data = c.allowedChains
     .filter((chain) => showAllNetworks ? true : enabledTestnets ? c.chainsConfig[chain as ChainsID].isTestnet : !c.chainsConfig[chain as ChainsID].isTestnet)
-    .map<SelectItem>((chain) => ({
+    .map<ChainMenuItemProps>((chain) => ({
       value: chain.toString(),
-      label: c.chainsConfig[chain as ChainsID].chainName,
-      logo: c.chainsConfig[chain as ChainsID].logo,
+      label: c.chainsConfig[chain as ChainsID].chainName ?? "",
+      logo: c.chainsConfig[chain as ChainsID].logo ?? GnosisLogo,
     }));
 
   return (
     <>
     {data.map(({ logo, label, value }) => (
-        <ChainMenuItem chainValue={value} label={label ? label : ""} logo={logo} key={`chain-${value}`}/>
-      ))}
+        <ChainMenuItem value={value} label={label ? label : ""} logo={logo} key={`chain-${value}`}/>
+    ))}
     </>
   );
 };
@@ -75,19 +75,18 @@ function ChainIcon({ logo }: ChainIconProps) {
   return Logo ? <Logo width={18} /> : <></>;
 };
 
-
-type ChainMenuItemProps = {
+export type ChainMenuItemProps = {
   logo: FC<any>;
   label: string;
-  chainValue: string;
+  value: string;
 };
 
-function ChainMenuItem({ logo, label, chainValue }: ChainMenuItemProps) {
+function ChainMenuItem({ logo, label, value }: ChainMenuItemProps) {
   const { chainId, connector } = useWeb3React();
 
   const switchChain = useCallback(
     async () => {
-      const desiredChainId = Number(chainValue);
+      const desiredChainId = Number(value);
       if (desiredChainId === chainId) return;
 
       await connector.activate(desiredChainId);
@@ -99,8 +98,8 @@ function ChainMenuItem({ logo, label, chainValue }: ChainMenuItemProps) {
     <Menu.Item
       key={label}
       onClick={switchChain}
-      icon={<ChainIcon logo={logo} />}
-      color={chainId === Number(chainValue) ? 'brand' : ''}>
+      leftSection={<ChainIcon logo={logo} />}
+      color={chainId === Number(value) ? 'brand' : ''}>
       {label}
     </Menu.Item>
   );
@@ -120,16 +119,13 @@ export function ChainSelectedIcon<T extends Partial<Chain>>({ chains }: ChainSel
 
   return (
     <>
-      {
-        chain ?
-          <ChainIcon logo={chain.logo} /> : <IconAlertCircle size={20} aria-label={'Network'} />
-      }
+      {chain ? <ChainIcon logo={chain.logo} /> : <IconAlertCircle size={20} aria-label={'Network'} />}
     </>
   );
 };
 
 type MessageNetworkProps<T> = {
-  classeName: Sx,
+  classeName: string,
   chains?: ChainSelectConfig<T> | undefined
 } & Partial<SelectProps>;
 
@@ -158,7 +154,7 @@ export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }:
   return (
     <>
     {!chain && account ? (
-      <Box sx={classeName}>
+      <Box className={classeName}>
         <IconAlertCircle size={20} aria-label={'Network'} style={{ marginRight: '8px' }} />
         <div>
           {t('notAllowedNetwork')}

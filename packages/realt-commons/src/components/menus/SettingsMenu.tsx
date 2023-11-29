@@ -1,4 +1,4 @@
-import { FC, forwardRef, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ActionIcon,
@@ -6,14 +6,17 @@ import {
   Center,
   Menu,
   SegmentedControl,
-  Select,
   useMantineColorScheme,
   Text,
-  Flex
+  Flex,
+  Combobox,
+  InputBase,
+  Input,
+  useCombobox
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { US, FR, ES, FlagComponent } from 'country-flag-icons/react/3x2'
-import { IconLanguage, IconMoon, IconSettings, IconSun } from '@tabler/icons';
+import { IconMoon, IconSettings, IconSun, IconLanguage } from '@tabler/icons';
 import { setCookies } from 'cookies-next';
 
 const ColorSchemeMenuItem: FC = () => {
@@ -53,12 +56,18 @@ const ColorSchemeMenuItem: FC = () => {
   );
 };
 
+interface Language{
+  image: FlagComponent;
+  label: string;
+  value: string;
+}
+
 const LanguageSelect: FC = () => {
   const { i18n, t } = useTranslation('common', { keyPrefix: 'settings' });
 
   const updateLocale = useCallback(
-    (updatedLocale: string) => {
-      if (i18n.language !== updatedLocale) {
+    (updatedLocale: string|null) => {
+      if (updatedLocale && i18n.language !== updatedLocale) {
         setCookies('react-i18next', updatedLocale);
         i18n.changeLanguage(updatedLocale);
       }
@@ -66,38 +75,56 @@ const LanguageSelect: FC = () => {
     [i18n]
   );
 
-  interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-    image: FlagComponent;
-    label: string;
-    value: string;
-  }
-
-  const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-    ({ image: Image, label, value, ...others }: ItemProps, ref) => (
-      <Flex gap={10} ref={ref} {...others} align={'center'}>
-        <Image style={{ width: '1.3rem' }}/>
-        <Text>{label}</Text>
-      </Flex>
-    )
-  );
-
-  const data: ItemProps[] = [
+  const data: Language[] = [
     { value: 'en', label: t('english') ?? "", image: US },
     { value: 'fr', label: t('french') ?? "", image: FR },
     { value: 'es', label: t('spanish') ?? "", image: ES },
   ]
 
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
+
+  const options = data.map(({ image: Image, value, label }) => (
+    <Combobox.Option value={value} key={value}>
+      <Flex gap={10} align={'center'}>
+        <Image style={{ width: '1.3rem' }}/>
+        <Text>{label}</Text>
+      </Flex>
+    </Combobox.Option>
+  ));
+
   return (
     <>
       <Menu.Label pb={0}>{t('title')}</Menu.Label>
-      <Select
-        p={5}
-        value={i18n.language}
-        onChange={updateLocale}
-        itemComponent={SelectItem}
-        data={data}
-        icon={<IconLanguage size={16} />}
-      />
+      <Combobox
+        store={combobox}
+        onOptionSubmit={(val) => {
+          updateLocale(val);
+          combobox.closeDropdown();
+        }}
+      >
+        <Combobox.Target>
+          <InputBase
+            component="button"
+            type={'button'}
+            pointer
+            rightSection={<Combobox.Chevron />}
+            leftSection={<IconLanguage size={16}/>}
+            onClick={() => combobox.toggleDropdown()}
+          >
+            {i18n.language ? (
+              <Text>{data.find((lng) => lng.value == i18n.language)?.label ?? i18n.language}</Text>
+            ): (
+              <Input.Placeholder>Pick value</Input.Placeholder>
+            )}
+          </InputBase>
+        </Combobox.Target>
+
+        <Combobox.Dropdown>
+          <Combobox.Options>{options}</Combobox.Options>
+        </Combobox.Dropdown>
+      </Combobox>
     </>
   );
 };

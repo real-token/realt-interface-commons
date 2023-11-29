@@ -12,7 +12,7 @@ export function HeaderButtons<T extends Partial<Chain>>({ chains }: HeaderButton
     const { account } = useWeb3React();
   
     return (
-      <Group spacing={10}>
+      <Group gap={10}>
         <NetworkMenu chains={chains} />
         {account ? <WalletMenu /> : <ConnectButton />}
         <SettingsMenu />

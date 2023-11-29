@@ -1,10 +1,10 @@
-import { headerStyles as styles } from './Header.styles';
-import { Divider } from '../divider/Divider';
 import { MessageNetwork } from '../chainSelect/chainSelect'
 import { Website, Websites, WebsiteSelector } from './WebsiteSelector';
 import { Chain, ChainSelectConfig } from '../../types';
 import { MobileHeaderWrapper } from './MobileHeaderWrapper/MobileHeaderWrapper';
 import { HeaderButtons } from './headerComponents/HeaderButtons';
+import classes from "./Header.module.css"
+import { Divider } from '../divider/Divider';
 
 interface HeaderProps<T> {
   headerNav?: React.ReactElement;
@@ -19,7 +19,7 @@ export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWe
 
   return (
     <>
-      <MessageNetwork classeName={styles.message} chains={chains}/>
+      <MessageNetwork classeName={classes.message} chains={chains}/>
       <MobileHeaderWrapper
         selector={
           <WebsiteSelector current={currentWebsite} newWebsite={newWebsite} isDisabled={disableHeaderMultisite}/>

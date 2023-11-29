@@ -1,58 +1,45 @@
-import { Title, createStyles, MantineTheme } from "@mantine/core";
+import { Title } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons";
 import React from "react";
 import { useState } from "react";
 import { availableWebsites, Website, Websites } from "../../../types/website";
 import { WebsitePane } from "./WebsitePane";
+import styled from 'styled-components'
+import { useColorScheme } from "@mantine/hooks";
 
-interface StylesParams{
-  menuOpened: boolean;
-  isDisabled: boolean;
+interface StyleProps{
+  $menuOpened: boolean;
+  $isDisabled: boolean;
 }
-const useStyles = createStyles((theme: MantineTheme, { menuOpened, isDisabled }: StylesParams) => ({
-  root: {
-    position: 'relative'
-  },
-  arrow: {
-    transform: menuOpened && !isDisabled ? 'rotate(90deg)' : 'rotate(0)',
-    transition: 'all 0.3s ease-in-out'
-  },
-  logoWithName: {
-    minWidth: '320px',
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing.sm,
-    borderRadius: '5px 5px 0 0',
-    padding: '10px',
-    paddingLeft: '0px',
-    backgroundColor: menuOpened && !isDisabled ? theme.colors.brand : 'transparent',
-    '&:hover': {
-      cursor: !isDisabled ? "pointer" : "unset"
+
+const LogoWithName = styled('div')<StyleProps>`
+    min-width: 320px;
+    display: flex;
+    align-items: center;
+    gap: var(--mantine-spacing-sm);
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+    padding-left: 0px;
+    background-color: ${({ $menuOpened, $isDisabled }) => ($menuOpened && !$isDisabled ? 'var(--mantine-color-brand-9)' : 'transparent')};
+    &:hover {
+      cursor: ${({ $isDisabled }) => (!$isDisabled ? "pointer" : "unset")};
     } 
-  },
-  websiteName: {
-    color: menuOpened ? 'black' : theme.colorScheme == 'dark' ? "white" : "black"
-  },
-  websitesContainer: {
-    borderTop: `2px solid ${menuOpened && !isDisabled ? 'black' : theme.colors.brand}`,
-    zIndex: 99999999,
-    width: '100%',
-    position: 'absolute',
-    display: 'flex',
-    marginTop: '-1px',
-    padding: '10px',
-    gap: theme.spacing.sm,
-    borderRadius: '0 0 5px 5px',
-    visibility: menuOpened ? 'inherit' : 'hidden',
-    flexDirection: 'column',
-    backgroundColor: menuOpened && !isDisabled? theme.colors.brand : 'transparent',
-  },
-  divider: {
-    height: '3px',
-    width: '70%',
-    backgroundColor: 'black'
-  }
-}));
+`;
+
+const WebsiteContainer = styled('div')<StyleProps>`
+  border-top: 2px solid ${({ $menuOpened, $isDisabled }) => ($menuOpened && !$isDisabled ? 'black' : 'var(--mantine-color-brand-9)')};
+  z-index: 99999999;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  margin-top: -1px;
+  padding: 10px;
+  gap: var(--mantine-spacing-sm);
+  border-radius: 0 0 5px 5px;
+  visibility: ${({ $menuOpened }) => ($menuOpened ? 'inherit' : 'hidden')};
+  flex-direction: column;
+  background-color: ${({ $menuOpened, $isDisabled }) => ($menuOpened && !$isDisabled? 'var(--mantine-color-brand-9)' : 'transparent' )};
+`;
   
 interface WebsiteSelectorProps{
     current?: Websites
@@ -65,26 +52,47 @@ export const WebsiteSelector = ({ current, newWebsite, isDisabled = false } : We
 
   const currentWebsite = newWebsite ?? (current ? availableWebsites.get(current) : undefined);
 
-  const { classes } = useStyles({ menuOpened, isDisabled });
+  const colorScheme = useColorScheme();
+  const color = menuOpened ? 'black' : colorScheme == "dark" ? "white" : "black"
 
   if(!currentWebsite) return <></>;
 
   return(
     <div
-      className={classes.root}
+      style={{ position: 'relative' }}
       onMouseEnter={() => { if(!isDisabled) setMenuOpened(true) }}
       onMouseLeave={() => { if(!isDisabled) setMenuOpened(false) }}
     >
-      <div className={classes.logoWithName}>
-        {!isDisabled ? <IconChevronRight className={classes.arrow} /> : undefined}
+      <LogoWithName
+        $isDisabled={isDisabled}
+        $menuOpened={menuOpened}
+      >
+        {!isDisabled ? 
+          <IconChevronRight 
+            style={{
+              transform: menuOpened && !isDisabled ? 'rotate(90deg)' : 'rotate(0)',
+              transition: 'all 0.3s ease-in-out'
+            }} 
+          /> 
+          : 
+          undefined
+        }
         { currentWebsite.logo ? React.createElement(currentWebsite.logo) : undefined }
-        <Title order={3} className={classes.websiteName}>{currentWebsite.name}</Title>
-      </div>
-      <div className={classes.websitesContainer}>
+        <Title 
+          order={3} 
+          style={{ color }}
+        >
+          {currentWebsite.name}
+        </Title>
+      </LogoWithName>
+      <WebsiteContainer
+        $isDisabled={isDisabled}
+        $menuOpened={menuOpened}
+      >
         {Array.from(availableWebsites.values()).filter((website) => website.id !== current).map((website) => (
           <WebsitePane key={website.id} website={website} /> 
         ))}
-      </div>
+      </WebsiteContainer>
     </div>
   )
 }

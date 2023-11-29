@@ -1,5 +1,5 @@
 import { Translation } from 'react-i18next';
-import { NotificationProps } from '@mantine/notifications';
+// import { NotificationProps } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons';
 import { asConst } from '../../utils/asConst';
 
@@ -11,7 +11,7 @@ export const NOTIFICATIONS = asConst<
   Record<
     NotificationsID,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    NotificationProps | ((payload: any) => NotificationProps)
+    any | ((payload: any) => any)
   >
 >()({
   [NotificationsID.userCopied]: {

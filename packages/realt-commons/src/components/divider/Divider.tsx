@@ -1,32 +1,13 @@
-import { Box, CSSObject, DefaultProps, Selectors } from '@mantine/core';
-import { DividerStylesParams, useStyles } from './Divider.styles';
+import { Box } from '@mantine/core';
 
-type DividerStylesNames = Selectors<typeof useStyles>;
-
-type DividerProps = DefaultProps<DividerStylesNames, DividerStylesParams> &
-  DividerStylesParams;
-
-export const Divider = ({
-  classNames,
-  styles,
-  unstyled,
-  height = 4,
-  width = '100%',
-  vertical = false,
-  gradient,
-  inverted = false,
-  className,
-  ...others
-}: DividerProps) => {
-  const { classes, cx } = useStyles(
-    { height, width, vertical, gradient, inverted },
-    {
-      name: 'NewDivider',
-      classNames: classNames,
-      styles: styles as Record<string, CSSObject>,
-      unstyled: unstyled,
-    }
-  );
-
-  return <Box className={cx(classes.divider, className)} {...others} />;
+export const Divider = () => {
+  return(
+    <Box 
+      style={{
+        height: '4px',
+        width: '100%',
+        background: 'linear-gradient(90deg, #F6CA79 0%, #E79B0D 100%)'
+      }} 
+    />
+  )
 };

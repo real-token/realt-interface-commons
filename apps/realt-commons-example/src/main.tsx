@@ -4,10 +4,10 @@ import App from './App'
 import './index.css'
 import { ChainSelectConfig, Logo, RealtProvider, Website, initLanguage, getConnectors, parseAllowedChain, getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, gnosisSafe, getReadOnlyConnector } from "@realtoken/realt-commons";
 import { Web3Providers, MantineProviders, Layout, LanguageInit } from "@realtoken/realt-commons";
-import { ModalsProvider } from "@mantine/modals";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
 import { resources } from './i18next/locales';
 import { NavMenu } from './components/NavMenu';
+import '@mantine/core/styles.css';
 
 export const i18n = initLanguage(resources);
 

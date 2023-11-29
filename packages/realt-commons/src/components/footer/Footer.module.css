@@ -1,0 +1,27 @@
+.container {
+    @media (min-width: 36rem) {
+        padding: var(--mantine-spacing-md);
+    }
+    @media (max-width: 36rem) {
+        padding: var(--mantine-spacing-xs);
+    }
+}
+
+.infosContainer {
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: start;
+
+    @media (min-width: 768px){
+        flex-direction: row;
+        align-items: center;
+        gap: 10;
+    }
+}
+
+.copyright {
+    @media (min-width: 768px){
+        flexGrow: 1;
+        justify-content: center;
+    }
+}

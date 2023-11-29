@@ -8,15 +8,14 @@ import {
   Title,
   Flex,
   ActionIcon,
-  MediaQuery,
   Divider
 } from '@mantine/core';
 
-import { footerStyles as styles } from './Footer.styles';
 import React from 'react';
 import { BrandDiscord, BrandGithub, BrandMedium, BrandTelegram, BrandTwitter } from "tabler-icons-react"
 import { Link } from '../link';
 import { Logo } from '../../assets';
+import classes from "./Footer.module.css"
 
 interface LogoWithNameProps{
   name: string;
@@ -24,7 +23,7 @@ interface LogoWithNameProps{
 }
 const LogoWithName: FC<LogoWithNameProps> = ({ logo, name }) => {
   return (
-    <Group align={'center'} spacing={'xs'}>
+    <Group align={'center'} gap={'xs'}>
       {React.createElement(logo)}
       <Title order={3}>{name}</Title>
     </Group>
@@ -60,6 +59,7 @@ const FooterButtons: FC<{ links?: FooterLinks }> = ({ links }) => {
           href={links.twitter}
           aria-label={'Twitter'}
           target={'_blank'}
+          color={'#e9ecef'}
         >
           <BrandTwitter/>
         </ActionIcon>
@@ -72,6 +72,7 @@ const FooterButtons: FC<{ links?: FooterLinks }> = ({ links }) => {
           href={links.discord}
           aria-label={'Discord'}
           target={'_blank'}
+          color={'#e9ecef'}
         >
           <BrandDiscord />
         </ActionIcon>
@@ -84,6 +85,7 @@ const FooterButtons: FC<{ links?: FooterLinks }> = ({ links }) => {
           href={links.telegram}
           aria-label={'Telegram'}
           target={'_blank'}
+          color={'#e9ecef'}
         >
           <BrandTelegram />
         </ActionIcon>
@@ -96,6 +98,7 @@ const FooterButtons: FC<{ links?: FooterLinks }> = ({ links }) => {
           href={links.github}
           aria-label={'GitHub'}
           target={'_blank'}
+          color={'#e9ecef'}
         >
           <BrandGithub />
         </ActionIcon>
@@ -108,11 +111,11 @@ const FooterButtons: FC<{ links?: FooterLinks }> = ({ links }) => {
           href={links.medium}
           aria-label={'Blog'}
           target={'_blank'}
+          color={'#e9ecef'}
         >
           <BrandMedium />
         </ActionIcon>
       ): undefined}
-
     </Group>
   );
 };
@@ -156,18 +159,14 @@ export const Footer: FC<FooterProps> = ({ param: footerParam }) => {
   return (
     <div>
       <Divider />
-      <Box sx={styles.container}>
+      <Box className={classes.container}>
         <Flex justify={'space-around'} align={'center'}>
-          <MediaQuery largerThan={768} styles={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-            <Flex direction={'column'} sx={{ flexGrow: 1 }} align={'start'}>
-              <LogoWithName logo={param.logo} name={param.name}/>
-              <MediaQuery largerThan={768} styles={{ flexGrow: 1, justifyContent: 'center' }}>
-                <Flex>
-                  <Copyright text={param.copyright}/>
-                </Flex>
-              </MediaQuery>
+          <Flex className={classes.infosContainer}>
+            <LogoWithName logo={param.logo} name={param.name}/>
+            <Flex className={classes.copyright}>
+              <Copyright text={param.copyright}/>
             </Flex>
-          </MediaQuery>
+          </Flex>
           <FooterButtons links={param.links}/>
         </Flex>
         {/* <MediaQuery largerThan={'xs'} styles={{ display: 'none' }}>

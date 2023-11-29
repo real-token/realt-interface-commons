@@ -49,7 +49,7 @@ const CopyToClipboardMenuItem: FC = () => {
   }, [account, copy]);
 
   return (
-    <Menu.Item icon={<IconCopy size={18} />} onClick={onCopy}>
+    <Menu.Item leftSection={<IconCopy size={18} />} onClick={onCopy}>
       {t('copy')}
     </Menu.Item>
   );
@@ -70,7 +70,7 @@ function ViewOnExplorerMenuItem<T extends Chain>({ chains }: ViewOnExplorerMenuI
 
   return (
     <Menu.Item
-      icon={<IconExternalLink size={18} />}
+      rightSection={<IconExternalLink size={18} />}
       component={Link}
       href={`${activeChain?.blockExplorerUrl}address/${account}`}
       target={'_blank'}
@@ -97,7 +97,7 @@ const DisconnectMenuItem: FC = () => {
   }, [connector]);
 
   return (
-    <Menu.Item icon={<IconLogout size={18} />} onClick={onDisconnect}>
+    <Menu.Item leftSection={<IconLogout size={18} />} onClick={onDisconnect}>
       {t('disconnect')}
     </Menu.Item>
   );
@@ -120,10 +120,10 @@ const SelectedConnector = (props: BoxProps) => {
   if(!connectorData) return <></>
 
   return(
-    <Box sx={(theme) => ({ padding: theme.spacing.sm })}>
+    <Box style={(theme) => ({ padding: theme.spacing.sm })}>
       <Flex 
         {...props}
-        sx={{
+        style={{
           backgroundColor: connectorData.color,
         }}
         gap={'sm'}
@@ -149,7 +149,7 @@ export function WalletMenu<T extends Partial<Chain>>({  }: WalletMenuProps<T>){
     >
       <Menu.Target>
         <WalletUser
-          rightIcon={
+          rightSection={
             isOpen ? (
               <IconChevronUp size={16} stroke={3} />
             ) : (

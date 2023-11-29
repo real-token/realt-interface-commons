@@ -1,22 +1,8 @@
-import { createStyles } from '@mantine/core';
 import { ReactNode } from 'react';
 import { Footer, FooterParam, Header, Website, Websites } from '..';
 import { Chain, ChainSelectConfig } from '../../types';
-
-const useStyles = createStyles((theme) => ({
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    height: '100vh'
-  },
-  main: {
-    display: "flex",
-    flexDirection: "column",
-    flexGrow: 1,
-    overflowY: "auto",
-    padding: `0 ${theme.spacing.xl}`
-  }
-}));
+import classes from './Layout.module.css';
+import { ColorSchemeScript } from '@mantine/core';
 
 type LayoutProps<T> = { 
   children: ReactNode,
@@ -31,12 +17,13 @@ type LayoutProps<T> = {
 
 export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite, footerParam }: LayoutProps<T>){
 
-  const { classes } = useStyles();
-
   return (
     <div className={classes.container}>
+      <head>
+        <ColorSchemeScript defaultColorScheme="auto" />
+      </head>
       {head ?? undefined}
-      <Header 
+      <Header
         currentWebsite={currentWebsite} 
         chains={chains} 
         newWebsite={newWebsite} 
