@@ -69,7 +69,7 @@ const WalletModalButton: FC<WalletModalButtonProps> = ({
       aria-label={title}
       fullWidth={true}
       variant={'gradient'}
-      rightSection={<Image src={src} alt={title} fit={'contain'} width={30} radius={'xl'} style={{filter: `blur(${blur}px)`}} />}
+      rightSection={<Image src={src} alt={title} fit={'contain'} w={30} radius={'xl'} style={{filter: `blur(${blur}px)`}} />}
       styles={styles.button}
       onClick={disabled ? () => false : onActivating}
       gradient={gradient}
