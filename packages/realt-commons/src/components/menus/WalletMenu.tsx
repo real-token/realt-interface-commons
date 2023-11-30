@@ -70,7 +70,7 @@ function ViewOnExplorerMenuItem<T extends Chain>({ chains }: ViewOnExplorerMenuI
 
   return (
     <Menu.Item
-      rightSection={<IconExternalLink size={18} />}
+      leftSection={<IconExternalLink size={18} />}
       component={Link}
       href={`${activeChain?.blockExplorerUrl}address/${account}`}
       target={'_blank'}
@@ -103,7 +103,7 @@ const DisconnectMenuItem: FC = () => {
   );
 };
 
-const SelectedConnector = (props: BoxProps) => {
+const SelectedConnector = (props: FlexProps) => {
 
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
   
@@ -123,13 +123,11 @@ const SelectedConnector = (props: BoxProps) => {
     <Box style={(theme) => ({ padding: theme.spacing.sm })}>
       <Flex 
         {...props}
-        style={{
-          backgroundColor: connectorData.color,
-        }}
+        style={{  backgroundColor: connectorData.color }}
         gap={'sm'}
       >
-        <Image src={connectorData.src} alt={connectorData.title} fit={'contain'} width={30} />
-        <Text color={'white'}>{title}</Text>
+        <Image src={connectorData.src} alt={connectorData.title} fit={'contain'} h={30} />
+        <Text c={'white'}>{title}</Text>
       </Flex> 
     </Box>
 )

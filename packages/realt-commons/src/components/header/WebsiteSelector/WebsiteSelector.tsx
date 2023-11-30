@@ -1,11 +1,11 @@
-import { Title } from "@mantine/core";
+import { Title, useMantineColorScheme } from "@mantine/core";
 import { IconChevronRight } from "@tabler/icons";
 import React from "react";
 import { useState } from "react";
 import { availableWebsites, Website, Websites } from "../../../types/website";
 import { WebsitePane } from "./WebsitePane";
 import styled from 'styled-components'
-import { useColorScheme } from "@mantine/hooks";
+import classes from "./WebsiteSelector.module.css";
 
 interface StyleProps{
   $menuOpened: boolean;
@@ -52,9 +52,6 @@ export const WebsiteSelector = ({ current, newWebsite, isDisabled = false } : We
 
   const currentWebsite = newWebsite ?? (current ? availableWebsites.get(current) : undefined);
 
-  const colorScheme = useColorScheme();
-  const color = menuOpened ? 'black' : colorScheme == "dark" ? "white" : "black"
-
   if(!currentWebsite) return <></>;
 
   return(
@@ -78,9 +75,9 @@ export const WebsiteSelector = ({ current, newWebsite, isDisabled = false } : We
           undefined
         }
         { currentWebsite.logo ? React.createElement(currentWebsite.logo) : undefined }
-        <Title 
-          order={3} 
-          style={{ color }}
+        <Title
+          order={3}
+          className={menuOpened ? classes.websiteName_MenuOpened : classes.websiteName}
         >
           {currentWebsite.name}
         </Title>

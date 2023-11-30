@@ -1,0 +1,7 @@
+.websiteName_MenuOpened{
+    color: black;
+}
+
+.websiteName{
+    color: light-dark(black,white);
+}

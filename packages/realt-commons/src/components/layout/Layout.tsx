@@ -2,7 +2,6 @@ import { ReactNode } from 'react';
 import { Footer, FooterParam, Header, Website, Websites } from '..';
 import { Chain, ChainSelectConfig } from '../../types';
 import classes from './Layout.module.css';
-import { ColorSchemeScript } from '@mantine/core';
 
 type LayoutProps<T> = { 
   children: ReactNode,
@@ -19,9 +18,6 @@ export function Layout<T extends Partial<Chain>>({ children, currentWebsite, cha
 
   return (
     <div className={classes.container}>
-      <head>
-        <ColorSchemeScript defaultColorScheme="auto" />
-      </head>
       {head ?? undefined}
       <Header
         currentWebsite={currentWebsite} 

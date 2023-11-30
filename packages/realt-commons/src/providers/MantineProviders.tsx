@@ -8,7 +8,6 @@ import { ContextModalProps, ModalsProvider } from '@mantine/modals';
 import { Notifications } from '@mantine/notifications';
 import { modals } from '../components/modals';
 import { modalStyles as defaultModalStyles, theme as defaultTheme } from '../theme';
-import { ColorSchemeManager } from '../components/ColorSchemeManager/ColorSchemeManager';
 
 type Modals = Record<string,FC<ContextModalProps<any>>>
 
@@ -32,9 +31,7 @@ export const MantineProviders: FC<MantineProvidersProps> = ({
   return (
     <MantineProvider
       theme={{ ...themeUsed }}
-      defaultColorScheme="auto"
     >
-      <ColorSchemeManager />
       <Notifications/>
       <ModalsProvider
         modals={{ ...modals, ...customModals }}

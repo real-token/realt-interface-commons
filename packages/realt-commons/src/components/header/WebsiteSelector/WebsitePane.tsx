@@ -99,7 +99,6 @@ export const WebsitePane: FC<WebsitePaneProps> = ({ website  }) => {
             >
                 {website.name}
             </WebsiteName>
-            {/* <Text className={classes.websiteName}>{website.name}</Text> */}
             <IconExternalLink color={hovered ? 'black' : 'white'} />
         </Container>
     )

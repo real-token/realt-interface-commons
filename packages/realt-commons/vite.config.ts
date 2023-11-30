@@ -4,6 +4,7 @@ import dts from 'vite-plugin-dts'
 import { resolve } from 'pathe';
 import svgr from '@svgr/rollup' ;
 import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
+import postcss from 'rollup-plugin-postcss'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,7 +14,10 @@ export default defineConfig({
         dts({
             insertTypesEntry: true,
         }),
-        cssInjectedByJsPlugin()
+        postcss({
+            modules: true,
+        }),
+        cssInjectedByJsPlugin(),
     ],
     build: {
         lib: {
