@@ -1,5 +1,5 @@
 import { Translation } from 'react-i18next';
-// import { NotificationProps } from '@mantine/notifications';
+import { NotificationData } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons';
 import { asConst } from '../../utils/asConst';
 
@@ -10,8 +10,7 @@ export enum NotificationsID {
 export const NOTIFICATIONS = asConst<
   Record<
     NotificationsID,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    any | ((payload: any) => any)
+    NotificationData | ((payload: any) => NotificationData)
   >
 >()({
   [NotificationsID.userCopied]: {
