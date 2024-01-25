@@ -12,9 +12,10 @@ type LayoutProps<T> = {
   chains?: ChainSelectConfig<T>|undefined;
   newWebsite?: Website;
   footerParam?: FooterParam;
+  footerCustomLinks?: JSX.Element;
 };
 
-export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite, footerParam }: LayoutProps<T>){
+export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite, footerParam, footerCustomLinks }: LayoutProps<T>){
 
   return (
     <div className={classes.container}>
@@ -29,7 +30,7 @@ export function Layout<T extends Partial<Chain>>({ children, currentWebsite, cha
       <div className={classes.main}>
         {children}
       </div>
-      <Footer param={footerParam}/>
+      <Footer param={footerParam} customLinks={footerCustomLinks}/>
     </div>
   );
 };

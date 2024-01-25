@@ -137,9 +137,10 @@ export interface FooterParam{
 
 export interface FooterProps{
   param?: FooterParam
+  customLinks?: JSX.Element
 }
 
-export const Footer: FC<FooterProps> = ({ param: footerParam }) => {
+export const Footer: FC<FooterProps> = ({ param: footerParam, customLinks }) => {
 
   const { t } = useTranslation('common', { keyPrefix: 'footer' });
 
@@ -160,13 +161,14 @@ export const Footer: FC<FooterProps> = ({ param: footerParam }) => {
     <div>
       <Divider />
       <Box className={classes.container}>
-        <Flex justify={'space-around'} align={'center'}>
+        <Flex justify={'space-around'} align={'center'} gap={'md'}>
           <Flex className={classes.infosContainer}>
             <LogoWithName logo={param.logo} name={param.name}/>
             <Flex className={classes.copyright}>
               <Copyright text={param.copyright}/>
             </Flex>
           </Flex>
+          {customLinks ?? undefined}
           <FooterButtons links={param.links}/>
         </Flex>
         {/* <MediaQuery largerThan={'xs'} styles={{ display: 'none' }}>

@@ -21,7 +21,7 @@
 
 .copyright {
     @media (min-width: 768px){
-        flexGrow: 1;
+        flex-grow: 1;
         justify-content: center;
     }
 }
