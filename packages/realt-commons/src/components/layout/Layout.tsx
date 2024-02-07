@@ -13,9 +13,10 @@ type LayoutProps<T> = {
   newWebsite?: Website;
   footerParam?: FooterParam;
   footerCustomLinks?: JSX.Element;
+  headerBanner?: React.ReactElement;
 };
 
-export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite, footerParam, footerCustomLinks }: LayoutProps<T>){
+export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite, footerParam, footerCustomLinks, headerBanner }: LayoutProps<T>){
 
   return (
     <div className={classes.container}>
@@ -26,6 +27,7 @@ export function Layout<T extends Partial<Chain>>({ children, currentWebsite, cha
         newWebsite={newWebsite} 
         headerNav={headerNav}
         disableHeaderMultisite={disableHeaderMultisite}
+        banner={headerBanner}
       />
       <div className={classes.main}>
         {children}
