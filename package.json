@@ -1,8 +1,7 @@
 {
   "name": "realt-commons-monorepo",
   "private": false,
-  "devDependencies": {
-  },
-  "scripts": {
-  }
+  "devDependencies": {},
+  "scripts": {},
+  "dependencies": {}
 }

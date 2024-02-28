@@ -1,4 +1,4 @@
-import { FC, ReactNode, useEffect } from 'react';
+import { FC, ReactNode, useEffect, useMemo } from 'react';
 import { Web3ReactProvider } from '@web3-react/core';
 import { useAtomValue } from 'jotai';
 import { providerAtom } from '../states';
@@ -44,11 +44,11 @@ type Web3ProvidersProps = {
 
 export function Web3Providers({ children, libraryConnectors } : Web3ProvidersProps){
 
-  const { connectors, connectorsMap } = libraryConnectors;
+  const [setConnectors] = useRootStore((state) => [state.setConnectors]);
 
-  const [setConnectors] = useRootStore(
-    (state) => [state.setConnectors]
-  );
+  const { connectorsMap, connectors } = useMemo(() => {
+    return libraryConnectors
+  },[libraryConnectors])
 
   useEffect(() => {
     setConnectors(connectorsMap);

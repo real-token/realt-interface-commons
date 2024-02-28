@@ -8,7 +8,8 @@ export enum AvailableConnectors{
     metamask = 'metamask',
     gnosisSafe = 'gnosisSafe',
     walletConnectV2 = 'walletConnectV2',
-    readOnly = 'readOnly'
+    readOnly = 'readOnly',
+    realtAA = 'realtAA'
 }
 
 export interface ConnectorData{
@@ -50,6 +51,12 @@ export const ConnectorsDatas = new Map<AvailableConnectors,ConnectorData>([
         connectorKey: "readOnly",
         src: ReadOnlyLogo,
         color: '#000'
+    }],
+    [AvailableConnectors.realtAA, {
+        connectorEnum: AvailableConnectors.realtAA,
+        connectorKey: "realtAA",
+        title: 'RealtAA',
+        color: '#9A6709'   
     }]
 ])
 

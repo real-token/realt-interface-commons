@@ -1,4 +1,5 @@
-import { toLower, isString, isBoolean, isNumber } from "lodash";
+import lodash from "lodash";
+const { toLower, isString, isBoolean, isNumber } = lodash;
 
 const skipedKey = [
     // Exemple:

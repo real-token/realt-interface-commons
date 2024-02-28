@@ -1,0 +1,10 @@
+{
+  "version": "v1",
+  "packages": {
+    "@real-token/web3-react-aa": {
+      "signature": "eaa77fe1c57bbcdd1731a9a963ecfd4b",
+      "file": true,
+      "replaced": "^0.0.3"
+    }
+  }
+}

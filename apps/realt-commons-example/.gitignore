@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 .yalc
 yalc.lock
+.yarnrc
 
 node_modules
 dist

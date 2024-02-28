@@ -15,8 +15,8 @@ import { styles } from './WalletModal.styles';
 import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
 import { useRootStore } from '../../../providers/RealtProvider';
-import { utils, ethers } from 'ethers';
-import { AvailableConnectors, ConnectorData, ConnectorMap, ConnectorsDatas } from '../../../web3';
+import { ethers } from 'ethers';
+import { AvailableConnectors, ConnectorData, ConnectorMap, ConnectorsDatas, ConnectorsMap } from '../../../web3';
 import { CHAINS, ChainsID } from '../../../config';
 
 type WalletModalButtonProps = {
@@ -118,7 +118,7 @@ export const ReadOnlyAddress = ({ onSuccess, connectorMap, connectorData }: Read
 
 
       const rpc = CHAINS[ChainsID.Ethereum].rpcUrl;
-      const provider = new ethers.providers.JsonRpcProvider(rpc);
+      const provider = new ethers.JsonRpcProvider(rpc);
       const resolvedAddress = await provider.resolveName(address);
       if(!resolvedAddress) return;
       setAddress(resolvedAddress);
@@ -141,7 +141,7 @@ export const ReadOnlyAddress = ({ onSuccess, connectorMap, connectorData }: Read
     }
   }
 
-  const badAddress = address != "" && !utils.isAddress(address);
+  const badAddress = address != "" && !ethers.isAddress(address);
 
   return(
     <Flex direction={'column'} gap={'sm'}>

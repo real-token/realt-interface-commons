@@ -6,6 +6,7 @@ import { environment } from '../config/constants/env';
 type RealtProviderSetableProps = {
     env?: string;
     showAllNetworks?: boolean;
+    enableRealtAAConnector?: boolean;
 }
 
 type RealtProviderFixedProps = {

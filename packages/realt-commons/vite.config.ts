@@ -29,7 +29,8 @@ export default defineConfig({
         rollupOptions: {
             external: [
                 'react', 
-                'react-dom', 
+                'react-dom',
+                'react/jsx-runtime',
                 '@mantine/core', 
                 '@mantine/form', 
                 '@mantine/hooks', 
@@ -43,8 +44,13 @@ export default defineConfig({
                 "@web3-react/types",
                 "@web3-react/walletconnect",
                 "@web3-react/walletconnect-v2",
+                "@real-token/web3-react-aa",
                 "i18next",
-                "react-i18next"
+                "react-i18next",
+                "@real-token/aa-core",
+                // "zustand",
+                // /@ethersproject\/.*/,
+                // "lodash"
             ],
             output: {
                 globals: {
@@ -64,8 +70,12 @@ export default defineConfig({
                     "@web3-react/types": "web3ReactTypes",
                     "@web3-react/walletconnect": "web3ReactWalletConnect",
                     "@web3-react/walletconnect-v2": "web3ReactWalletConnectV2",
+                    "@real-token/web3-react-aa": "real-token-web3-react-aa",
                     "i18next": "i18next",
-                    "react-i18next": "reactI18next"
+                    "react-i18next": "reactI18next",
+                    "@real-token/aa-core": "realtoken_aa_core",
+                    // "zustand": "zustand",
+                    // "@ethersproject": "@ethersproject"
                 },
             },
         },
