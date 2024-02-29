@@ -3770,7 +3770,7 @@
   optionalDependencies:
     "@ethersproject/providers" "^5"
 
-"@web3-react/metamask@^8.2.3":
+"@web3-react/metamask@^8.2.4":
   version "8.2.4"
   resolved "https://registry.yarnpkg.com/@web3-react/metamask/-/metamask-8.2.4.tgz#26438222c4b17964c011ea359058ba6feb6a2330"
   integrity sha512-4yoqDgvcB0QKUGSk00/fUipA3z5rOXcQYAwE0CABPa5lbTRAIm5i8F0Gj8UW7QO0pQus4UtjX0+JxWdclB7UrA==
