@@ -16,7 +16,7 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { US, FR, ES, FlagComponent } from 'country-flag-icons/react/3x2'
-import { IconMoon, IconSettings, IconSun, IconLanguage } from '@tabler/icons';
+import { IconMoon, IconSettings, IconSun, IconLanguage } from '@tabler/icons-react';
 import { setCookies } from 'cookies-next';
 
 const ColorSchemeMenuItem: FC = () => {

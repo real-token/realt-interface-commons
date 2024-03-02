@@ -1,5 +1,5 @@
-import { Title, useMantineColorScheme } from "@mantine/core";
-import { IconChevronRight } from "@tabler/icons";
+import { Title } from "@mantine/core";
+import { IconChevronRight } from "@tabler/icons-react";
 import React from "react";
 import { useState } from "react";
 import { availableWebsites, Website, Websites } from "../../../types/website";

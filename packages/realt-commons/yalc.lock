@@ -2,9 +2,9 @@
   "version": "v1",
   "packages": {
     "@real-token/web3-react-aa": {
-      "signature": "eaa77fe1c57bbcdd1731a9a963ecfd4b",
+      "signature": "1e42898151a00e856959ee92cf125de2",
       "file": true,
-      "replaced": "^0.0.3"
+      "replaced": "0.1.9"
     }
   }
 }

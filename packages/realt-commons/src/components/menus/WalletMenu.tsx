@@ -1,6 +1,6 @@
 import { FC, forwardRef, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonProps, Flex, FlexProps, Menu, Text, Image, Box, BoxProps } from '@mantine/core';
+import { Button, ButtonProps, Flex, FlexProps, Menu, Text, Image, Box } from '@mantine/core';
 import { useClipboard, useDisclosure } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import {
@@ -9,7 +9,7 @@ import {
   IconCopy,
   IconExternalLink,
   IconLogout,
-} from '@tabler/icons';
+} from '@tabler/icons-react';
 import { useWeb3React } from '@web3-react/core';
 
 import { useActiveChain } from '../../hooks/blockchain/useActiveChain';
@@ -133,9 +133,7 @@ const SelectedConnector = (props: FlexProps) => {
 )
 }
 
-interface WalletMenuProps<T>{
-}
-export function WalletMenu<T extends Partial<Chain>>({  }: WalletMenuProps<T>){
+export function WalletMenu(){
   const [isOpen, handlers] = useDisclosure(false);
 
   return (

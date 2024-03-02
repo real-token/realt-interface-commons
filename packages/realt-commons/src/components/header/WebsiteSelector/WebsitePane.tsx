@@ -1,5 +1,5 @@
 import { Text } from "@mantine/core";
-import { IconClock, IconExternalLink } from "@tabler/icons";
+import { IconClock, IconExternalLink } from "@tabler/icons-react";
 import React from "react";
 import { FC, useState } from "react";
 import { openInNewTab } from "../../../utils/window";
@@ -49,8 +49,6 @@ export const WebsitePane: FC<WebsitePaneProps> = ({ website  }) => {
 
     const comingSoon = website.comingSoon;
     const [hovered,setHovered] = useState<boolean>(false);
-
-    const Logo = website.logo;
 
     const goTo = () => {
         if(website.comingSoon) return;

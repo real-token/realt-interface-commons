@@ -12,13 +12,17 @@
     "package:update": "yalc push --scripts --update --replace"
   },
   "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
+    "@real-token/web3-react-aa": "0.2.1",
     "@realtoken/realt-commons": "file:.yalc/@realtoken/realt-commons",
+    "ethers": "^6.11.1",
     "i18next": "^23.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^13.0.3"
   },
   "devDependencies": {
+    "@toruslabs/config": "^2.0.2",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",

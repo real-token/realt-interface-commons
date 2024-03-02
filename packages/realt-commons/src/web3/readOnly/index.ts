@@ -1,4 +1,4 @@
-import { Actions, AddEthereumChainParameter, Connector, Provider, ProviderConnectInfo, ProviderRpcError, WatchAssetParameters } from "@web3-react/types";
+import { Actions, Connector, Provider, WatchAssetParameters } from "@web3-react/types";
 import { Chain, ChainSelectConfig } from "../../types";
 
 export class NoReadOnlyError extends Error {

@@ -1,4 +1,4 @@
-import { createTheme, ModalProps } from '@mantine/core';
+import { createTheme, MantineThemeOverride, ModalProps } from '@mantine/core';
 
 export const modalStyles: ModalProps['styles'] = {
   header: { justifyContent: 'center' },
@@ -18,7 +18,7 @@ export const modalStyles: ModalProps['styles'] = {
   }
 };
 
-export const theme = createTheme({
+export const theme: MantineThemeOverride = createTheme({
   colors: {
     brand: [
       '#F6CA79',

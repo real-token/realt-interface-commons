@@ -1,6 +1,6 @@
 import { Translation } from 'react-i18next';
 import { NotificationData } from '@mantine/notifications';
-import { IconCheck, IconX } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons-react';
 import { asConst } from '../../utils/asConst';
 
 export enum NotificationsID {

@@ -16,7 +16,7 @@ import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
 import { useRootStore } from '../../../providers/RealtProvider';
 import { ethers } from 'ethers';
-import { AvailableConnectors, ConnectorData, ConnectorMap, ConnectorsDatas, ConnectorsMap } from '../../../web3';
+import { AvailableConnectors, ConnectorData, ConnectorMap, ConnectorsDatas } from '../../../web3';
 import { CHAINS, ChainsID } from '../../../config';
 
 type WalletModalButtonProps = {

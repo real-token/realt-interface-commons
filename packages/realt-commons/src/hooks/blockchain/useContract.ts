@@ -7,7 +7,7 @@ import { ContractsID } from '../../config';
 import { useActiveChain } from './useActiveChain';
 
 export const useContract = <T extends Contract, M extends Partial<Chain>>(customChains: ChainSelectConfig<M>, contractId: ContractsID) => {
-  const { account, provider, chainId } = useWeb3React();
+  const { account, provider } = useWeb3React();
 
 //   const chainConfig = customChains;
 //   const activeChain = chainConfig.chainsConfig[chainId as ChainsID]

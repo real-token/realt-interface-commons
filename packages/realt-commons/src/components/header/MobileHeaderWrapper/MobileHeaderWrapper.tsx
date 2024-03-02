@@ -1,6 +1,6 @@
 import { Flex } from "@mantine/core"
 import { useMediaQuery } from "@mantine/hooks";
-import { IconMenu2, IconX } from "@tabler/icons";
+import { IconMenu2, IconX } from "@tabler/icons-react";
 import { useState } from "react";
 import classes from "./MobileHeaderWrapper.module.css";
 

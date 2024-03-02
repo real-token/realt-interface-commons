@@ -1,3 +1,4 @@
+// @ts-ignore
 import type { SafeAppProvider } from '@safe-global/safe-apps-provider'
 import type SafeAppsSDK from '@safe-global/safe-apps-sdk'
 import type { Opts } from '@safe-global/safe-apps-sdk'

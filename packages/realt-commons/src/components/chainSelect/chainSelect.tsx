@@ -1,4 +1,4 @@
-import { FC, forwardRef, useCallback, useState, useEffect, useContext } from 'react';
+import { FC, forwardRef, useCallback, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -7,16 +7,14 @@ import {
   Text,
   Menu,
   Box,
-  BoxProps,
 } from '@mantine/core';
 import { useWeb3React } from '@web3-react/core';
 
 import { FRC } from '../../types/FRC';
 import { useActiveChain } from '../../hooks/blockchain/useActiveChain';
 import { ALLOWED_CHAINS, CHAINS, ChainsID } from '../../config/constants/chain';
-import { IconAlertCircle } from '@tabler/icons';
+import { IconAlertCircle } from '@tabler/icons-react';
 import { Chain, ChainSelectConfig } from '../../types';
-import { RealtProvider } from '../../providers';
 import { useRootStore } from '../../providers/RealtProvider';
 import { environment } from '../../config/constants/env';
 import { GnosisLogo } from '../../assets';
