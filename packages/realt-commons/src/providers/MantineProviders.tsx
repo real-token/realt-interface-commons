@@ -5,7 +5,7 @@ import {
   ModalProps,
 } from '@mantine/core';
 import { ContextModalProps, ModalsProvider } from '@mantine/modals';
-import { Notifications } from '@mantine/notifications';
+import { Notifications, NotificationsProps } from '@mantine/notifications';
 import { modals } from '../components/modals';
 import { modalStyles as defaultModalStyles, theme as defaultTheme } from '../theme';
 
@@ -16,13 +16,15 @@ type MantineProvidersProps = {
   modalStyles?: ModalProps['styles'];
   children: ReactNode;
   modals?: Modals
+  notificationsProps?: NotificationsProps
 };
 
 export const MantineProviders: FC<MantineProvidersProps> = ({
   children,
   theme,
   modals: customModals,
-  modalStyles
+  modalStyles,
+  notificationsProps
 }) => {
 
   const themeUsed = theme ?? defaultTheme;
@@ -32,7 +34,7 @@ export const MantineProviders: FC<MantineProvidersProps> = ({
     <MantineProvider
       theme={{ ...themeUsed }}
     >
-      <Notifications/>
+      <Notifications {...notificationsProps}/>
       <ModalsProvider
         modals={{ ...modals, ...customModals }}
         modalProps={{

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { Flex } from '@mantine/core';
 import App from './App'
 import './index.css'
 import { 
@@ -245,6 +246,11 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
               newWebsite={newWebsite} 
               chains={customChains}
               headerNav={<NavMenu/>}
+              footerCustomLinks={
+                <Flex>
+                  <div>{'test'}</div>
+                </Flex>
+              }
             >
               <App />
             </Layout>
