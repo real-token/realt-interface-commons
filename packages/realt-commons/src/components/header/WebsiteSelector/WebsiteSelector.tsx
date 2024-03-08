@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 import { availableWebsites, Website, Websites } from "../../../types/website";
 import { WebsitePane } from "./WebsitePane";
-import styled from 'styled-components'
+import styled from '../../../utils/styledComponents';
 import classes from "./WebsiteSelector.module.css";
 
 interface StyleProps{

@@ -4,7 +4,7 @@ import React from "react";
 import { FC, useState } from "react";
 import { openInNewTab } from "../../../utils/window";
 import { Website } from "../../../types/website";
-import styled from "styled-components";
+import styled from "../../../utils/styledComponents";
 
 interface StylesParams{
     $hovered: boolean;
