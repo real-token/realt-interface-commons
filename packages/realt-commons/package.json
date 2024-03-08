@@ -1,15 +1,24 @@
 {
-  "name": "@realtoken/realt-commons",
+  "name": "@real-token/realt-commons",
   "private": false,
   "version": "1.4.3",
   "files": [
     "dist"
   ],
-  "main": "dist/index.cjs.js",
-  "module": "dist/index.esm.js",
-  "unpkg": "dist/index.umd.min.js",
-  "jsdelivr": "dist/index.umd.min.js",
-  "types": "dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "rollup -c --bundleConfigAsCjs",
@@ -23,12 +32,12 @@
     "@coinbase/wallet-sdk": "^3.6.5",
     "@emotion/react": "^11.10.6",
     "@gnosis.pm/safe-apps-sdk": "^7.8.0",
-    "@mantine/core": "^7.2.2",
-    "@mantine/form": "^7.2.2",
-    "@mantine/hooks": "^7.2.2",
-    "@mantine/modals": "^7.2.2",
-    "@mantine/notifications": "^7.2.2",
-    "@real-token/web3-react-aa": "^0.2.1",
+    "@mantine/core": "^7.6.1",
+    "@mantine/form": "^7.6.1",
+    "@mantine/hooks": "^7.6.1",
+    "@mantine/modals": "^7.6.1",
+    "@mantine/notifications": "^7.6.1",
+    "@real-token/web3-react-aa": "^0.1.5",
     "@safe-global/safe-apps-provider": "^0.17.1",
     "@tabler/icons": "^1.74.0",
     "@tabler/icons-react": "^2.47.0",
@@ -62,23 +71,31 @@
     "react-i18next": "^12.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.7",
+    "@babel/plugin-syntax-bigint": "^7.8.3",
+    "@babel/plugin-transform-class-properties": "^7.23.3",
+    "@babel/plugin-transform-numeric-separator": "^7.23.4",
+    "@babel/plugin-transform-object-rest-spread": "^7.23.4",
+    "@babel/plugin-transform-runtime": "^7.23.7",
+    "@babel/plugin-transform-typescript": "^7.23.6",
+    "@babel/preset-env": "^7.23.8",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@babel/runtime": "^7.23.8",
     "@emotion/react": "^11.10.6",
-    "@mantine/core": "^7.2.2",
-    "@mantine/form": "^7.2.2",
-    "@mantine/hooks": "^7.2.2",
-    "@mantine/modals": "^7.2.2",
-    "@mantine/notifications": "^7.2.2",
+    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@svgr/rollup": "^7.0.0",
-    "@types/react": "^18.0.28",
-    "@types/react-dom": "^18.0.11",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
     "i18next": "^22.4.13",
     "postcss": "^8.4.31",
     "postcss-preset-mantine": "^1.11.0",
     "postcss-simple-vars": "^7.0.1",
     "react-i18next": "^12.2.0",
     "rollup": "^4.12.0",
+    "rollup-plugin-css-modules": "^0.1.2",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-import-css": "^3.5.0",
     "rollup-plugin-json": "^4.0.0",
@@ -87,8 +104,6 @@
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^4.9.3",
-    "typescript-plugin-css-modules": "^5.0.2",
-    "vite-plugin-css-injected-by-js": "^3.3.0",
-    "vite-plugin-dts": "^2.1.0"
+    "typescript-plugin-css-modules": "^5.0.2"
   }
 }

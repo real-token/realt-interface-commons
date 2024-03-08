@@ -18,7 +18,7 @@ export const MobileHeaderWrapper = ({ selector, nav, buttons }: MobileHeaderWrap
     return(
         <Flex 
             style={{
-                width: '100vw',
+                // width: '100vw',
                 padding: '10px',
                 justifyContent: 'space-between'
             }}
