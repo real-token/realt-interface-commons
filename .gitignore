@@ -11,6 +11,10 @@ node_modules
 dist
 dist-ssr
 *.local
+.npmrc
+.yarnrc
+*/**/.npmrc
+*/**/.yarnrc
 
 # Editor directories and files
 .vscode/*
