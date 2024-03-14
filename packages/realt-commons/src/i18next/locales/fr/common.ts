@@ -1,6 +1,6 @@
 const common = {
   "footer": {
-    "copyright": "© {{year}} RealT. Tous droits réservés."
+    "copyright": "© {{year}} RealToken. Tous droits réservés."
   },
   "select": {
     "noOption": "Aucune option"

@@ -147,7 +147,7 @@ export const Footer: FC<FooterProps> = ({ param: footerParam, customLinks }) => 
   const param = footerParam ?? {
     copyright: t('copyright', { year: new Date().getFullYear() }),
     logo: Logo,
-    name: 'RealT',
+    name: 'RealToken',
     links: {
       twitter: 'https://twitter.com/RealTPlatform/',
       discord: 'https://discord.gg/9fQz6jYmcT',
