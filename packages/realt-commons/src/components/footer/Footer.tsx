@@ -147,7 +147,6 @@ export const Footer: FC<FooterProps> = ({ param: footerParam, customLinks }) => 
   const param = footerParam ?? {
     copyright: t('copyright', { year: new Date().getFullYear() }),
     logo: Logo,
-    name: 'RealToken',
     links: {
       twitter: 'https://twitter.com/RealTPlatform/',
       discord: 'https://discord.gg/9fQz6jYmcT',
@@ -163,10 +162,10 @@ export const Footer: FC<FooterProps> = ({ param: footerParam, customLinks }) => 
       <Box className={classes.container}>
         <Flex justify={'space-around'} align={'center'} gap={'md'}>
           <Flex className={classes.infosContainer}>
-            <LogoWithName logo={param.logo} name={param.name}/>
-            <Flex className={classes.copyright}>
+            {/* <LogoWithName logo={param.logo}/> */}
+            {/* <Flex className={classes.copyright}>
               <Copyright text={param.copyright}/>
-            </Flex>
+            </Flex> */}
           </Flex>
           {customLinks ?? undefined}
           <FooterButtons links={param.links}/>

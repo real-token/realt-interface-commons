@@ -29,21 +29,21 @@ export const availableWebsites: Map<Websites,Website> = new Map([
     }],
     [Websites.YAM, {
         id: Websites.YAM,
-        name: "RealToken YAM",
+        name: "YAM",
         comingSoon: false,
         url: "https://yam.realtoken.network/",
         logo: Logo
     }],
     [Websites.RMM, {
         id: Websites.RMM,
-        name: "RealToken RMM",
+        name: "RMM",
         comingSoon: false,
         url: "https://rmm.realtoken.network",
         logo: Logo
     }],
     [Websites.VOTE, {
         id: Websites.VOTE,
-        name: "RealToken vote dashboard",
+        name: "Vote dashboard",
         comingSoon: false,
         url: "https://vote.realtoken.network",
         logo: Logo
