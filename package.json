@@ -1,7 +1,12 @@
 {
   "name": "realt-commons-monorepo",
-  "private": false,
-  "devDependencies": {},
-  "scripts": {},
+  "private": true,
+  "devDependencies": {
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0"
+  },
+  "scripts": {
+    "postinstall": "patch-package"
+  },
   "dependencies": {}
 }

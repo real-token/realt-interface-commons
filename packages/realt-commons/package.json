@@ -1,36 +1,29 @@
 {
   "name": "@real-token/realt-commons",
   "private": false,
-  "version": "1.4.3",
+  "version": "1.4.4",
   "files": [
     "dist"
   ],
-  "module": "./dist/esm/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/cjs/index.js"
-      }
-    }
-  },
+  "main": "dist/realtCommons.cjs.js",
+  "module": "dist/realtCommons.esm.js",
+  "unpkg": "dist/realtCommons.umd.min.js",
+  "jsdelivr": "dist/realtCommons.umd.min.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "dev": "vite",
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "torus-scripts build",
     "build:watch": "vite build --watch",
     "preview": "vite preview",
     "yalc:publish": "yalc add .",
     "yalc:push": "yalc push --sig",
-    "test": "yarn build && yarn yalc:push"
+    "test": "yarn build && yarn yalc:push",
+    "prepare": "patch-package"
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.6.5",
     "@emotion/react": "^11.10.6",
+    "@ethersproject/contracts": "^5.7.0",
     "@gnosis.pm/safe-apps-sdk": "^7.8.0",
     "@mantine/core": "^7.6.1",
     "@mantine/form": "^7.6.1",
@@ -58,6 +51,7 @@
     "jotai": "^2.0.3",
     "lodash": "^1.0.0",
     "pathe": "^1.1.0",
+    "querystring-es3": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "simple-zustand-devtools": "^1.1.0",
@@ -67,29 +61,25 @@
     "zustand": "^4.3.8"
   },
   "peerDependencies": {
+    "@babel/runtime": "7.x",
     "i18next": "^22.4.13",
     "react-i18next": "^12.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.7",
-    "@babel/plugin-syntax-bigint": "^7.8.3",
-    "@babel/plugin-transform-class-properties": "^7.23.3",
-    "@babel/plugin-transform-numeric-separator": "^7.23.4",
-    "@babel/plugin-transform-object-rest-spread": "^7.23.4",
-    "@babel/plugin-transform-runtime": "^7.23.7",
-    "@babel/plugin-transform-typescript": "^7.23.6",
-    "@babel/preset-env": "^7.23.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
-    "@babel/runtime": "^7.23.8",
     "@emotion/react": "^11.10.6",
-    "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@svgr/rollup": "^7.0.0",
+    "@svgr/webpack": "^8.1.0",
+    "@toruslabs/torus-scripts": "^5.3.0",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "css-loader": "^6.10.0",
     "i18next": "^22.4.13",
+    "node-polyfill-webpack-plugin": "^3.0.0",
     "postcss": "^8.4.31",
     "postcss-preset-mantine": "^1.11.0",
     "postcss-simple-vars": "^7.0.1",
@@ -103,6 +93,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-typescript2": "^0.36.0",
+    "svg-inline-loader": "^0.8.2",
     "typescript": "^4.9.3",
     "typescript-plugin-css-modules": "^5.0.2"
   }

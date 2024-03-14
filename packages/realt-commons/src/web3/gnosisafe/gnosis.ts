@@ -1,4 +1,3 @@
-// @ts-ignore
 import type { SafeAppProvider } from '@safe-global/safe-apps-provider'
 import type SafeAppsSDK from '@safe-global/safe-apps-sdk'
 import type { Opts } from '@safe-global/safe-apps-sdk'
@@ -89,7 +88,6 @@ export class GnosisSafe extends Connector {
 
       this.actions.update({
         chainId: this.provider.chainId,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         accounts: [await this.sdk!.safe.getInfo().then(({ safeAddress }) => safeAddress)],
       })
     } catch (error) {
@@ -111,7 +109,6 @@ export class GnosisSafe extends Connector {
 
         this.actions.update({
           chainId: this.provider.chainId,
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           accounts: [await this.sdk!.safe.getInfo().then(({ safeAddress }) => safeAddress)],
         })
       })

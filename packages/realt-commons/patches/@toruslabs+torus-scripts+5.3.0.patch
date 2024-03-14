@@ -1,0 +1,42 @@
+diff --git a/node_modules/@toruslabs/torus-scripts/config/rollup.config.js b/node_modules/@toruslabs/torus-scripts/config/rollup.config.js
+index 388286f..4458825 100644
+--- a/node_modules/@toruslabs/torus-scripts/config/rollup.config.js
++++ b/node_modules/@toruslabs/torus-scripts/config/rollup.config.js
+@@ -7,6 +7,7 @@ import babelPlugin from "@rollup/plugin-babel";
+ import path from "path";
+ import fs from "fs";
+ import resolve from "@rollup/plugin-node-resolve";
++import commonJs from '@rollup/plugin-commonjs';
+ 
+ import torusConfig from "./torus.config.js";
+ import paths, { appModuleFileExtensions } from "./paths.js";
+@@ -34,9 +35,14 @@ const getDefaultConfig = (name) => {
+   const allDeps = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
+   return {
+     input: paths.appIndexFile,
+-    external: [...allDeps, ...allDeps.map((x) => new RegExp(`^${x}/`)), /@babel\/runtime/],
+-    output: [{ file: path.resolve(paths.appBuild, `${name}.esm.js`), format: "es", sourcemap: process.env.NODE_ENV === "development" }],
++    external: [...allDeps, ...allDeps.map((x) => new RegExp(`^${x}/`)), /@babel\/runtime/,/^@ethersproject\/.*/],
++    output: [{ 
++      file: path.resolve(paths.appBuild, `${name}.esm.js`), 
++      format: "es", sourcemap: process.env.NODE_ENV === "development",
++      inlineDynamicImports: true,
++    }],
+     plugins: [
++      commonJs(),
+       // Allows node_modules resolution
+       resolve({
+         extensions: appModuleFileExtensions.map((x) => `.${x}`),
+diff --git a/node_modules/@toruslabs/torus-scripts/config/webpack.config.js b/node_modules/@toruslabs/torus-scripts/config/webpack.config.js
+index 0379aea..97dda2e 100644
+--- a/node_modules/@toruslabs/torus-scripts/config/webpack.config.js
++++ b/node_modules/@toruslabs/torus-scripts/config/webpack.config.js
+@@ -123,6 +123,8 @@ export default (pkgName) => {
+     customizer,
+   );
+ 
++  cjsConfig.module.rules[0].use.options.plugins.push("@babel/plugin-transform-modules-commonjs");
++
+   const finalConfigs = [];
+ 
+   if (torusConfig.cjs) finalConfigs.push(cjsConfig);

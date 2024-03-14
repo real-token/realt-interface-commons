@@ -1,0 +1,12 @@
+diff --git a/node_modules/@toruslabs/config/babel.config.js b/node_modules/@toruslabs/config/babel.config.js
+index 1af8a94..e0ac3e7 100644
+--- a/node_modules/@toruslabs/config/babel.config.js
++++ b/node_modules/@toruslabs/config/babel.config.js
+@@ -6,6 +6,7 @@ module.exports = {
+   plugins: [
+     "@babel/plugin-syntax-bigint",
+     "@babel/plugin-transform-object-rest-spread",
++    ["@babel/plugin-transform-typescript", { allowDeclareFields: true }],
+     "@babel/plugin-transform-class-properties",
+     ["@babel/transform-runtime", { version: runtimeVersion }],
+     "@babel/plugin-transform-numeric-separator",
