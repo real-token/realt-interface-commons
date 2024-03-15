@@ -8,13 +8,13 @@
     "i": "rm -rf node_modules && yarn",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "package:add": "yalc add @realtoken/realt-commons",
+    "package:add": "yalc add @real-token/realt-commons",
     "package:update": "yalc push --scripts --update --replace"
   },
   "dependencies": {
     "@ethersproject/providers": "^5.7.2",
+    "@real-token/realt-commons": "file:.yalc/@real-token/realt-commons",
     "@real-token/web3-react-aa": "0.2.1",
-    "@realtoken/realt-commons": "file:.yalc/@realtoken/realt-commons",
     "ethers": "^6.11.1",
     "i18next": "^23.4.1",
     "react": "^18.2.0",

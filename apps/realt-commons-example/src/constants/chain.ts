@@ -1,4 +1,4 @@
-import { Chain, Contracts, Currency, DAI, ETH, EthereumLogo, GnosisLogo } from "@realtoken/realt-commons";
+import { Chain, Contracts, Currency, DAI, ETH, EthereumLogo, GnosisLogo } from "@real-token/realt-commons";
 import { FC } from "react";
 
 export enum ChainsID {

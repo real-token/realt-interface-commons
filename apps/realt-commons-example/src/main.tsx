@@ -10,7 +10,7 @@ import {
   getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, 
   gnosisSafe, getReadOnlyConnector,
   getRealtAAConnector,
-} from "@realtoken/realt-commons";
+} from "@real-token/realt-commons";
 import { ChainConfig, TorusConfig, AAClientConfig } from '@real-token/web3-react-aa';
 
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
@@ -38,8 +38,6 @@ const env = import.meta.env.MODE;
 console.log('ENV: ', env)
 const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains, env, 'ff2eff6eb19b6b79a24bbc47c46b6035', showAllNetworks);
 const [readOnly, readOnlyHooks] = getReadOnlyConnector(customChains);
-
-
 
 const INFURA_KEY = import.meta.env.VITE_INFURA_KEY;
 if(!INFURA_KEY) {

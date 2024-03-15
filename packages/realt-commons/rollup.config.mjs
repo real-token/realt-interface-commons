@@ -1,4 +1,3 @@
-import css from 'rollup-plugin-import-css';
 import postcss from 'rollup-plugin-postcss';
 import json from "rollup-plugin-json";
 import svgr from '@svgr/rollup';
@@ -8,12 +7,10 @@ const plugins = [
   json(),
   postcss({
     config: true,
-    modules: false,
-    extract: true,
+    modules: true,
+    inject: true,
     autoModules: true,
-    use: ['sass'],
-  }),
-  css(),
+  })
 ];
 
 export default {

@@ -1,4 +1,4 @@
-import { WalletModal } from '@realtoken/realt-commons';
+import { WalletModal } from '@real-token/realt-commons';
 
 export const modals = {
   wallet: WalletModal,

@@ -27,10 +27,10 @@ Read more on [README](https://github.com/real-token/realt-interface-commons/blob
 ## How install the package ?
 ```
 # With npm
-npm i @realtoken/realt-commons
+npm i @real-token/realt-commons
 
 # With yarn
-yarn add @realtoken/realt-commons
+yarn add @real-token/realt-commons
 ```
 
 ## How to clone the git repository ?
