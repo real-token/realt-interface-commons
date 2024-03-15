@@ -1,16 +1,17 @@
 diff --git a/node_modules/@toruslabs/torus-scripts/config/rollup.config.js b/node_modules/@toruslabs/torus-scripts/config/rollup.config.js
-index 388286f..4458825 100644
+index 388286f..9469f5c 100644
 --- a/node_modules/@toruslabs/torus-scripts/config/rollup.config.js
 +++ b/node_modules/@toruslabs/torus-scripts/config/rollup.config.js
-@@ -7,6 +7,7 @@ import babelPlugin from "@rollup/plugin-babel";
+@@ -7,6 +7,8 @@ import babelPlugin from "@rollup/plugin-babel";
  import path from "path";
  import fs from "fs";
  import resolve from "@rollup/plugin-node-resolve";
 +import commonJs from '@rollup/plugin-commonjs';
++import pol from "rollup-plugin-polyfill-node";
  
  import torusConfig from "./torus.config.js";
  import paths, { appModuleFileExtensions } from "./paths.js";
-@@ -34,9 +35,14 @@ const getDefaultConfig = (name) => {
+@@ -34,12 +36,19 @@ const getDefaultConfig = (name) => {
    const allDeps = [...Object.keys(pkg.dependencies || {}), ...Object.keys(pkg.peerDependencies || {})];
    return {
      input: paths.appIndexFile,
@@ -18,15 +19,20 @@ index 388286f..4458825 100644
 -    output: [{ file: path.resolve(paths.appBuild, `${name}.esm.js`), format: "es", sourcemap: process.env.NODE_ENV === "development" }],
 +    external: [...allDeps, ...allDeps.map((x) => new RegExp(`^${x}/`)), /@babel\/runtime/,/^@ethersproject\/.*/],
 +    output: [{ 
-+      file: path.resolve(paths.appBuild, `${name}.esm.js`), 
++      dir: path.resolve(paths.appBuild, `esm`),
 +      format: "es", sourcemap: process.env.NODE_ENV === "development",
-+      inlineDynamicImports: true,
 +    }],
      plugins: [
++      pol(),
 +      commonJs(),
        // Allows node_modules resolution
        resolve({
          extensions: appModuleFileExtensions.map((x) => `.${x}`),
++        preferBuiltins: false,
++        browser: true,
+       }),
+       babelPlugin(babelPluginOptions),
+     ],
 diff --git a/node_modules/@toruslabs/torus-scripts/config/webpack.config.js b/node_modules/@toruslabs/torus-scripts/config/webpack.config.js
 index 0379aea..97dda2e 100644
 --- a/node_modules/@toruslabs/torus-scripts/config/webpack.config.js
