@@ -74,7 +74,7 @@ export const WebsiteSelector = ({ current, newWebsite, isDisabled = false } : We
           : 
           undefined
         }
-        { currentWebsite.logo ? React.createElement(currentWebsite.logo) : undefined }
+        {/* { currentWebsite.logo ? React.createElement(currentWebsite.logo) : undefined } */}
         <Title
           order={3}
           className={menuOpened ? classes.websiteName_MenuOpened : classes.websiteName}

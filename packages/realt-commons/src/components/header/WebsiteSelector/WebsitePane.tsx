@@ -91,7 +91,7 @@ export const WebsitePane: FC<WebsitePaneProps> = ({ website  }) => {
                     <IconClock />
                 </div>
             ): undefined}
-            { website.logo ? React.createElement(website.logo) : undefined }
+            {/* { website.logo ? React.createElement(website.logo) : undefined } */}
             <WebsiteName 
                 $comingSoon={comingSoon}
                 $hovered={hovered}
