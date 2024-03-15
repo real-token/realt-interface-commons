@@ -103,10 +103,10 @@ This part of the doc is dedicated for developers who wants to modify/contribute 
 ## How install the package ?
 ```
 # With npm
-npm i @realtoken/realt-commons
+npm i @real-token/realt-commons
 
 # With yarn
-yarn add @realtoken/realt-commons
+yarn add @real-token/realt-commons
 ```
 <a name="mandatory-packages">**Also some mandatory packages are also needed:**</a>
 
@@ -159,7 +159,7 @@ When you have created you [Web3Providers](#web3-provider-web3providers) provider
 This object is teh key to connect your Dapp with the web3.
 You can instantiate a `libraryConnectors` object like this:
 ```ts
-import { getConnectors } from '@realtoken/realt-commons';
+import { getConnectors } from '@real-token/realt-commons';
 const libraryConnectors = getConnectors({});
 ```
 **IT'S MANDATORY** to instantiate `libraryConnectors` outside any react components to avoid re-rendering. Check [example website](https://github.com/real-token/realt-interface-commons/blob/57d3ecbf9ee87ac99214c7f8fb5932f450c5593c/apps/realt-commons-example/src/main.tsx#L33).
@@ -191,7 +191,7 @@ Some providers are need to use library modules.
 The provider is needed when you want to deal with web3 connection.
 you can create one by wrapping your app like this:
 ```tsx
-import { Web3Providers } from '@realtoken/realt-commons';
+import { Web3Providers } from '@real-token/realt-commons';
 <Web3Providers libraryConnectors={libraryConnectors}>
   ... Other app components
 </Web3Providers>
@@ -207,7 +207,7 @@ Follow the mandatory [RealtProvider](#realt-provider) step. </br>
 </br></br>
 First import the `MantineProviders` component from library, the wrap your application under [RealtProvider](#mandatory-realt-provider):
 ```tsx
-import { MantineProviders, RealtProvider } from '@realtoken/realt-commons';
+import { MantineProviders, RealtProvider } from '@real-token/realt-commons';
 <RealtProvider>
   <MantineProviders>
     ... your app component

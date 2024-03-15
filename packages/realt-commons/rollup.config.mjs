@@ -13,7 +13,7 @@ const plugins = [
     autoModules: true,
     use: ['sass'],
   }),
-  css()
+  css(),
 ];
 
 export default {
