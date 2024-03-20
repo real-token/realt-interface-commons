@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { Footer, FooterParam, Header, Website, Websites } from '..';
 import { Chain, ChainSelectConfig } from '../../types';
 import classes from './Layout.module.css';
@@ -17,6 +17,12 @@ type LayoutProps<T> = {
 };
 
 export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite, footerParam, footerCustomLinks, headerBanner }: LayoutProps<T>){
+
+  // TODO: move this to new logic when refactor
+  useEffect(() => {
+    if(!chains) return
+    if(chains.allowedChains.length !== Object.keys(chains.chainsConfig).length) throw new Error('Allowed chains and chains config must have the same length')
+  },[chains])
 
   return (
     <div className={classes.container}>
