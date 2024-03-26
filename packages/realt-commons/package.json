@@ -5,14 +5,25 @@
   "files": [
     "dist"
   ],
-  "main": "dist/realtCommons.cjs.js",
-  "module": "dist/esm/index.js",
-  "unpkg": "dist/realtCommons.umd.min.js",
-  "jsdelivr": "dist/realtCommons.umd.min.js",
-  "types": "dist/types/index.d.ts",
+  "main": "./dist/cjs/index.cjs",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    },
+    "./styles.css": "./dist/esm/styles.css"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "torus-scripts build",
+    "build": "yarn rollup -c",
     "build:watch": "vite build --watch",
     "preview": "vite preview",
     "yalc:publish": "yalc add .",
@@ -25,8 +36,6 @@
     "@emotion/react": "^11.10.6",
     "@ethersproject/contracts": "^5.7.0",
     "@gnosis.pm/safe-apps-sdk": "^7.8.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "@mantine/core": "^7.6.1",
     "@mantine/form": "^7.6.1",
     "@mantine/hooks": "^7.6.1",
@@ -46,6 +55,7 @@
     "cookies-next": "^2.1.1",
     "country-flag-icons": "^1.5.7",
     "dotenv": "^16.0.3",
+    "esbuild": "^0.20.2",
     "eth-provider": "^0.13.6",
     "ethers": "^6.8.1",
     "i18next-resources-for-ts": "^1.2.1",
@@ -54,23 +64,26 @@
     "lodash": "^1.0.0",
     "pathe": "^1.1.0",
     "querystring-es3": "^0.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "simple-zustand-devtools": "^1.1.0",
-    "styled-components": "^6.1.1",
+    "styled-components": "^6.1.8",
     "tabler-icons-react": "^1.56.0",
     "tslib": "^2.5.0",
     "zustand": "^4.3.8"
   },
   "peerDependencies": {
     "@babel/runtime": "7.x",
-    "i18next": "^22.4.13",
-    "react-i18next": "^12.2.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "@mantine/core": "^7.6.1",
     "@mantine/form": "^7.6.1",
     "@mantine/hooks": "^7.6.1",
     "@mantine/modals": "^7.6.1",
-    "@mantine/notifications": "^7.6.1"
+    "@mantine/notifications": "^7.6.1",
+    "i18next": "^22.4.13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^12.2.0",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.23.3",
@@ -84,6 +97,7 @@
     "@toruslabs/torus-scripts": "^5.3.0",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
+    "babel-plugin-styled-components": "^2.1.4",
     "css-loader": "^6.10.0",
     "i18next": "^22.4.13",
     "node-polyfill-webpack-plugin": "^3.0.0",
@@ -91,12 +105,18 @@
     "postcss-preset-mantine": "^1.11.0",
     "postcss-simple-vars": "^7.0.1",
     "react-i18next": "^12.2.0",
-    "rollup": "^4.12.0",
+    "rollup": "^4.13.0",
+    "rollup-plugin-banner2": "^1.2.2",
     "rollup-plugin-css-modules": "^0.1.2",
     "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.1",
     "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-local-resolve": "^1.0.7",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-polyfill-node": "^0.13.0",
     "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-rename": "^1.0.1",
+    "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-svg": "^2.0.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "svg-inline-loader": "^0.8.2",

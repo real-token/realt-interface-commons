@@ -11,6 +11,7 @@ import {
   gnosisSafe, getReadOnlyConnector,
   getRealtAAConnector,
 } from "@real-token/realt-commons";
+
 import { ChainConfig, TorusConfig, AAClientConfig } from '@real-token/web3-react-aa';
 
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';

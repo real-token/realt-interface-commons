@@ -25,7 +25,24 @@ exports.baseConfig = {
         ]
     },
     externals: [
-        /^@ethersproject\/.*/
+        /^@ethersproject\/.*/,
+        'react', 
+        'react-dom', 
+        '@mantine/core', 
+        '@mantine/form', 
+        '@mantine/hooks', 
+        '@mantine/modals', 
+        '@mantine/notifications',
+        "@web3-react/coinbase-wallet",
+        "@web3-react/core",
+        "@web3-react/gnosis-safe",
+        "@web3-react/metamask",
+        "@web3-react/network",
+        "@web3-react/types",
+        "@web3-react/walletconnect",
+        "@web3-react/walletconnect-v2",
+        "i18next",
+        "react-i18next"
     ],
     resolve: {
         fallback: { 
