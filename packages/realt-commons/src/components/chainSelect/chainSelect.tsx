@@ -72,7 +72,7 @@ interface ChainIconProps {
 }
 function ChainIcon({ logo }: ChainIconProps) {
   const Logo = logo;
-  return Logo ? <Logo width={18} /> : <></>;
+  return Logo ? <Logo height={18} /> : <></>;
 };
 
 export type ChainMenuItemProps = {

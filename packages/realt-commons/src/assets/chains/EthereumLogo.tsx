@@ -1,6 +1,7 @@
+import React from "react"
 import { SVG } from "../../types/assets/svg"
 
-export const EthereumLogo = ({ width }: SVG) => {
+export const EthereumLogo = ({ height }: SVG) => {
     // #343434
     // #8C8C8C
     // #3C3C3B
@@ -8,7 +9,7 @@ export const EthereumLogo = ({ width }: SVG) => {
     // #141414
     // #393939 
     return(
-        <svg width={width ?? undefined} clipRule="evenodd" fillRule="evenodd" imageRendering="optimizeQuality" shapeRendering="geometricPrecision" textRendering="geometricPrecision" version="1.1" viewBox="0 0 784.37 1277.4"
+        <svg height={height ?? undefined} clipRule="evenodd" fillRule="evenodd" imageRendering="optimizeQuality" shapeRendering="geometricPrecision" textRendering="geometricPrecision" version="1.1" viewBox="0 0 784.37 1277.4"
             xmlns="http://www.w3.org/2000/svg">
             <g fillRule="nonzero">
                 <polygon points="392.07 0 383.5 29.11 383.5 873.74 392.07 882.29 784.13 650.54" fill="#d9930d"/>
