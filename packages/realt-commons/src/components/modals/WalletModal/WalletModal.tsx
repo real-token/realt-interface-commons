@@ -14,7 +14,7 @@ import { ContextModalProps } from '@mantine/modals';
 import { styles } from './WalletModal.styles';
 import { useSetAtom } from 'jotai';
 import { providerAtom } from '../../../states';
-import { useRootStore } from '../../../providers/RealtProvider';
+import { useRealtokenStore } from '../../../providers/store';
 import { utils, ethers } from 'ethers';
 import { AvailableConnectors, ConnectorData, ConnectorMap, ConnectorsDatas } from '../../../web3';
 import { CHAINS, ChainsID } from '../../../config';
@@ -171,7 +171,7 @@ export const WalletModal: FC<ContextModalProps> = ({ context, id }) => {
 
   const [gnosisDisabled,setGnosisDisabled] = useState<boolean>(true);
 
-  const connectors = useRootStore((state) => state.connectors);
+  const connectors = useRealtokenStore((state) => state.connectors);
 
   if(!connectors) return <></>
 

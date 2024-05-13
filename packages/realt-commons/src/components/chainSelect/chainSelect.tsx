@@ -1,4 +1,4 @@
-import { FC, forwardRef, useCallback, useState, useEffect, useContext } from 'react';
+import { FC, forwardRef, useCallback, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
@@ -7,7 +7,6 @@ import {
   Text,
   Menu,
   Box,
-  BoxProps,
 } from '@mantine/core';
 import { useWeb3React } from '@web3-react/core';
 
@@ -16,10 +15,9 @@ import { useActiveChain } from '../../hooks/blockchain/useActiveChain';
 import { ALLOWED_CHAINS, CHAINS, ChainsID } from '../../config/constants/chain';
 import { IconAlertCircle } from '@tabler/icons';
 import { Chain, ChainSelectConfig } from '../../types';
-import { RealtProvider } from '../../providers';
-import { useRootStore } from '../../providers/RealtProvider';
 import { environment } from '../../config/constants/env';
 import { GnosisLogo } from '../../assets';
+import { useRealtokenStore } from '../../providers/store';
 
 type ChainSelectItemsProps = {
   label: string;
@@ -39,20 +37,17 @@ const ChainSelectItems: FRC<ChainSelectItemsProps, HTMLDivElement> = forwardRef(
 );
 ChainSelectItems.displayName = 'ChainSelectItems';
 
-type ChainListProps<T> = {
-  chains?: ChainSelectConfig<T> | undefined
-};
+export const ChainList = () => {
 
-export function ChainList<T extends Partial<Chain>>({ chains }: ChainListProps<T>) {
+  const [env, chainConfig, showAllNetworks] = useRealtokenStore((state) => [state.env, state.chainConfig, state.showAllNetworks]);
 
-  const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS };
+  const c = chainConfig ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS };
 
-  const [env, showAllNetworks] = useRootStore((state) => [state.env,state.showAllNetworks]);
   const enabledTestnets = env !== environment.PRODUCTION;
 
   const data = c.allowedChains
-    .filter((chain) => showAllNetworks ? true : enabledTestnets ? c.chainsConfig[chain as ChainsID].isTestnet : !c.chainsConfig[chain as ChainsID].isTestnet)
-    .map<ChainMenuItemProps>((chain) => ({
+    .filter((chain: ChainsID) => showAllNetworks ? true : enabledTestnets ? c.chainsConfig[chain as ChainsID].isTestnet : !c.chainsConfig[chain as ChainsID].isTestnet)
+    .map((chain: ChainsID) => ({
       value: chain.toString(),
       label: c.chainsConfig[chain as ChainsID].chainName ?? "",
       logo: c.chainsConfig[chain as ChainsID].logo ?? GnosisLogo,
@@ -124,19 +119,19 @@ export function ChainSelectedIcon<T extends Partial<Chain>>({ chains }: ChainSel
   );
 };
 
-type MessageNetworkProps<T> = {
+type MessageNetworkProps = {
   classeName: string,
-  chains?: ChainSelectConfig<T> | undefined
 } & Partial<SelectProps>;
 
-export function MessageNetwork<T extends Partial<Chain>>({ chains, classeName }: MessageNetworkProps<T>) {
+export function MessageNetwork({ classeName }: MessageNetworkProps) {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
+
+  const c = useRealtokenStore((state) => state.chainConfig);
   const { connector, account } = useWeb3React();
-  const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS } as ChainSelectConfig<T>;
-  const activeChain = useActiveChain<T>(c);
+  const activeChain = useActiveChain(c);
   const [chain, setChain] = useState(activeChain);
 
-  const defaultChainId = chains?.defaultChainId ?? ChainsID.Ethereum;
+  const defaultChainId = c?.defaultChainId ?? ChainsID.Ethereum;
   const defaulChainName = c.chainsConfig[defaultChainId]?.chainName ?? "";
 
   useEffect(() => {

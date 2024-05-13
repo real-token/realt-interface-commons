@@ -5,7 +5,7 @@ import {
   Menu,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { ChainList, ChainSelectedIcon } from '../chainSelect/chainSelect';
+import { ChainList, ChainSelectedIcon } from '../chainSelect/ChainSelect';
 import { Chain, ChainSelectConfig } from '../../types';
 
 interface NetworkMenuItemsProps<T>{
@@ -18,7 +18,7 @@ export function NetworkMenuItems<T extends Partial<Chain>>({ chains }:NetworkMen
   return (
     <>
       <Menu.Label pb={0}>{t('network')}</Menu.Label>
-      <ChainList chains={chains}></ChainList>
+      <ChainList/>
     </>
   );
 };

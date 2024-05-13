@@ -1,4 +1,4 @@
-export * from './chainSelect/chainSelect';
+export * from './chainSelect/ChainSelect';
 export * from './footer';
 export * from './header';
 export * from './menus';
