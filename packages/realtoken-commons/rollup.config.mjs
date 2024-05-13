@@ -30,9 +30,8 @@ const plugins = [
   json(),
   postcss({
     config: true,
-    extract: "styles.css",
     modules: true,
-    inject: false,
+    inject: true,
     autoModules: true,
   }),
   banner((chunck) => {

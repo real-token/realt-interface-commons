@@ -19,8 +19,7 @@
         "types": "./dist/index.d.ts",
         "default": "./dist/cjs/index.cjs"
       }
-    },
-    "./styles.css": "./dist/esm/styles.css"
+    }
   },
   "scripts": {
     "dev": "vite",
