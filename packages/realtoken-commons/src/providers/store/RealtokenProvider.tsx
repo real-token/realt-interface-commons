@@ -1,7 +1,7 @@
-import { createStore } from 'zustand';
+import { createStore, StoreApi } from 'zustand';
 import { ConnectorsMap } from '../../web3';
 import { environment } from '../../config/constants/env';
-import { createContext, PropsWithChildren, useRef } from 'react'
+import { Context, createContext, PropsWithChildren, useRef } from 'react'
 import { Chain, ChainSelectConfig, parseAllowedChain } from '../../types';
 import { CHAINS, ChainsID } from '../../config';
 
@@ -47,8 +47,11 @@ function createRealtStore<T extends Partial<Chain>>(initProps?: Partial<Realtoke
     }));
 }
 
+let realtokenProvider: Context<StoreApi<RealtokenStoreProps<any>>> | undefined;
 export function getRealtokenProviderContext<T extends Partial<Chain>>(){
-    return createContext<RealtokenStore<T> | null>(null)
+    if(realtokenProvider) return realtokenProvider as Context<StoreApi<RealtokenStoreProps<T>>>;
+    realtokenProvider = createContext<RealtokenStore<T>>({} as RealtokenStore<T>);
+    return realtokenProvider;
 }
 
 interface RealtokenProviderProps<T extends Partial<Chain>> extends PropsWithChildren{
@@ -62,6 +65,7 @@ export function RealtokenProvider<T extends Partial<Chain>>({ children, value }:
     }
 
     const RealtokenProviderContext = getRealtokenProviderContext<T>();
+    if(!RealtokenProviderContext) throw new Error('RealtokenProviderContext is not defined');
 
     return(
         <RealtokenProviderContext.Provider value={storeRef.current}>
