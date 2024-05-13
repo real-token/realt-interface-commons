@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom/client'
 import { Flex } from '@mantine/core';
 import App from './App'
 import './index.css'
-import { ChainSelectConfig, Logo, RealtProvider, Website, initLanguage, getConnectors, parseAllowedChain, getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, gnosisSafe, getReadOnlyConnector } from "@realtoken/realt-commons";
+import { 
+  ChainSelectConfig, Logo, RealtokenProvider, Website, initLanguage, getConnectors, parseAllowedChain, 
+  getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, gnosisSafe, getReadOnlyConnector
+} from "@realtoken/realt-commons";
 import { Web3Providers, MantineProviders, Layout, LanguageInit } from "@realtoken/realt-commons";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
 import { resources } from './i18next/locales';
@@ -42,10 +45,11 @@ console.log('libraryConnectors: ', libraryConnectors)
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RealtProvider 
+    <RealtokenProvider 
       value={{
         env: env,
-        showAllNetworks: showAllNetworks
+        showAllNetworks: showAllNetworks,
+        chainConfig: customChains,
       }}
     >
       <Web3Providers libraryConnectors={libraryConnectors}>
@@ -53,7 +57,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             <LanguageInit i={i18n} />
             <Layout 
               newWebsite={newWebsite} 
-              chains={customChains}
               headerNav={<NavMenu/>}
               footerCustomLinks={
                 <Flex>
@@ -65,6 +68,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
             </Layout>
         </MantineProviders>
       </Web3Providers>
-    </RealtProvider>
+    </RealtokenProvider>
   </React.StrictMode>,
 )
