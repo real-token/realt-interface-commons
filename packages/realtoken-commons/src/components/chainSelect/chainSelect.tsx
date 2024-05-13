@@ -100,11 +100,8 @@ function ChainMenuItem({ logo, label, value }: ChainMenuItemProps) {
   );
 };
 
-interface ChainSelectedIconProps<T> {
-  chains?: ChainSelectConfig<T> | undefined
-}
-export function ChainSelectedIcon<T extends Partial<Chain>>({ chains }: ChainSelectedIconProps<T>) {
-  const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS } as ChainSelectConfig<T>;
+export function ChainSelectedIcon() {
+  const c = useRealtokenStore((state) => state.chainConfig);
   const activeChain = useActiveChain(c);
   const [chain, setChain] = useState(activeChain);
 
@@ -122,7 +119,6 @@ export function ChainSelectedIcon<T extends Partial<Chain>>({ chains }: ChainSel
 type MessageNetworkProps = {
   classeName: string,
 } & Partial<SelectProps>;
-
 export function MessageNetwork({ classeName }: MessageNetworkProps) {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
 

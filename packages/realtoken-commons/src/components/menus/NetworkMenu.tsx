@@ -8,11 +8,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { ChainList, ChainSelectedIcon } from '../chainSelect/ChainSelect';
 import { Chain, ChainSelectConfig } from '../../types';
 
-interface NetworkMenuItemsProps<T>{
-  chains?: ChainSelectConfig<T>
-}
-
-export function NetworkMenuItems<T extends Partial<Chain>>({ chains }:NetworkMenuItemsProps<T>){
+export function NetworkMenuItems(){
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   return (
@@ -23,10 +19,7 @@ export function NetworkMenuItems<T extends Partial<Chain>>({ chains }:NetworkMen
   );
 };
 
-interface NetworkMenuProps<T>{
-  chains?: ChainSelectConfig<T>
-}
-export function NetworkMenu<T extends Partial<Chain>>({ chains }:NetworkMenuProps<T>){
+export function NetworkMenu(){
   const [isOpen, handlers] = useDisclosure(false);
 
   return (
@@ -38,11 +31,11 @@ export function NetworkMenu<T extends Partial<Chain>>({ chains }:NetworkMenuProp
     >
       <Menu.Target>
         <ActionIcon size={36} variant={'outline'} color={'brand'}>
-          <ChainSelectedIcon chains={chains} />
+          <ChainSelectedIcon />
         </ActionIcon>
       </Menu.Target>
       <Menu.Dropdown>
-        <NetworkMenuItems chains={chains}/>
+        <NetworkMenuItems />
       </Menu.Dropdown>
     </Menu>
   );
