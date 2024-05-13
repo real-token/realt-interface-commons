@@ -16,5 +16,3 @@ export const resources = [
         resources: fr
     }  
 ]
-
-console.log(resources)
