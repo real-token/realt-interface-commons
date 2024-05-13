@@ -2,7 +2,7 @@ import { FC, ReactNode, useEffect } from 'react';
 import { Web3ReactProvider } from '@web3-react/core';
 import { useAtomValue } from 'jotai';
 import { providerAtom } from '../states';
-import { useRootStore } from '../providers/RealtProvider';
+import { useRealtokenStore } from '../providers/store';
 import { AvailableConnectors, ConnectorsDatas, ConnectorsMap, LibraryConnectors } from './type';
 
 const tryEagerlyConnect = (connectors: ConnectorsMap, lastUsedProvider: string) => {
@@ -46,7 +46,7 @@ export function Web3Providers({ children, libraryConnectors } : Web3ProvidersPro
 
   const { connectors, connectorsMap } = libraryConnectors;
 
-  const [setConnectors] = useRootStore(
+  const [setConnectors] = useRealtokenStore(
     (state) => [state.setConnectors]
   );
 
