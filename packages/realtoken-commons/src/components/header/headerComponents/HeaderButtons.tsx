@@ -1,16 +1,16 @@
 import { Group } from "@mantine/core";
-import { useWeb3React } from "@web3-react/core";
 import { WalletMenu, SettingsMenu } from "../../menus";
 import { NetworkMenu } from "../../menus/NetworkMenu";
 import { ConnectButton } from "./ConnectButton";
+import { useWeb3ModalAccount } from '@web3modal/ethers5/react'
 
 export function HeaderButtons() {
-    const { account } = useWeb3React();
+    const { isConnected } = useWeb3ModalAccount();
   
     return (
       <Group gap={10}>
         <NetworkMenu />
-        {account ? <WalletMenu /> : <ConnectButton />}
+        {isConnected ? <WalletMenu /> : <ConnectButton />}
         <SettingsMenu />
       </Group>
     );

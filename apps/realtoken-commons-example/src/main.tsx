@@ -7,7 +7,7 @@ import {
   ChainSelectConfig, Logo, RealtokenProvider, Website, initLanguage, getConnectors, parseAllowedChain, 
   getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, gnosisSafe, getReadOnlyConnector
 } from "@realtoken/realt-commons";
-import { Web3Providers, MantineProviders, Layout, LanguageInit } from "@realtoken/realt-commons";
+import { Web3Providers, MantineProviders, Layout, LanguageInit, initWeb3Modal } from "@realtoken/realt-commons";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
 import { resources } from './i18next/locales';
 import { NavMenu } from './components/NavMenu';
@@ -42,6 +42,24 @@ const libraryConnectors = getConnectors({
 });
 
 console.log('libraryConnectors: ', libraryConnectors)
+
+const supportedNetworks = Object.values(customChains.chainsConfig).map((chain) => ({
+  chainId: chain.chainId,
+  chainName: chain.chainName,
+  rpcUrl: chain.rpcUrl,
+  blockExplorerUrl: chain.blockExplorerUrl,
+}))
+
+initWeb3Modal({
+  metadata: {
+    name: 'RealT-commons example',
+    description: 'RealT-commons example',
+    url: 'https://localhost:3000',
+    icons: []
+  },
+  supportedNetworks,
+  walletConnectProjectId: 'ff2eff6eb19b6b79a24bbc47c46b6035'
+})
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

@@ -1,23 +1,15 @@
-import { Button, Text } from "@mantine/core";
-import { useModals } from "@mantine/modals";
-import { FC, useCallback } from "react";
+import { Button } from "@mantine/core";
+import { FC } from "react";
+import { useWeb3Modal } from '@web3modal/ethers5/react'
 import { useTranslation } from "react-i18next";
 
 export const ConnectButton: FC = () => {
-    const modals = useModals();
+  const { open } = useWeb3Modal()
+  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
   
-    const { t } = useTranslation('common', { keyPrefix: 'wallet' });
-  
-    const onOpenWalletModal = useCallback(() => {
-      modals.openContextModal('wallet', {
-        title: <Text>{t('title')}</Text>,
-        innerProps: {},
-      });
-    }, [modals, t]);
-  
-    return (
-      <Button aria-label={t('title')} onClick={onOpenWalletModal}>
-        {t('title')}
-      </Button>
-    );
-  };
+  return (
+    <Button aria-label={t('title')} onClick={() => open()}>
+      {t('title')}
+    </Button>
+  );
+};

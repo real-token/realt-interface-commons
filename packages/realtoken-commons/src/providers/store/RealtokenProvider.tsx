@@ -1,5 +1,4 @@
 import { createStore, StoreApi } from 'zustand';
-import { ConnectorsMap } from '../../web3';
 import { environment } from '../../config/constants/env';
 import { Context, createContext, PropsWithChildren, useRef } from 'react'
 import { Chain, ChainSelectConfig, parseAllowedChain } from '../../types';
@@ -15,8 +14,6 @@ type RealtokenProviderFixedProps = {
     setShowAllNetworks: (state: boolean) => void,
     storeLoaded: boolean,
     setStoreLoaded: (state: boolean) => void,
-    connectors: ConnectorsMap|undefined;
-    setConnectors: (connectors: ConnectorsMap) => void;
 };
 
 export type RealtokenStoreProps<T extends Partial<Chain>> = RealtokenProviderSetableProps<T> & RealtokenProviderFixedProps;
@@ -42,8 +39,6 @@ function createRealtStore<T extends Partial<Chain>>(initProps?: Partial<Realtoke
         storeLoaded: false,
         setStoreLoaded: (storeLoaded: boolean) => set({ storeLoaded }),
         env: environment.PRODUCTION,
-        connectors: undefined,
-        setConnectors: (connectors: ConnectorsMap) => set({ connectors }),
     }));
 }
 

@@ -8,16 +8,15 @@ import {
   Menu,
   Box,
 } from '@mantine/core';
-import { useWeb3React } from '@web3-react/core';
 
 import { FRC } from '../../types/FRC';
 import { useActiveChain } from '../../hooks/blockchain/useActiveChain';
 import { ALLOWED_CHAINS, CHAINS, ChainsID } from '../../config/constants/chain';
 import { IconAlertCircle } from '@tabler/icons';
-import { Chain, ChainSelectConfig } from '../../types';
 import { environment } from '../../config/constants/env';
 import { GnosisLogo } from '../../assets';
 import { useRealtokenStore } from '../../providers/store';
+import { useWeb3ModalAccount, useSwitchNetwork } from '@web3modal/ethers5/react';
 
 type ChainSelectItemsProps = {
   label: string;
@@ -77,22 +76,13 @@ export type ChainMenuItemProps = {
 };
 
 function ChainMenuItem({ logo, label, value }: ChainMenuItemProps) {
-  const { chainId, connector } = useWeb3React();
-
-  const switchChain = useCallback(
-    async () => {
-      const desiredChainId = Number(value);
-      if (desiredChainId === chainId) return;
-
-      await connector.activate(desiredChainId);
-    },
-    [chainId, connector]
-  );
+  const { switchNetwork } = useSwitchNetwork();
+  const { chainId } = useWeb3ModalAccount();
 
   return (
     <Menu.Item
       key={label}
-      onClick={switchChain}
+      onClick={() => switchNetwork(Number(value))}
       leftSection={<ChainIcon logo={logo} />}
       color={chainId === Number(value) ? 'brand' : ''}>
       {label}
@@ -123,7 +113,10 @@ export function MessageNetwork({ classeName }: MessageNetworkProps) {
   const { t } = useTranslation('common', { keyPrefix: 'header' });
 
   const c = useRealtokenStore((state) => state.chainConfig);
-  const { connector, account } = useWeb3React();
+
+  const { address } = useWeb3ModalAccount();
+  const { switchNetwork } = useSwitchNetwork();
+
   const activeChain = useActiveChain(c);
   const [chain, setChain] = useState(activeChain);
 
@@ -134,22 +127,14 @@ export function MessageNetwork({ classeName }: MessageNetworkProps) {
     setChain(activeChain)
   }, [activeChain]);
 
-  const switchChain = useCallback(
-    async () => {
-      const desiredChainId = defaultChainId;
-      await connector.activate(desiredChainId);
-    },
-    [connector]
-  );
-
   return (
     <>
-    {!chain && account ? (
+    {!chain && address ? (
       <Box className={classeName}>
         <IconAlertCircle size={20} aria-label={'Network'} style={{ marginRight: '8px' }} />
         <div>
           {t('notAllowedNetwork')}
-          <span onClick={switchChain} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
+          <span onClick={() => switchNetwork(defaultChainId)} style={{ cursor: 'pointer', textDecoration: 'underline' }}>
             {t('switchNetwork', { networkName: defaulChainName })}
           </span>
         </div>

@@ -1,6 +1,6 @@
-import { FC, forwardRef, useCallback, useMemo } from 'react';
+import { FC, forwardRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonProps, Flex, FlexProps, Menu, Text, Image, Box, BoxProps } from '@mantine/core';
+import { Button, ButtonProps, Flex, FlexProps, Menu, Text, Image, Box } from '@mantine/core';
 import { useClipboard, useDisclosure } from '@mantine/hooks';
 import { showNotification } from '@mantine/notifications';
 import {
@@ -10,26 +10,23 @@ import {
   IconExternalLink,
   IconLogout,
 } from '@tabler/icons';
-import { useWeb3React } from '@web3-react/core';
 
 import { useActiveChain } from '../../hooks/blockchain/useActiveChain';
 import { FRC } from '../../types/FRC';
 import { shortenString } from '../../utils/shortenString';
 import { NOTIFICATIONS, NotificationsID } from '../../config/constants/notifications';
 import { Link } from '../link';
-import { Chain, ChainSelectConfig } from '../../types';
-import { ALLOWED_CHAINS, CHAINS } from '../../config';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { providerAtom } from '../../states';
-import { AvailableConnectors, ConnectorData, ConnectorsDatas } from '../../web3';
+import { useDisconnect, useWeb3ModalAccount, useWalletInfo, useWeb3Modal } from '@web3modal/ethers5/react'
+import React from 'react';
+import { useRealtokenStore } from '../../providers/store';
 
 const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
   (props, ref) => {
-    const { account } = useWeb3React();
+    const { address } = useWeb3ModalAccount();
 
     return (
-      <Button {...props} ref={ref} aria-label={shortenString(account)}>
-        {shortenString(account)}
+      <Button {...props} ref={ref} aria-label={shortenString(address)}>
+        {shortenString(address)}
       </Button>
     );
   }
@@ -37,16 +34,16 @@ const WalletUser: FRC<ButtonProps, HTMLButtonElement> = forwardRef(
 WalletUser.displayName = 'WalletUser';
 
 const CopyToClipboardMenuItem: FC = () => {
-  const { account } = useWeb3React();
+  const { address } = useWeb3ModalAccount();
 
   const { copy } = useClipboard({ timeout: 500 });
 
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
   const onCopy = useCallback(() => {
-    copy(account);
+    copy(address);
     showNotification(NOTIFICATIONS[NotificationsID.userCopied]);
-  }, [account, copy]);
+  }, [address, copy]);
 
   return (
     <Menu.Item leftSection={<IconCopy size={18} />} onClick={onCopy}>
@@ -55,13 +52,10 @@ const CopyToClipboardMenuItem: FC = () => {
   );
 };
 
-interface ViewOnExplorerMenuItemProps<T>{
-  chains?: ChainSelectConfig<T>
-}
-function ViewOnExplorerMenuItem<T extends Chain>({ chains }: ViewOnExplorerMenuItemProps<T>){
-  const { account } = useWeb3React();
+function ViewOnExplorerMenuItem(){
+  const { address } = useWeb3ModalAccount();
 
-  const c = chains ?? { allowedChains: ALLOWED_CHAINS, chainsConfig: CHAINS};
+  const c = useRealtokenStore((s) => s.chainConfig)
   const activeChain = useActiveChain(c);
 
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
@@ -72,7 +66,7 @@ function ViewOnExplorerMenuItem<T extends Chain>({ chains }: ViewOnExplorerMenuI
     <Menu.Item
       leftSection={<IconExternalLink size={18} />}
       component={Link}
-      href={`${activeChain?.blockExplorerUrl}address/${account}`}
+      href={`${activeChain?.blockExplorerUrl}address/${address}`}
       target={'_blank'}
     >
       {t('viewOn')}
@@ -81,61 +75,40 @@ function ViewOnExplorerMenuItem<T extends Chain>({ chains }: ViewOnExplorerMenuI
 };
 
 const DisconnectMenuItem: FC = () => {
-  const { connector } = useWeb3React();
+  const { disconnect } = useDisconnect();
 
   const { t } = useTranslation('common', { keyPrefix: 'wallet' });
 
-  const setProviderCookie = useSetAtom(providerAtom);
-
-  const onDisconnect = useCallback(async () => {
-    if (connector.deactivate) {
-      await connector.deactivate();
-    } else {
-      await connector.resetState();
-    }
-    setProviderCookie("");
-  }, [connector]);
-
   return (
-    <Menu.Item leftSection={<IconLogout size={18} />} onClick={onDisconnect}>
+    <Menu.Item leftSection={<IconLogout size={18} />} onClick={() => disconnect()}>
       {t('disconnect')}
     </Menu.Item>
   );
 };
 
-const SelectedConnector = (props: FlexProps) => {
-
-  const { t } = useTranslation('common', { keyPrefix: 'wallet' });
+const ConnectWalletInfos = React.forwardRef((props: FlexProps) => {
   
-  const provider = useAtomValue(providerAtom);
-
-  const connectorData: ConnectorData|undefined = useMemo(() => {
-    if(!provider) return undefined;
-    const key = AvailableConnectors[provider as keyof typeof AvailableConnectors]
-    return ConnectorsDatas.get(key)
-  },[provider]);
-
-  const title = connectorData?.connectorEnum == AvailableConnectors.readOnly ? t('readOnly.title') : connectorData?.title
-
-  if(!connectorData) return <></>
+  const { walletInfo } = useWalletInfo();
+  const { open } = useWeb3Modal()
 
   return(
-    <Box style={(theme) => ({ padding: theme.spacing.sm })}>
+    <Box 
+      style={(theme) => ({ padding: theme.spacing.sm })}
+      onClick={() => open()}
+    >
       <Flex 
         {...props}
-        style={{  backgroundColor: connectorData.color }}
+        style={{  backgroundColor: 'black' }}
         gap={'sm'}
       >
-        <Image src={connectorData.src} alt={connectorData.title} fit={'contain'} h={30} />
-        <Text c={'white'}>{title}</Text>
+        <Image src={walletInfo?.icon} alt={walletInfo?.name} fit={'contain'} h={30} />
+        <Text c={'white'}>{walletInfo?.name}</Text>
       </Flex> 
     </Box>
 )
-}
+});
 
-interface WalletMenuProps<T>{
-}
-export function WalletMenu<T extends Partial<Chain>>({  }: WalletMenuProps<T>){
+export function WalletMenu(){
   const [isOpen, handlers] = useDisclosure(false);
 
   return (
@@ -157,7 +130,7 @@ export function WalletMenu<T extends Partial<Chain>>({  }: WalletMenuProps<T>){
         />
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item component={SelectedConnector} />
+        <Menu.Item component={ConnectWalletInfos} />
         <CopyToClipboardMenuItem />
         <ViewOnExplorerMenuItem />
         <DisconnectMenuItem />

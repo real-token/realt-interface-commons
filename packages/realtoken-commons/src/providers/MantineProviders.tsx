@@ -6,7 +6,6 @@ import {
 } from '@mantine/core';
 import { ContextModalProps, ModalsProvider } from '@mantine/modals';
 import { Notifications, NotificationsProps } from '@mantine/notifications';
-import { modals } from '../components/modals';
 import { modalStyles as defaultModalStyles, theme as defaultTheme } from '../theme';
 
 type Modals = Record<string,FC<ContextModalProps<any>>>
@@ -36,7 +35,7 @@ export const MantineProviders: FC<MantineProvidersProps> = ({
     >
       <Notifications {...notificationsProps}/>
       <ModalsProvider
-        modals={{ ...modals, ...customModals }}
+        modals={{ ...customModals }}
         modalProps={{
           centered: true,
           withCloseButton: false,

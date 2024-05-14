@@ -1,28 +1,28 @@
 import { useMemo } from 'react';
-import { useWeb3React } from '@web3-react/core';
 import { Contract } from '@ethersproject/contracts';
 import { getContract } from '../../utils';
-import { Chain, ChainSelectConfig } from '../../types';
 import { ContractsID } from '../../config';
 import { useActiveChain } from './useActiveChain';
+import { useRealtokenStore } from '../../providers/store';
+import { useWeb3ModalAccount, useWeb3ModalProvider } from '@web3modal/ethers5/react'
 
-export const useContract = <T extends Contract, M extends Partial<Chain>>(customChains: ChainSelectConfig<M>, contractId: ContractsID) => {
-  const { account, provider, chainId } = useWeb3React();
+export const useContract = <T extends Contract>(contractId: ContractsID) => {
+  const { address, chainId } = useWeb3ModalAccount();
+  const { walletProvider } = useWeb3ModalProvider()
 
-//   const chainConfig = customChains;
-//   const activeChain = chainConfig.chainsConfig[chainId as ChainsID]
+  const customChains = useRealtokenStore((s) => s.chainConfig);
 
   const activeChain = useActiveChain(customChains);
 
   return useMemo(() => {
-    if (!activeChain || !activeChain.contracts ||  !provider) return undefined;
+    if (!activeChain || !activeChain.contracts ||  !walletProvider) return undefined;
 
     const { abi, address } = activeChain.contracts[contractId];
 
-    const contract = getContract(address, abi, provider, account);
+    const contract = getContract(address, abi, walletProvider, address);
 
     if (!contract) return undefined;
 
     return contract as T;
-  }, [account, activeChain, contractId, provider]);
+  }, [address, activeChain, contractId, walletProvider]);
 };
