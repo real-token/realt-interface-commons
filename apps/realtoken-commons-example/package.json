@@ -8,10 +8,10 @@
     "i": "rm -rf node_modules && yarn",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "package:add": "yalc add @realtoken/realt-commons"
+    "package:add": "yalc add @real-token/commons"
   },
   "dependencies": {
-    "@realtoken/realt-commons": "file:.yalc/@realtoken/realt-commons",
+    "@real-token/commons": "file:.yalc/@real-token/commons",
     "i18next": "^23.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

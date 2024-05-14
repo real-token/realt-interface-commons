@@ -4,10 +4,9 @@ import { Flex } from '@mantine/core';
 import App from './App'
 import './index.css'
 import { 
-  ChainSelectConfig, Logo, RealtokenProvider, Website, initLanguage, getConnectors, parseAllowedChain, 
-  getWalletConnectV2, metaMask, metaMaskHooks, gnosisHooks, gnosisSafe, getReadOnlyConnector
-} from "@realtoken/realt-commons";
-import { Web3Providers, MantineProviders, Layout, LanguageInit, initWeb3Modal } from "@realtoken/realt-commons";
+  ChainSelectConfig, Logo, RealtokenProvider, Website, initLanguage, parseAllowedChain, parseChainConfigsToWeb3Modal,
+  MantineProviders, Layout, LanguageInit, initWeb3Modal
+} from "@real-token/commons";
 import { CUSTOM_ALLOWED_CHAINS, ChainsID, CustomChain } from './constants/chain';
 import { resources } from './i18next/locales';
 import { NavMenu } from './components/NavMenu';
@@ -31,24 +30,8 @@ const newWebsite: Website = {
 const showAllNetworks = true;
 const env = import.meta.env.MODE;
 console.log('ENV: ', env)
-const [walletConnectV2, walletConnectV2Hooks] = getWalletConnectV2(customChains, env, 'ff2eff6eb19b6b79a24bbc47c46b6035', showAllNetworks);
-const [readOnly, readOnlyHooks] = getReadOnlyConnector(customChains);
 
-const libraryConnectors = getConnectors({
-  metamask: [metaMask, metaMaskHooks],
-  gnosisSafe: [gnosisSafe, gnosisHooks],
-  walletConnectV2: [walletConnectV2, walletConnectV2Hooks],
-  readOnly: [readOnly, readOnlyHooks]
-});
-
-console.log('libraryConnectors: ', libraryConnectors)
-
-const supportedNetworks = Object.values(customChains.chainsConfig).map((chain) => ({
-  chainId: chain.chainId,
-  chainName: chain.chainName,
-  rpcUrl: chain.rpcUrl,
-  blockExplorerUrl: chain.blockExplorerUrl,
-}))
+const supportedNetworks = parseChainConfigsToWeb3Modal<CustomChain>(Object.values(customChains.chainsConfig));
 
 initWeb3Modal({
   metadata: {
@@ -70,22 +53,20 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         chainConfig: customChains,
       }}
     >
-      <Web3Providers libraryConnectors={libraryConnectors}>
-        <MantineProviders>
-            <LanguageInit i={i18n} />
-            <Layout 
-              newWebsite={newWebsite} 
-              headerNav={<NavMenu/>}
-              footerCustomLinks={
-                <Flex>
-                  <div>{'test'}</div>
-                </Flex>
-              }
-            >
-              <App />
-            </Layout>
-        </MantineProviders>
-      </Web3Providers>
+      <MantineProviders>
+          <LanguageInit i={i18n} />
+          <Layout 
+            newWebsite={newWebsite} 
+            headerNav={<NavMenu/>}
+            footerCustomLinks={
+              <Flex>
+                <div>{'test'}</div>
+              </Flex>
+            }
+          >
+            <App />
+          </Layout>
+      </MantineProviders>
     </RealtokenProvider>
   </React.StrictMode>,
 )
