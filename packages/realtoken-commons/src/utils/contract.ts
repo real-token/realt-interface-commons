@@ -1,19 +1,19 @@
 import { isAddress } from '@ethersproject/address';
 import { AddressZero } from '@ethersproject/constants';
 import { Contract, ContractInterface } from '@ethersproject/contracts';
-import ethers from 'ethers';
+import { providers } from 'ethers';
 
 export const getContract = <T extends Contract>(
   addressOrName: string,
   contractInterface: ContractInterface,
-  walletProvider: ethers.providers.ExternalProvider,
+  walletProvider: providers.ExternalProvider,
   account?: string
 ): T | undefined => {
   if (!isAddress(addressOrName) || addressOrName === AddressZero) {
     return undefined;
   }
 
-  const provider = new ethers.providers.Web3Provider(walletProvider) 
+  const provider = new providers.Web3Provider(walletProvider) 
 
   return new Contract(
     addressOrName,
