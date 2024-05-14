@@ -49,6 +49,8 @@ const external = [
   }),
   /@babel\/runtime/,
   /^@ethersproject\/.*/,
+  /^@web3modal\/.*/,
+  'web3modal/ethers5/react',
   'react/jsx-runtime'
 ]
 
