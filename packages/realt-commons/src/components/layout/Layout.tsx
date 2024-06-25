@@ -14,9 +14,12 @@ type LayoutProps<T> = {
   footerParam?: FooterParam;
   footerCustomLinks?: JSX.Element;
   headerBanner?: React.ReactElement;
+  headerButtons?: React.ReactElement;
 };
 
-export function Layout<T extends Partial<Chain>>({ children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite, footerParam, footerCustomLinks, headerBanner }: LayoutProps<T>){
+export function Layout<T extends Partial<Chain>>({ 
+  children, currentWebsite, chains, newWebsite, headerNav, head, disableHeaderMultisite, footerParam, footerCustomLinks, headerBanner, headerButtons 
+}: LayoutProps<T>){
 
   // TODO: move this to new logic when refactor
   useEffect(() => {
@@ -34,6 +37,7 @@ export function Layout<T extends Partial<Chain>>({ children, currentWebsite, cha
         headerNav={headerNav}
         disableHeaderMultisite={disableHeaderMultisite}
         banner={headerBanner}
+        headerButtons={headerButtons}
       />
       <div className={classes.main}>
         {children}

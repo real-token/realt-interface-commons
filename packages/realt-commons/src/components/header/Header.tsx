@@ -13,8 +13,9 @@ interface HeaderProps<T> {
   chains?: ChainSelectConfig<T>;
   disableHeaderMultisite?: boolean;
   banner?: React.ReactElement;
+  headerButtons?: React.ReactElement;
 }
-export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav, disableHeaderMultisite = false, banner }: HeaderProps<T>) {
+export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav, disableHeaderMultisite = false, banner, headerButtons }: HeaderProps<T>) {
 
   if(disableHeaderMultisite && !newWebsite) throw new Error("Cannot use disableHeaderMultisite whitout setting newWebsite parameter.");
 
@@ -28,7 +29,7 @@ export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWe
         }
         nav={headerNav ?? undefined}
         buttons={
-          <HeaderButtons chains={chains} />
+          headerButtons ?? <HeaderButtons chains={chains} />
         }
       />
       <Divider />
