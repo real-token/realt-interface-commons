@@ -14,15 +14,16 @@ interface HeaderProps<T> {
   disableHeaderMultisite?: boolean;
   banner?: React.ReactElement;
   headerButtons?: React.ReactElement;
+  disabledWrongNetworkBanner?: boolean;
 }
-export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav, disableHeaderMultisite = false, banner, headerButtons }: HeaderProps<T>) {
+export function Header<T extends Partial<Chain>>({ currentWebsite, chains, newWebsite, headerNav, disableHeaderMultisite = false, banner, headerButtons, disabledWrongNetworkBanner = false }: HeaderProps<T>) {
 
   if(disableHeaderMultisite && !newWebsite) throw new Error("Cannot use disableHeaderMultisite whitout setting newWebsite parameter.");
 
   return (
     <>
       {banner ? banner : undefined}
-      <MessageNetwork classeName={classes.message} chains={chains}/>
+      {!disabledWrongNetworkBanner ? <MessageNetwork classeName={classes.message} chains={chains}/> : undefined}
       <MobileHeaderWrapper
         selector={
           <WebsiteSelector current={currentWebsite} newWebsite={newWebsite} isDisabled={disableHeaderMultisite}/>

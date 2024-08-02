@@ -6,6 +6,7 @@ import { environment } from '../config/constants/env';
 type RealtProviderSetableProps = {
     env?: string;
     showAllNetworks?: boolean;
+    disabledWrongNetworkBanner?: boolean;
 }
 
 type RealtProviderFixedProps = {
@@ -27,7 +28,8 @@ export const useRootStore = create<RealtProviderStoreProps>()((set) => ({
     env: environment.PRODUCTION,
     connectors: undefined,
     setConnectors: (connectors: ConnectorsMap) => set({ connectors }),
-    setValue: (value: RealtProviderSetableProps) => set(value)
+    setValue: (value: RealtProviderSetableProps) => set(value),
+    disabledWrongNetworkBanner: false
 }));
 
 interface RealtProviderProps{
