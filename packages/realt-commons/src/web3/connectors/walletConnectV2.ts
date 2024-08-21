@@ -10,13 +10,14 @@ export function getWalletConnectV2<T extends Partial<Chain>>(customChains: Chain
   const allowedChains = customChains.allowedChains.filter(
     (chain) => showAllNetworks ? true : isTestnet ? customChains.chainsConfig[chain].isTestnet : !customChains.chainsConfig[chain].isTestnet
   );
-
+  // metamask fix https://github.com/orgs/WalletConnect/discussions/2920#discussioncomment-6335583
   const [walletConnectV2, hooks] =  initializeConnector<WalletConnectV2>(
     (actions) => new WalletConnectV2({
         actions,
         options: {
           projectId: walletConnectV2ApiKey,
-          chains: allowedChains,
+          chains: allowedChains.slice(0, 1),
+          optionalChains: allowedChains.slice(1),
           showQrModal: true
         },
       })
