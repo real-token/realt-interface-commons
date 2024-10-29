@@ -1,6 +1,7 @@
 {
   "name": "realt-commons-monorepo",
   "private": false,
+  "license": "MIT",
   "devDependencies": {
   },
   "scripts": {

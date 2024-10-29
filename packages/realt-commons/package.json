@@ -1,8 +1,9 @@
 {
   "name": "@realtoken/realt-commons",
   "private": false,
-  "version": "1.4.14",
+  "version": "1.4.15",
   "type": "module",
+  "license": "MIT",
   "files": [
     "dist"
   ],
@@ -69,12 +70,6 @@
     "react-i18next": "^12.2.0"
   },
   "devDependencies": {
-    "@emotion/react": "^11.10.6",
-    "@mantine/core": "^7.2.2",
-    "@mantine/form": "^7.2.2",
-    "@mantine/hooks": "^7.2.2",
-    "@mantine/modals": "^7.2.2",
-    "@mantine/notifications": "^7.2.2",
     "@svgr/rollup": "^7.0.0",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",

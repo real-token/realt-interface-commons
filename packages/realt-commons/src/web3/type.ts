@@ -39,7 +39,7 @@ export const ConnectorsDatas = new Map<AvailableConnectors,ConnectorData>([
     }],
     [AvailableConnectors.walletConnectV2, {
         connectorEnum: AvailableConnectors.walletConnectV2,
-        connectorKey: "walletConnect",
+        connectorKey: "walletConnectV2",
         title: 'WalletConnect V2',
         src: WalletConnect,
         gradient: { from: '#006FFF', to: '#5C9DF5' },
