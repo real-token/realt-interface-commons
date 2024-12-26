@@ -133,7 +133,7 @@ To setup it wrap your entire application within it (e.g in next it's in the `_ap
   value={{ ...values }}
 >
   ...others providers
-</RealtProvicer>
+</RealtProvider>
 ```
 Values are object like: </br>
 | Key name | Description | Values | Default value  |
