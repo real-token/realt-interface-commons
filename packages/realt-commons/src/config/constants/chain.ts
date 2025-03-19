@@ -1,7 +1,7 @@
-import { DAI, ETH } from './currency';
+import { DAI, ETH } from "./currency";
 import { GnosisLogo } from "../../assets/chains/GnosisLogo";
-import { EthereumLogo } from '../../assets';
-import { Chain, ChainsConfig } from '../../types';
+import { EthereumLogo } from "../../assets";
+import { Chain, ChainsConfig } from "../../types";
 
 export enum ChainsID {
   // Example:
@@ -13,34 +13,34 @@ export enum ChainsID {
 export const CHAINS: ChainsConfig<Chain> = {
   [ChainsID.Gnosis]: {
     chainId: ChainsID.Gnosis,
-    chainName: 'Gnosis Chain',
+    chainName: "Gnosis Chain",
     logo: GnosisLogo,
     nativeCurrency: DAI,
-    rpcUrl: 'https://rpc.ankr.com/gnosis',
-    blockExplorerUrl: 'https://gnosisscan.io/',
+    rpcUrl: "https://rpc.gnosischain.com",
+    blockExplorerUrl: "https://gnosisscan.io/",
     isTestnet: false,
-    contracts: {}
+    contracts: {},
   },
   [ChainsID.Ethereum]: {
     chainId: ChainsID.Ethereum,
-    chainName: 'Ethereum',
+    chainName: "Ethereum",
     logo: EthereumLogo,
     nativeCurrency: ETH,
-    rpcUrl: 'https://rpc.ankr.com/eth',
-    blockExplorerUrl: 'https://etherscan.io/',
+    rpcUrl: "https://rpc.ankr.com/eth",
+    blockExplorerUrl: "https://etherscan.io/",
     isTestnet: false,
-    contracts: {}
+    contracts: {},
   },
 
   [ChainsID.Goerli]: {
     chainId: ChainsID.Goerli,
-    chainName: 'Goerli',
+    chainName: "Goerli",
     logo: EthereumLogo,
     nativeCurrency: ETH,
-    rpcUrl: 'https://rpc.ankr.com/eth_goerli',
-    blockExplorerUrl: 'https://goerli.etherscan.io/',
+    rpcUrl: "https://rpc.ankr.com/eth_goerli",
+    blockExplorerUrl: "https://goerli.etherscan.io/",
     isTestnet: true,
-    contracts: {}
+    contracts: {},
   },
 };
 
@@ -56,4 +56,4 @@ export const ALLOWED_CHAINS = Object.keys(URLS).map((chainId) =>
   Number(chainId)
 );
 
-export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+export const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
