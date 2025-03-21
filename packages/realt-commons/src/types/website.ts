@@ -9,6 +9,7 @@ export enum Websites {
   BRIDGE,
   RMM,
   EXAMPLE,
+  CLAIM,
 }
 
 export interface Website {
@@ -61,22 +62,32 @@ export const availableWebsites: Map<Websites, Website> = new Map([
     },
   ],
   [
+    Websites.BRIDGE,
+    {
+      id: Websites.BRIDGE,
+      name: "Bridge",
+      comingSoon: false,
+      url: "https://bridge.realtoken.network/",
+      logo: Logo,
+    },
+  ],
+  [
+    Websites.CLAIM,
+    {
+      id: Websites.CLAIM,
+      name: "REG Claim",
+      comingSoon: false,
+      url: "https://claim.realtoken.network/",
+      logo: Logo,
+    },
+  ],
+  [
     Websites.COMMUNITY_DASHBOARD,
     {
       id: Websites.COMMUNITY_DASHBOARD,
       name: "Community Dashboard",
       comingSoon: false,
       url: "https://dashboard.realtoken.community/",
-      logo: Logo,
-    },
-  ],
-  [
-    Websites.BRIDGE,
-    {
-      id: Websites.BRIDGE,
-      name: "Bridge",
-      comingSoon: true,
-      url: "",
       logo: Logo,
     },
   ],
