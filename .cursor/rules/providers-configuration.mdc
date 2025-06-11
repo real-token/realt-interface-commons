@@ -1,0 +1,83 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Configuration des Providers
+
+## Architecture des Providers
+
+### RealtProvider (Provider Principal)
+- **Fichier** : [packages/realt-commons/src/providers/RealtProvider.tsx](mdc:packages/realt-commons/src/providers/RealtProvider.tsx)
+- **Rôle** : Provider principal qui configure l'état global de l'application
+- **Configuration** :
+  - Environnement (`env`: "dev" | "staging" | "prod")
+  - Connecteurs Web3 disponibles
+  - Options d'affichage (showAllNetworks)
+
+### MantineProviders
+- **Fichier** : [packages/realt-commons/src/providers/MantineProviders.tsx](mdc:packages/realt-commons/src/providers/MantineProviders.tsx)
+- **Inclut** :
+  - MantineProvider (thème, CSS)
+  - ModalsProvider (système de modales)
+  - NotificationsProvider (toasts et notifications)
+
+### Web3Providers
+- **Répertoire** : [packages/realt-commons/src/web3/](mdc:packages/realt-commons/src/web3)
+- **Fichier principal** : [packages/realt-commons/src/web3/Web3Provider.tsx](mdc:packages/realt-commons/src/web3/Web3Provider.tsx)
+- **Gestion** : Connexions blockchain, reconnexion automatique
+
+### LanguageInit
+- **Fichier** : [packages/realt-commons/src/i18next/LanguageInit.tsx](mdc:packages/realt-commons/src/i18next/LanguageInit.tsx)
+- **Configuration i18n** : [packages/realt-commons/src/i18next/config.ts](mdc:packages/realt-commons/src/i18next/config.ts)
+
+## Hiérarchie Recommandée
+
+```tsx
+// Voir apps/realt-commons-example/src/main.tsx pour l'exemple complet
+<RealtProvider>
+  <MantineProviders>
+    <Web3Providers>
+      <LanguageInit>
+        <App />
+      </LanguageInit>
+    </Web3Providers>
+  </MantineProviders>
+</RealtProvider>
+```
+
+## Configuration du Store Zustand
+
+### useRootStore
+- **Fichier** : [packages/realt-commons/src/states/useRootStore.ts](mdc:packages/realt-commons/src/states/useRootStore.ts)
+- **État global** : Configuration d'environnement, paramètres UI
+- **Intégration** : Automatiquement configuré via RealtProvider
+
+### Atoms Jotai
+- **Fichier** : [packages/realt-commons/src/states/atoms.ts](mdc:packages/realt-commons/src/states/atoms.ts)
+- **providerAtom** : Stocke les informations du provider Web3 pour la reconnexion
+
+## Variables d'Environnement
+
+### Configuration requise
+```bash
+# Voir apps/realt-commons-example/.env pour les exemples
+VITE_WALLETCONNECT_PROJECT_ID=your_project_id
+VITE_INFURA_KEY=your_infura_key
+VITE_ENV=dev
+```
+
+### Types d'environnement
+- **dev** : Développement local
+- **staging** : Pré-production  
+- **prod** : Production
+
+## Debugging
+
+### DevTools
+- **React Query DevTools** : Activé en développement
+- **Zustand DevTools** : Extension navigateur pour inspecter l'état
+- **Jotai DevTools** : Support via l'extension React DevTools
+
+### Logs et Debug
+Les providers incluent des logs de debug en mode développement pour faciliter le débogage.

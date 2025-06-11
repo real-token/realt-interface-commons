@@ -1,0 +1,93 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Hooks et Utilitaires
+
+## Hooks Blockchain
+
+### useActiveChain
+- **Fichier** : [packages/realt-commons/src/hooks/blockchain/useActiveChain.ts](mdc:packages/realt-commons/src/hooks/blockchain/useActiveChain.ts)
+- **Retour** : Informations sur la chaîne blockchain actuellement active
+- **Usage** : Récupérer chainId, nom, explorer, etc.
+
+### useContract
+- **Fichier** : [packages/realt-commons/src/hooks/blockchain/useContract.ts](mdc:packages/realt-commons/src/hooks/blockchain/useContract.ts)
+- **Utilité** : Facilite l'instanciation et l'interaction avec les smart contracts
+- **Support** : Contrats read-only et avec signer pour les transactions
+
+## Hooks de Filtrage
+
+### useFilter
+- **Fichier** : [packages/realt-commons/src/hooks/filtering/useFilter.ts](mdc:packages/realt-commons/src/hooks/filtering/useFilter.ts)
+- **Fonctionnalité** : Gestion d'état pour les filtres avec persistance
+- **Options** :
+  - Filtres texte avec debounce
+  - Filtres de sélection multiple
+  - Sauvegarde automatique dans localStorage/sessionStorage
+
+## Utilitaires
+
+### Manipulation de Chaînes
+
+#### shortenString
+- **Fichier** : [packages/realt-commons/src/utils/shortenString.ts](mdc:packages/realt-commons/src/utils/shortenString.ts)
+- **Usage** : Raccourcir les adresses blockchain (ex: `0x1234...7890`)
+- **Options** : Paramètres configurables pour la longueur
+
+### Types et Constantes
+
+#### asConst
+- **Fichier** : [packages/realt-commons/src/utils/asConst.ts](mdc:packages/realt-commons/src/utils/asConst.ts)
+- **Utilité** : Helper TypeScript pour les types const assertions
+- **Usage** : Améliorer l'inférence de types pour les objets et arrays
+
+#### Window Utilities
+- **Fichier** : [packages/realt-commons/src/utils/window.ts](mdc:packages/realt-commons/src/utils/window.ts)
+- **Fonctions** : Utilitaires pour l'interaction avec l'objet window du navigateur
+
+### Utilitaires Smart Contracts
+- **Répertoire** : [packages/realt-commons/src/utils/contract/](mdc:packages/realt-commons/src/utils/contract)
+- **Fonctionnalité** : Helpers pour l'interaction avec les contrats Ethereum
+
+## État Global
+
+### useRootStore (Zustand)
+- **Fichier** : [packages/realt-commons/src/states/useRootStore.ts](mdc:packages/realt-commons/src/states/useRootStore.ts)
+- **État global** :
+  - Configuration d'environnement (dev/staging/prod)
+  - Paramètres d'affichage (showAllNetworks)
+  - Connecteurs Web3 disponibles
+
+### Atoms Jotai
+- **Fichier** : [packages/realt-commons/src/states/atoms.ts](mdc:packages/realt-commons/src/states/atoms.ts)
+- **providerAtom** : Stockage du dernier provider utilisé pour reconnexion automatique
+- **Usage** : État réactif pour les composants Web3
+
+## Hook Web3React
+
+### useWeb3React
+Importé depuis `@web3-react/core`, disponible dans tous les composants :
+- **account** : Adresse du wallet connecté
+- **chainId** : ID de la chaîne blockchain
+- **provider** : Instance du provider Web3
+- **isActive** : État de connexion
+
+## Patterns d'Usage
+
+### Performance
+- Utiliser `useMemo` et `useCallback` pour optimiser les re-renders
+- `memo` pour les composants qui reçoivent des props stables
+
+### Gestion d'État
+- **Local** : useState, useReducer pour l'état de composant
+- **Global partagé** : useRootStore (Zustand) pour la configuration
+- **Web3 spécifique** : providerAtom (Jotai) pour la reconnexion
+- **Filtrage** : useFilter pour les listes avec persistance
+
+### Error Handling
+Les hooks incluent une gestion d'erreur robuste avec :
+- Try-catch pour les opérations async
+- Fallbacks pour les valeurs par défaut
+- Logging automatique en mode développement

@@ -1,0 +1,102 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Système de Thème et Styles
+
+## Configuration du Thème
+
+### Fichier Principal
+- **Thème** : [packages/realt-commons/src/theme/theme.ts](mdc:packages/realt-commons/src/theme/theme.ts)
+- **Couleurs** : Palette brand avec tons dorés/orangés (`#F6CA79` à `#9A6709`)
+- **Base** : Construit sur Mantine v7 avec extensions personnalisées
+
+### Couleurs Brand
+
+```typescript
+// Couleurs principales définies dans theme.ts
+const brandColors = {
+  0: "#F6CA79", // Très clair
+  1: "#F4C46B", // Clair
+  2: "#F2BE5D", // Moyen clair
+  3: "#F0B84F", // Moyen
+  4: "#EEB241", // Moyen foncé
+  5: "#ECAC33", // Foncé
+  6: "#E5A630", // Plus foncé
+  7: "#C8922A", // Très foncé
+  8: "#AB7E24", // Extrêmement foncé
+  9: "#9A6709"  // Le plus foncé
+}
+```
+
+### Styles de Modales Prédéfinis
+
+Le thème inclut des styles pour :
+- **WalletModal** : Interface de connexion wallet
+- **Modales génériques** : Styles cohérents pour toutes les modales
+- **Responsive** : Adaptations mobile/desktop automatiques
+
+## ColorSchemeManager
+
+### Fonctionnalité
+- **Fichier** : [packages/realt-commons/src/components/ColorSchemeManager/ColorSchemeManager.tsx](mdc:packages/realt-commons/src/components/ColorSchemeManager/ColorSchemeManager.tsx)
+- **Toggle** : Bascule entre mode sombre et clair
+- **Raccourci** : Cmd+J (Mac) / Ctrl+J (Windows/Linux)
+- **Persistance** : Sauvegarde dans les cookies du navigateur
+
+### Icônes
+- **Mode clair** : Icône soleil
+- **Mode sombre** : Icône lune
+- **Transition** : Animation fluide entre les modes
+
+## CSS Modules
+
+### Fichiers de Styles
+Les composants utilisent CSS Modules pour l'isolation des styles :
+- [packages/realt-commons/src/components/header/Header.module.css](mdc:packages/realt-commons/src/components/header/Header.module.css)
+- [packages/realt-commons/src/components/layout/Layout.module.css](mdc:packages/realt-commons/src/components/layout/Layout.module.css)
+
+### Avantages
+- **Isolation** : Styles scopés par composant
+- **Performance** : Chargement optimisé
+- **Maintenance** : Facilite les modifications
+
+## Personnalisation Avancée
+
+### mergeMantineTheme
+Utilisez `mergeMantineTheme` pour étendre le thème de base :
+
+```typescript
+import { mergeMantineTheme, realTtheme } from "@realtoken/realt-commons"
+
+const customTheme = mergeMantineTheme(realTtheme, {
+  // Vos personnalisations
+  primaryColor: "brand",
+  components: {
+    Button: {
+      defaultProps: { variant: "filled" }
+    }
+  }
+})
+```
+
+### CSS Custom Properties
+Le thème expose des variables CSS pour une personnalisation facile :
+- `--mantine-color-brand-0` à `--mantine-color-brand-9`
+- Variables de spacing, fonts, shadows, etc.
+
+## Responsive Design
+
+### Breakpoints Mantine
+- **xs** : 576px
+- **sm** : 768px  
+- **md** : 992px
+- **lg** : 1200px
+- **xl** : 1400px
+
+### Media Queries
+Utilisez les utilitaires Mantine pour le responsive :
+- `hiddenFrom` / `visibleFrom`
+- `@media` utilities
+- Responsive props dans les composants

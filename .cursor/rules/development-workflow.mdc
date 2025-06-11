@@ -1,0 +1,121 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Workflow de Développement
+
+## Structure Monorepo
+
+### Gestionnaire de Paquets
+- **Principal** : Yarn (voir [yarn.lock](mdc:yarn.lock))
+- **Alternative** : pnpm recommandé pour nouveaux projets
+- **Node.js** : Utiliser nvm pour la version correcte (`nvm use`)
+
+### Scripts de Développement
+```bash
+# À la racine du monorepo
+yarn install          # Installation des dépendances
+yarn dev              # Développement de l'app d'exemple
+yarn build             # Build du package et de l'app
+yarn lint              # Vérification ESLint
+yarn test              # Tests unitaires
+```
+
+## Configuration Package
+
+### Package Principal
+- **Fichier** : [packages/realt-commons/package.json](mdc:packages/realt-commons/package.json)
+- **Version** : Suivre semver (actuellement v1.4.20)
+- **Exports** : ESM et UMD pour compatibilité maximale
+
+### Peer Dependencies
+Vérifier les versions compatibles dans [package.json](mdc:packages/realt-commons/package.json) :
+- React 18+
+- Mantine v7
+- Web3-React v8
+- TypeScript 5+
+
+## Build et Distribution
+
+### Vite Configuration
+- **Build tool** : Vite pour performance optimale
+- **Formats** : ESM (moderne) et UMD (compatibilité)
+- **Tree shaking** : Optimisation automatique des bundles
+
+### TypeScript
+- **Types** : Génération automatique des types `.d.ts`
+- **Strict mode** : Configuration stricte pour qualité du code
+- **Path mapping** : Aliases configurés pour imports simplifiés
+
+## Tests
+
+### Framework
+- **Jest** : Tests unitaires et d'intégration
+- **Testing Library** : Tests des composants React
+- **Coverage** : Rapports de couverture automatiques
+
+### Patterns de Test
+```typescript
+// Exemple de test de composant
+import { render, screen } from "@testing-library/react"
+import { ComponentName } from "../ComponentName"
+
+test("should render correctly", () => {
+  render(<ComponentName />)
+  expect(screen.getByText("Expected text")).toBeInTheDocument()
+})
+```
+
+## Debugging
+
+### Mode Développement
+- **DevTools** : React, Zustand, Jotai devtools activés
+- **Source maps** : Mapping vers fichiers TypeScript originaux
+- **Hot reload** : Rechargement automatique lors des modifications
+
+### Variables d'Environnement
+Créer `.env.local` basé sur [apps/realt-commons-example/.env](mdc:apps/realt-commons-example/.env) :
+```bash
+VITE_WALLETCONNECT_PROJECT_ID=your_project_id
+VITE_INFURA_KEY=your_infura_key
+VITE_ENV=dev
+```
+
+## Conventions de Code
+
+### Formatage
+- **Prettier** : Formatage automatique du code
+- **ESLint** : Règles de qualité et cohérence
+- **Import order** : Imports organisés automatiquement
+
+### Naming Conventions
+- **Composants** : PascalCase (`ComponentName.tsx`)
+- **Hooks** : camelCase commençant par "use" (`useCustomHook.ts`)
+- **Utilitaires** : camelCase (`helperFunction.ts`)
+- **Types** : PascalCase (`CustomType.ts`)
+
+## Publication
+
+### Versioning
+- **Semver** : Versioning sémantique strict
+- **Changelog** : Documentation des changements
+- **Tags Git** : Tagging automatique des releases
+
+### Registry
+- **NPM** : Publication sur registry npm public
+- **Scope** : `@realtoken/realt-commons`
+- **Access** : Package public open source
+
+## Migration et Mises à Jour
+
+### Versions Dependencies
+Avant modification, vérifier compatibilité avec :
+- Version de Mantine utilisée dans le projet
+- Version de React
+- Versions des connecteurs Web3
+
+### Breaking Changes
+- Documentation des changements cassants
+- Guide de migration pour versions majeures
+- Support des versions LTS précédentes si possible

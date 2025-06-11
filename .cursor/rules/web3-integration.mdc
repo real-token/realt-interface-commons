@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Intégration Web3 et Connecteurs
+
+## Configuration Web3
+
+### Provider Principal
+Le [Web3Provider](mdc:packages/realt-commons/src/web3/Web3Provider.tsx) est le point central pour l'intégration Web3. Il gère :
+- La reconnexion automatique
+- Les connecteurs de wallet
+- L'état de connexion
+
+### Connecteurs Supportés
+Les connecteurs sont définis dans [packages/realt-commons/src/web3/connectors/](mdc:packages/realt-commons/src/web3/connectors) :
+- **MetaMask** : Connexion via l'extension navigateur
+- **WalletConnect V2** : Connexion via QR code ou deep links
+- **Gnosis Safe** : Intégration multi-signature
+- **Read-Only** : Mode lecture seule sans signature
+
+### Exemple d'Usage dans l'App
+Voir [apps/realt-commons-example/src/main.tsx](mdc:apps/realt-commons-example/src/main.tsx) pour un exemple complet d'intégration.
+
+## Hooks Web3
+
+### useActiveChain
+- **Fichier** : [packages/realt-commons/src/hooks/blockchain/useActiveChain.ts](mdc:packages/realt-commons/src/hooks/blockchain/useActiveChain.ts)
+- **Usage** : Récupère les informations de la chaîne blockchain active
+
+### useContract
+- **Fichier** : [packages/realt-commons/src/hooks/blockchain/useContract.ts](mdc:packages/realt-commons/src/hooks/blockchain/useContract.ts)
+- **Usage** : Facilite l'interaction avec les smart contracts
+
+## Gestion d'État
+
+### Atoms Jotai
+- **Provider Atom** : Stocke le dernier provider utilisé pour la reconnexion automatique
+- **Fichier** : [packages/realt-commons/src/states/](mdc:packages/realt-commons/src/states)
+
+### Store Zustand
+Le [RealtProvider](mdc:packages/realt-commons/src/providers/RealtProvider.tsx) utilise Zustand pour gérer :
+- Configuration d'environnement
+- Connecteurs Web3 disponibles
+- Options d'affichage (showAllNetworks)
+
+## Sélection de Chaîne
+
+### ChainSelect
+- **Composant** : [packages/realt-commons/src/components/chainSelect/chainSelect.tsx](mdc:packages/realt-commons/src/components/chainSelect/chainSelect.tsx)
+- **Fonctionnalité** : Interface utilisateur pour changer de réseau blockchain
+- **Alertes** : Affiche des messages si l'utilisateur est sur un réseau non supporté
+
+## Modale de Wallet
+
+### WalletModal
+- **Répertoire** : [packages/realt-commons/src/components/modals/WalletModal/](mdc:packages/realt-commons/src/components/modals/WalletModal)
+- **Usage** : Interface de connexion avec tous les connecteurs disponibles
+- **Styles** : Utilise les styles de modal prédéfinis du thème

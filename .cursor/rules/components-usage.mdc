@@ -1,0 +1,63 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Guide d'Usage des Composants
+
+## Composants de Layout
+
+### Layout Principal
+- **Fichier** : [packages/realt-commons/src/components/layout/Layout.tsx](mdc:packages/realt-commons/src/components/layout/Layout.tsx)
+- **Usage** : Wrapper principal pour structurer une page avec header, footer et contenu
+- **Props** : Accepte children et passthrough props pour Mantine AppShell
+
+### Header
+- **Fichier** : [packages/realt-commons/src/components/header/Header.tsx](mdc:packages/realt-commons/src/components/header/Header.tsx)
+- **Fonctionnalité** : Navigation responsive avec burger menu mobile
+- **Intégrations** : WebsiteSelector, ColorSchemeManager, ChainSelect, WalletModal
+
+### Footer
+- **Fichier** : [packages/realt-commons/src/components/footer/footer.tsx](mdc:packages/realt-commons/src/components/footer/footer.tsx)
+- **Usage** : Footer avec liens et informations de base
+
+## Composants Web3
+
+### ChainSelect
+- **Fichier** : [packages/realt-commons/src/components/chainSelect/chainSelect.tsx](mdc:packages/realt-commons/src/components/chainSelect/chainSelect.tsx)
+- **Props** : Accepte des options de configuration pour l'affichage des réseaux
+- **État** : Suit la chaîne active via useActiveChain
+
+### WalletModal
+- **Répertoire** : [packages/realt-commons/src/components/modals/WalletModal/](mdc:packages/realt-commons/src/components/modals/WalletModal)
+- **Trigger** : Ouvert via HeaderButtons ou manuellement
+- **Contenu** : Liste des connecteurs disponibles avec icônes et descriptions
+
+## Composants UI
+
+### ColorSchemeManager
+- **Fichier** : [packages/realt-commons/src/components/ColorSchemeManager/ColorSchemeManager.tsx](mdc:packages/realt-commons/src/components/ColorSchemeManager/ColorSchemeManager.tsx)
+- **Fonctionnalité** : Toggle mode sombre/clair avec raccourci Cmd+J
+- **Persistance** : Sauvegarde dans les cookies
+
+### WebsiteSelector
+- **Fichier** : [packages/realt-commons/src/components/header/WebsiteSelector/WebsiteSelector.tsx](mdc:packages/realt-commons/src/components/header/WebsiteSelector/WebsiteSelector.tsx)
+- **Usage** : Dropdown pour naviguer entre différents sites RealToken
+
+### Link
+- **Fichier** : [packages/realt-commons/src/components/link/Link.tsx](mdc:packages/realt-commons/src/components/link/Link.tsx)
+- **Utilité** : Wrapper pour les liens avec styles cohérents
+
+## Styles et CSS Modules
+
+Les composants utilisent des CSS Modules pour leurs styles :
+- **Header** : [packages/realt-commons/src/components/header/Header.module.css](mdc:packages/realt-commons/src/components/header/Header.module.css)
+- **Layout** : [packages/realt-commons/src/components/layout/Layout.module.css](mdc:packages/realt-commons/src/components/layout/Layout.module.css)
+
+## Export des Composants
+
+Tous les composants sont réexportés via [packages/realt-commons/src/components/index.ts](mdc:packages/realt-commons/src/components/index.ts) pour faciliter l'importation.
+
+## Exemple d'App Complète
+
+Voir [apps/realt-commons-example/src/App.tsx](mdc:apps/realt-commons-example/src/App.tsx) pour un exemple d'usage de tous les composants ensemble.

@@ -1,0 +1,49 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Structure du Projet RealT Interface Commons
+
+## Organisation Monorepo
+
+Ce projet est organisé en monorepo avec deux parties principales :
+
+### Package Principal
+- **Chemin** : [packages/realt-commons/](mdc:packages/realt-commons)
+- **Point d'entrée** : [packages/realt-commons/src/index.ts](mdc:packages/realt-commons/src/index.ts)
+- **Configuration** : [packages/realt-commons/package.json](mdc:packages/realt-commons/package.json)
+
+### Application d'Exemple
+- **Chemin** : [apps/realt-commons-example/](mdc:apps/realt-commons-example)
+- **Point d'entrée** : [apps/realt-commons-example/src/main.tsx](mdc:apps/realt-commons-example/src/main.tsx)
+- **App principale** : [apps/realt-commons-example/src/App.tsx](mdc:apps/realt-commons-example/src/App.tsx)
+
+## Structure des Sources
+
+### Composants UI
+- **Répertoire** : [packages/realt-commons/src/components/](mdc:packages/realt-commons/src/components)
+- **Index** : [packages/realt-commons/src/components/index.ts](mdc:packages/realt-commons/src/components/index.ts)
+- **Layout principal** : [packages/realt-commons/src/components/layout/Layout.tsx](mdc:packages/realt-commons/src/components/layout/Layout.tsx)
+- **Header** : [packages/realt-commons/src/components/header/Header.tsx](mdc:packages/realt-commons/src/components/header/Header.tsx)
+
+### Configuration Web3
+- **Répertoire** : [packages/realt-commons/src/web3/](mdc:packages/realt-commons/src/web3)
+- **Provider principal** : [packages/realt-commons/src/web3/Web3Provider.tsx](mdc:packages/realt-commons/src/web3/Web3Provider.tsx)
+
+### Thème et Styles
+- **Configuration thème** : [packages/realt-commons/src/theme/theme.ts](mdc:packages/realt-commons/src/theme/theme.ts)
+- **Gestionnaire ColorScheme** : [packages/realt-commons/src/components/ColorSchemeManager/ColorSchemeManager.tsx](mdc:packages/realt-commons/src/components/ColorSchemeManager/ColorSchemeManager.tsx)
+
+### Providers et État Global
+- **Provider principal** : [packages/realt-commons/src/providers/RealtProvider.tsx](mdc:packages/realt-commons/src/providers/RealtProvider.tsx)
+- **Providers Mantine** : [packages/realt-commons/src/providers/MantineProviders.tsx](mdc:packages/realt-commons/src/providers/MantineProviders.tsx)
+
+## Documentation
+
+La documentation complète se trouve dans [docs/](mdc:docs) :
+- **Guide principal** : [docs/README.md](mdc:docs/README.md)
+- **Intégration** : [docs/integration.md](mdc:docs/integration.md)
+- **Composants** : [docs/components.md](mdc:docs/components.md)
+- **Web3** : [docs/web3.md](mdc:docs/web3.md)
+- **Thème** : [docs/theme.md](mdc:docs/theme.md)
